@@ -1,0 +1,1916 @@
+{
+  "cities": [
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": 514,
+      "y": 827
+    },
+    {
+      "number_of_city": 2,
+      "x": -283,
+      "y": -535
+    },
+    {
+      "number_of_city": 3,
+      "x": 189,
+      "y": -361
+    },
+    {
+      "number_of_city": 4,
+      "x": -399,
+      "y": -423
+    },
+    {
+      "number_of_city": 5,
+      "x": 378,
+      "y": -974
+    },
+    {
+      "number_of_city": 6,
+      "x": 647,
+      "y": 88
+    },
+    {
+      "number_of_city": 7,
+      "x": 58,
+      "y": 974
+    },
+    {
+      "number_of_city": 8,
+      "x": 614,
+      "y": 682
+    },
+    {
+      "number_of_city": 9,
+      "x": 241,
+      "y": 602
+    },
+    {
+      "number_of_city": 10,
+      "x": 486,
+      "y": -392
+    },
+    {
+      "number_of_city": 11,
+      "x": 899,
+      "y": 778
+    },
+    {
+      "number_of_city": 12,
+      "x": -329,
+      "y": 960
+    },
+    {
+      "number_of_city": 13,
+      "x": 833,
+      "y": 919
+    },
+    {
+      "number_of_city": 14,
+      "x": -753,
+      "y": 310
+    },
+    {
+      "number_of_city": 15,
+      "x": -708,
+      "y": -279
+    },
+    {
+      "number_of_city": 16,
+      "x": 883,
+      "y": -972
+    },
+    {
+      "number_of_city": 17,
+      "x": 274,
+      "y": -311
+    },
+    {
+      "number_of_city": 18,
+      "x": -431,
+      "y": -837
+    },
+    {
+      "number_of_city": 19,
+      "x": 560,
+      "y": 375
+    },
+    {
+      "number_of_city": 20,
+      "x": 714,
+      "y": 866
+    },
+    {
+      "number_of_city": 21,
+      "x": -304,
+      "y": 308
+    },
+    {
+      "number_of_city": 22,
+      "x": -14,
+      "y": -935
+    },
+    {
+      "number_of_city": 23,
+      "x": -467,
+      "y": -88
+    },
+    {
+      "number_of_city": 24,
+      "x": -710,
+      "y": 360
+    },
+    {
+      "number_of_city": 25,
+      "x": -176,
+      "y": -689
+    },
+    {
+      "number_of_city": 26,
+      "x": 525,
+      "y": 567
+    },
+    {
+      "number_of_city": 27,
+      "x": 161,
+      "y": -807
+    },
+    {
+      "number_of_city": 28,
+      "x": -678,
+      "y": -99
+    },
+    {
+      "number_of_city": 29,
+      "x": 232,
+      "y": -278
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -461,
+      "y": 8
+    },
+    {
+      "number_of_city": 2,
+      "x": -350,
+      "y": 861
+    },
+    {
+      "number_of_city": 3,
+      "x": 299,
+      "y": -252
+    },
+    {
+      "number_of_city": 4,
+      "x": -170,
+      "y": 119
+    },
+    {
+      "number_of_city": 5,
+      "x": 97,
+      "y": 637
+    },
+    {
+      "number_of_city": 6,
+      "x": 830,
+      "y": 610
+    },
+    {
+      "number_of_city": 7,
+      "x": 807,
+      "y": 536
+    },
+    {
+      "number_of_city": 8,
+      "x": 125,
+      "y": 982
+    },
+    {
+      "number_of_city": 9,
+      "x": 228,
+      "y": 114
+    },
+    {
+      "number_of_city": 10,
+      "x": -955,
+      "y": -572
+    },
+    {
+      "number_of_city": 11,
+      "x": -596,
+      "y": 637
+    },
+    {
+      "number_of_city": 12,
+      "x": -783,
+      "y": -883
+    },
+    {
+      "number_of_city": 13,
+      "x": -765,
+      "y": -971
+    },
+    {
+      "number_of_city": 14,
+      "x": -817,
+      "y": -808
+    },
+    {
+      "number_of_city": 15,
+      "x": -487,
+      "y": 88
+    },
+    {
+      "number_of_city": 16,
+      "x": 941,
+      "y": 860
+    },
+    {
+      "number_of_city": 17,
+      "x": 236,
+      "y": -634
+    },
+    {
+      "number_of_city": 18,
+      "x": 356,
+      "y": 858
+    },
+    {
+      "number_of_city": 19,
+      "x": 76,
+      "y": -797
+    },
+    {
+      "number_of_city": 20,
+      "x": 559,
+      "y": -3
+    },
+    {
+      "number_of_city": 21,
+      "x": -13,
+      "y": 176
+    },
+    {
+      "number_of_city": 22,
+      "x": -382,
+      "y": 437
+    },
+    {
+      "number_of_city": 23,
+      "x": 328,
+      "y": 704
+    },
+    {
+      "number_of_city": 24,
+      "x": 318,
+      "y": 177
+    },
+    {
+      "number_of_city": 25,
+      "x": -958,
+      "y": 93
+    },
+    {
+      "number_of_city": 26,
+      "x": -622,
+      "y": 622
+    },
+    {
+      "number_of_city": 27,
+      "x": 961,
+      "y": -974
+    },
+    {
+      "number_of_city": 28,
+      "x": 564,
+      "y": 728
+    },
+    {
+      "number_of_city": 29,
+      "x": -5,
+      "y": -955
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -438,
+      "y": 338
+    },
+    {
+      "number_of_city": 2,
+      "x": -657,
+      "y": -363
+    },
+    {
+      "number_of_city": 3,
+      "x": -342,
+      "y": -50
+    },
+    {
+      "number_of_city": 4,
+      "x": -256,
+      "y": -717
+    },
+    {
+      "number_of_city": 5,
+      "x": -68,
+      "y": 351
+    },
+    {
+      "number_of_city": 6,
+      "x": -619,
+      "y": 465
+    },
+    {
+      "number_of_city": 7,
+      "x": -773,
+      "y": 266
+    },
+    {
+      "number_of_city": 8,
+      "x": 534,
+      "y": -872
+    },
+    {
+      "number_of_city": 9,
+      "x": 914,
+      "y": 329
+    },
+    {
+      "number_of_city": 10,
+      "x": 645,
+      "y": -526
+    },
+    {
+      "number_of_city": 11,
+      "x": 722,
+      "y": 869
+    },
+    {
+      "number_of_city": 12,
+      "x": 529,
+      "y": 705
+    },
+    {
+      "number_of_city": 13,
+      "x": 681,
+      "y": 733
+    },
+    {
+      "number_of_city": 14,
+      "x": 679,
+      "y": -262
+    },
+    {
+      "number_of_city": 15,
+      "x": -636,
+      "y": -871
+    },
+    {
+      "number_of_city": 16,
+      "x": 19,
+      "y": 366
+    },
+    {
+      "number_of_city": 17,
+      "x": -98,
+      "y": 958
+    },
+    {
+      "number_of_city": 18,
+      "x": 328,
+      "y": 504
+    },
+    {
+      "number_of_city": 19,
+      "x": -1000,
+      "y": 376
+    },
+    {
+      "number_of_city": 20,
+      "x": -126,
+      "y": -168
+    },
+    {
+      "number_of_city": 21,
+      "x": 202,
+      "y": -359
+    },
+    {
+      "number_of_city": 22,
+      "x": 873,
+      "y": -412
+    },
+    {
+      "number_of_city": 23,
+      "x": 687,
+      "y": -688
+    },
+    {
+      "number_of_city": 24,
+      "x": -881,
+      "y": -670
+    },
+    {
+      "number_of_city": 25,
+      "x": -769,
+      "y": -105
+    },
+    {
+      "number_of_city": 26,
+      "x": 672,
+      "y": 924
+    },
+    {
+      "number_of_city": 27,
+      "x": 581,
+      "y": 991
+    },
+    {
+      "number_of_city": 28,
+      "x": 60,
+      "y": -743
+    },
+    {
+      "number_of_city": 29,
+      "x": 719,
+      "y": -99
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -701,
+      "y": -335
+    },
+    {
+      "number_of_city": 2,
+      "x": 20,
+      "y": -379
+    },
+    {
+      "number_of_city": 3,
+      "x": 819,
+      "y": -723
+    },
+    {
+      "number_of_city": 4,
+      "x": 916,
+      "y": -32
+    },
+    {
+      "number_of_city": 5,
+      "x": 26,
+      "y": -423
+    },
+    {
+      "number_of_city": 6,
+      "x": -624,
+      "y": -274
+    },
+    {
+      "number_of_city": 7,
+      "x": -459,
+      "y": 79
+    },
+    {
+      "number_of_city": 8,
+      "x": -900,
+      "y": 942
+    },
+    {
+      "number_of_city": 9,
+      "x": -669,
+      "y": -958
+    },
+    {
+      "number_of_city": 10,
+      "x": 305,
+      "y": -127
+    },
+    {
+      "number_of_city": 11,
+      "x": 916,
+      "y": -92
+    },
+    {
+      "number_of_city": 12,
+      "x": -617,
+      "y": -1
+    },
+    {
+      "number_of_city": 13,
+      "x": -719,
+      "y": 409
+    },
+    {
+      "number_of_city": 14,
+      "x": -46,
+      "y": -428
+    },
+    {
+      "number_of_city": 15,
+      "x": -195,
+      "y": 365
+    },
+    {
+      "number_of_city": 16,
+      "x": 898,
+      "y": 757
+    },
+    {
+      "number_of_city": 17,
+      "x": -22,
+      "y": -552
+    },
+    {
+      "number_of_city": 18,
+      "x": 793,
+      "y": -543
+    },
+    {
+      "number_of_city": 19,
+      "x": -378,
+      "y": 83
+    },
+    {
+      "number_of_city": 20,
+      "x": -245,
+      "y": -354
+    },
+    {
+      "number_of_city": 21,
+      "x": 323,
+      "y": 94
+    },
+    {
+      "number_of_city": 22,
+      "x": -792,
+      "y": 649
+    },
+    {
+      "number_of_city": 23,
+      "x": 709,
+      "y": -702
+    },
+    {
+      "number_of_city": 24,
+      "x": -573,
+      "y": 661
+    },
+    {
+      "number_of_city": 25,
+      "x": -648,
+      "y": 245
+    },
+    {
+      "number_of_city": 26,
+      "x": 237,
+      "y": 680
+    },
+    {
+      "number_of_city": 27,
+      "x": -80,
+      "y": 273
+    },
+    {
+      "number_of_city": 28,
+      "x": -687,
+      "y": -129
+    },
+    {
+      "number_of_city": 29,
+      "x": 90,
+      "y": 395
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -740,
+      "y": 886
+    },
+    {
+      "number_of_city": 2,
+      "x": 807,
+      "y": -223
+    },
+    {
+      "number_of_city": 3,
+      "x": 133,
+      "y": -832
+    },
+    {
+      "number_of_city": 4,
+      "x": -42,
+      "y": -247
+    },
+    {
+      "number_of_city": 5,
+      "x": -354,
+      "y": 244
+    },
+    {
+      "number_of_city": 6,
+      "x": 814,
+      "y": 698
+    },
+    {
+      "number_of_city": 7,
+      "x": -573,
+      "y": -509
+    },
+    {
+      "number_of_city": 8,
+      "x": 793,
+      "y": 683
+    },
+    {
+      "number_of_city": 9,
+      "x": 527,
+      "y": 791
+    },
+    {
+      "number_of_city": 10,
+      "x": -726,
+      "y": 943
+    },
+    {
+      "number_of_city": 11,
+      "x": -129,
+      "y": -523
+    },
+    {
+      "number_of_city": 12,
+      "x": 553,
+      "y": -165
+    },
+    {
+      "number_of_city": 13,
+      "x": -132,
+      "y": 525
+    },
+    {
+      "number_of_city": 14,
+      "x": 317,
+      "y": -601
+    },
+    {
+      "number_of_city": 15,
+      "x": -553,
+      "y": 413
+    },
+    {
+      "number_of_city": 16,
+      "x": -832,
+      "y": 603
+    },
+    {
+      "number_of_city": 17,
+      "x": -985,
+      "y": 142
+    },
+    {
+      "number_of_city": 18,
+      "x": 948,
+      "y": 518
+    },
+    {
+      "number_of_city": 19,
+      "x": -870,
+      "y": -615
+    },
+    {
+      "number_of_city": 20,
+      "x": -409,
+      "y": 931
+    },
+    {
+      "number_of_city": 21,
+      "x": 850,
+      "y": 344
+    },
+    {
+      "number_of_city": 22,
+      "x": 150,
+      "y": -707
+    },
+    {
+      "number_of_city": 23,
+      "x": -704,
+      "y": -392
+    },
+    {
+      "number_of_city": 24,
+      "x": 407,
+      "y": -121
+    },
+    {
+      "number_of_city": 25,
+      "x": 441,
+      "y": 627
+    },
+    {
+      "number_of_city": 26,
+      "x": -635,
+      "y": -187
+    },
+    {
+      "number_of_city": 27,
+      "x": -533,
+      "y": 942
+    },
+    {
+      "number_of_city": 28,
+      "x": 397,
+      "y": -365
+    },
+    {
+      "number_of_city": 29,
+      "x": -223,
+      "y": 981
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -348,
+      "y": 286
+    },
+    {
+      "number_of_city": 2,
+      "x": -553,
+      "y": -443
+    },
+    {
+      "number_of_city": 3,
+      "x": -422,
+      "y": 748
+    },
+    {
+      "number_of_city": 4,
+      "x": -109,
+      "y": -497
+    },
+    {
+      "number_of_city": 5,
+      "x": 535,
+      "y": -634
+    },
+    {
+      "number_of_city": 6,
+      "x": 316,
+      "y": 685
+    },
+    {
+      "number_of_city": 7,
+      "x": 129,
+      "y": 300
+    },
+    {
+      "number_of_city": 8,
+      "x": -529,
+      "y": 51
+    },
+    {
+      "number_of_city": 9,
+      "x": -81,
+      "y": -227
+    },
+    {
+      "number_of_city": 10,
+      "x": -818,
+      "y": -53
+    },
+    {
+      "number_of_city": 11,
+      "x": -447,
+      "y": 909
+    },
+    {
+      "number_of_city": 12,
+      "x": -128,
+      "y": -861
+    },
+    {
+      "number_of_city": 13,
+      "x": -70,
+      "y": 467
+    },
+    {
+      "number_of_city": 14,
+      "x": 928,
+      "y": 359
+    },
+    {
+      "number_of_city": 15,
+      "x": 928,
+      "y": 721
+    },
+    {
+      "number_of_city": 16,
+      "x": 199,
+      "y": 68
+    },
+    {
+      "number_of_city": 17,
+      "x": 446,
+      "y": -488
+    },
+    {
+      "number_of_city": 18,
+      "x": -305,
+      "y": 911
+    },
+    {
+      "number_of_city": 19,
+      "x": -139,
+      "y": 730
+    },
+    {
+      "number_of_city": 20,
+      "x": -910,
+      "y": -793
+    },
+    {
+      "number_of_city": 21,
+      "x": -446,
+      "y": 184
+    },
+    {
+      "number_of_city": 22,
+      "x": -937,
+      "y": -986
+    },
+    {
+      "number_of_city": 23,
+      "x": 699,
+      "y": 655
+    },
+    {
+      "number_of_city": 24,
+      "x": -242,
+      "y": 102
+    },
+    {
+      "number_of_city": 25,
+      "x": -106,
+      "y": -154
+    },
+    {
+      "number_of_city": 26,
+      "x": -995,
+      "y": -846
+    },
+    {
+      "number_of_city": 27,
+      "x": 365,
+      "y": 573
+    },
+    {
+      "number_of_city": 28,
+      "x": -97,
+      "y": 863
+    },
+    {
+      "number_of_city": 29,
+      "x": -654,
+      "y": 461
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -296,
+      "y": 864
+    },
+    {
+      "number_of_city": 2,
+      "x": 196,
+      "y": -454
+    },
+    {
+      "number_of_city": 3,
+      "x": 115,
+      "y": -973
+    },
+    {
+      "number_of_city": 4,
+      "x": 678,
+      "y": 518
+    },
+    {
+      "number_of_city": 5,
+      "x": -29,
+      "y": -913
+    },
+    {
+      "number_of_city": 6,
+      "x": -707,
+      "y": -256
+    },
+    {
+      "number_of_city": 7,
+      "x": 815,
+      "y": 656
+    },
+    {
+      "number_of_city": 8,
+      "x": 725,
+      "y": -574
+    },
+    {
+      "number_of_city": 9,
+      "x": 848,
+      "y": -39
+    },
+    {
+      "number_of_city": 10,
+      "x": 420,
+      "y": -464
+    },
+    {
+      "number_of_city": 11,
+      "x": 160,
+      "y": -616
+    },
+    {
+      "number_of_city": 12,
+      "x": -748,
+      "y": -76
+    },
+    {
+      "number_of_city": 13,
+      "x": -830,
+      "y": 600
+    },
+    {
+      "number_of_city": 14,
+      "x": -548,
+      "y": -819
+    },
+    {
+      "number_of_city": 15,
+      "x": 653,
+      "y": 265
+    },
+    {
+      "number_of_city": 16,
+      "x": 427,
+      "y": 12
+    },
+    {
+      "number_of_city": 17,
+      "x": 463,
+      "y": -760
+    },
+    {
+      "number_of_city": 18,
+      "x": -614,
+      "y": -288
+    },
+    {
+      "number_of_city": 19,
+      "x": -216,
+      "y": 486
+    },
+    {
+      "number_of_city": 20,
+      "x": -788,
+      "y": -434
+    },
+    {
+      "number_of_city": 21,
+      "x": -727,
+      "y": 462
+    },
+    {
+      "number_of_city": 22,
+      "x": 267,
+      "y": 792
+    },
+    {
+      "number_of_city": 23,
+      "x": -735,
+      "y": -759
+    },
+    {
+      "number_of_city": 24,
+      "x": 386,
+      "y": 95
+    },
+    {
+      "number_of_city": 25,
+      "x": -279,
+      "y": -352
+    },
+    {
+      "number_of_city": 26,
+      "x": -47,
+      "y": 403
+    },
+    {
+      "number_of_city": 27,
+      "x": 113,
+      "y": 757
+    },
+    {
+      "number_of_city": 28,
+      "x": 645,
+      "y": -777
+    },
+    {
+      "number_of_city": 29,
+      "x": -912,
+      "y": -467
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": 464,
+      "y": -340
+    },
+    {
+      "number_of_city": 2,
+      "x": 655,
+      "y": 985
+    },
+    {
+      "number_of_city": 3,
+      "x": 574,
+      "y": -704
+    },
+    {
+      "number_of_city": 4,
+      "x": -683,
+      "y": 184
+    },
+    {
+      "number_of_city": 5,
+      "x": -223,
+      "y": -300
+    },
+    {
+      "number_of_city": 6,
+      "x": -208,
+      "y": -792
+    },
+    {
+      "number_of_city": 7,
+      "x": 903,
+      "y": 314
+    },
+    {
+      "number_of_city": 8,
+      "x": 560,
+      "y": 898
+    },
+    {
+      "number_of_city": 9,
+      "x": -962,
+      "y": -59
+    },
+    {
+      "number_of_city": 10,
+      "x": -598,
+      "y": -433
+    },
+    {
+      "number_of_city": 11,
+      "x": -656,
+      "y": 306
+    },
+    {
+      "number_of_city": 12,
+      "x": -575,
+      "y": -60
+    },
+    {
+      "number_of_city": 13,
+      "x": -955,
+      "y": 682
+    },
+    {
+      "number_of_city": 14,
+      "x": 582,
+      "y": -29
+    },
+    {
+      "number_of_city": 15,
+      "x": 192,
+      "y": 858
+    },
+    {
+      "number_of_city": 16,
+      "x": 934,
+      "y": 296
+    },
+    {
+      "number_of_city": 17,
+      "x": -218,
+      "y": -184
+    },
+    {
+      "number_of_city": 18,
+      "x": 23,
+      "y": 760
+    },
+    {
+      "number_of_city": 19,
+      "x": -759,
+      "y": -640
+    },
+    {
+      "number_of_city": 20,
+      "x": -692,
+      "y": 322
+    },
+    {
+      "number_of_city": 21,
+      "x": 551,
+      "y": -498
+    },
+    {
+      "number_of_city": 22,
+      "x": -788,
+      "y": -582
+    },
+    {
+      "number_of_city": 23,
+      "x": 38,
+      "y": -446
+    },
+    {
+      "number_of_city": 24,
+      "x": 178,
+      "y": 227
+    },
+    {
+      "number_of_city": 25,
+      "x": -386,
+      "y": 891
+    },
+    {
+      "number_of_city": 26,
+      "x": 72,
+      "y": -431
+    },
+    {
+      "number_of_city": 27,
+      "x": 826,
+      "y": -74
+    },
+    {
+      "number_of_city": 28,
+      "x": 111,
+      "y": 319
+    },
+    {
+      "number_of_city": 29,
+      "x": -487,
+      "y": -61
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": 653,
+      "y": 470
+    },
+    {
+      "number_of_city": 2,
+      "x": -113,
+      "y": 22
+    },
+    {
+      "number_of_city": 3,
+      "x": 680,
+      "y": -443
+    },
+    {
+      "number_of_city": 4,
+      "x": -800,
+      "y": 369
+    },
+    {
+      "number_of_city": 5,
+      "x": -958,
+      "y": -185
+    },
+    {
+      "number_of_city": 6,
+      "x": -124,
+      "y": 184
+    },
+    {
+      "number_of_city": 7,
+      "x": -652,
+      "y": -488
+    },
+    {
+      "number_of_city": 8,
+      "x": 106,
+      "y": 258
+    },
+    {
+      "number_of_city": 9,
+      "x": 847,
+      "y": -30
+    },
+    {
+      "number_of_city": 10,
+      "x": 525,
+      "y": 240
+    },
+    {
+      "number_of_city": 11,
+      "x": 847,
+      "y": 992
+    },
+    {
+      "number_of_city": 12,
+      "x": -281,
+      "y": 321
+    },
+    {
+      "number_of_city": 13,
+      "x": -664,
+      "y": 451
+    },
+    {
+      "number_of_city": 14,
+      "x": 733,
+      "y": 787
+    },
+    {
+      "number_of_city": 15,
+      "x": -438,
+      "y": 423
+    },
+    {
+      "number_of_city": 16,
+      "x": -274,
+      "y": 876
+    },
+    {
+      "number_of_city": 17,
+      "x": 737,
+      "y": -613
+    },
+    {
+      "number_of_city": 18,
+      "x": -752,
+      "y": 908
+    },
+    {
+      "number_of_city": 19,
+      "x": -239,
+      "y": 680
+    },
+    {
+      "number_of_city": 20,
+      "x": 704,
+      "y": -613
+    },
+    {
+      "number_of_city": 21,
+      "x": -809,
+      "y": 350
+    },
+    {
+      "number_of_city": 22,
+      "x": -603,
+      "y": 976
+    },
+    {
+      "number_of_city": 23,
+      "x": -112,
+      "y": -389
+    },
+    {
+      "number_of_city": 24,
+      "x": -645,
+      "y": 35
+    },
+    {
+      "number_of_city": 25,
+      "x": -650,
+      "y": -564
+    },
+    {
+      "number_of_city": 26,
+      "x": -717,
+      "y": 210
+    },
+    {
+      "number_of_city": 27,
+      "x": -510,
+      "y": 767
+    },
+    {
+      "number_of_city": 28,
+      "x": 942,
+      "y": 258
+    },
+    {
+      "number_of_city": 29,
+      "x": -753,
+      "y": -374
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -669,
+      "y": 216
+    },
+    {
+      "number_of_city": 2,
+      "x": -846,
+      "y": 729
+    },
+    {
+      "number_of_city": 3,
+      "x": -864,
+      "y": 134
+    },
+    {
+      "number_of_city": 4,
+      "x": 973,
+      "y": -378
+    },
+    {
+      "number_of_city": 5,
+      "x": 784,
+      "y": -432
+    },
+    {
+      "number_of_city": 6,
+      "x": 135,
+      "y": -494
+    },
+    {
+      "number_of_city": 7,
+      "x": 876,
+      "y": -176
+    },
+    {
+      "number_of_city": 8,
+      "x": 77,
+      "y": 138
+    },
+    {
+      "number_of_city": 9,
+      "x": -43,
+      "y": 294
+    },
+    {
+      "number_of_city": 10,
+      "x": 375,
+      "y": -899
+    },
+    {
+      "number_of_city": 11,
+      "x": 483,
+      "y": -183
+    },
+    {
+      "number_of_city": 12,
+      "x": -86,
+      "y": 87
+    },
+    {
+      "number_of_city": 13,
+      "x": 767,
+      "y": 35
+    },
+    {
+      "number_of_city": 14,
+      "x": -985,
+      "y": -968
+    },
+    {
+      "number_of_city": 15,
+      "x": -934,
+      "y": 464
+    },
+    {
+      "number_of_city": 16,
+      "x": 880,
+      "y": 802
+    },
+    {
+      "number_of_city": 17,
+      "x": -970,
+      "y": -623
+    },
+    {
+      "number_of_city": 18,
+      "x": 601,
+      "y": 125
+    },
+    {
+      "number_of_city": 19,
+      "x": -959,
+      "y": 608
+    },
+    {
+      "number_of_city": 20,
+      "x": 390,
+      "y": 187
+    },
+    {
+      "number_of_city": 21,
+      "x": -751,
+      "y": 380
+    },
+    {
+      "number_of_city": 22,
+      "x": -354,
+      "y": -245
+    },
+    {
+      "number_of_city": 23,
+      "x": -127,
+      "y": 568
+    },
+    {
+      "number_of_city": 24,
+      "x": -382,
+      "y": -29
+    },
+    {
+      "number_of_city": 25,
+      "x": 788,
+      "y": 771
+    },
+    {
+      "number_of_city": 26,
+      "x": -695,
+      "y": -433
+    },
+    {
+      "number_of_city": 27,
+      "x": -524,
+      "y": 474
+    },
+    {
+      "number_of_city": 28,
+      "x": -422,
+      "y": -504
+    },
+    {
+      "number_of_city": 29,
+      "x": 187,
+      "y": 961
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": -785,
+      "y": 383
+    },
+    {
+      "number_of_city": 2,
+      "x": 122,
+      "y": -90
+    },
+    {
+      "number_of_city": 3,
+      "x": 840,
+      "y": -710
+    },
+    {
+      "number_of_city": 4,
+      "x": -920,
+      "y": -709
+    },
+    {
+      "number_of_city": 5,
+      "x": 399,
+      "y": -829
+    },
+    {
+      "number_of_city": 6,
+      "x": -419,
+      "y": -801
+    },
+    {
+      "number_of_city": 7,
+      "x": 446,
+      "y": -90
+    },
+    {
+      "number_of_city": 8,
+      "x": -867,
+      "y": 502
+    },
+    {
+      "number_of_city": 9,
+      "x": 534,
+      "y": 496
+    },
+    {
+      "number_of_city": 10,
+      "x": -924,
+      "y": -919
+    },
+    {
+      "number_of_city": 11,
+      "x": -548,
+      "y": 236
+    },
+    {
+      "number_of_city": 12,
+      "x": 47,
+      "y": -125
+    },
+    {
+      "number_of_city": 13,
+      "x": 708,
+      "y": -815
+    },
+    {
+      "number_of_city": 14,
+      "x": -887,
+      "y": 189
+    },
+    {
+      "number_of_city": 15,
+      "x": 485,
+      "y": -854
+    },
+    {
+      "number_of_city": 16,
+      "x": 386,
+      "y": -797
+    },
+    {
+      "number_of_city": 17,
+      "x": 256,
+      "y": -461
+    },
+    {
+      "number_of_city": 18,
+      "x": -118,
+      "y": -106
+    },
+    {
+      "number_of_city": 19,
+      "x": -246,
+      "y": 304
+    },
+    {
+      "number_of_city": 20,
+      "x": 518,
+      "y": 368
+    },
+    {
+      "number_of_city": 21,
+      "x": 605,
+      "y": 773
+    },
+    {
+      "number_of_city": 22,
+      "x": 433,
+      "y": -822
+    },
+    {
+      "number_of_city": 23,
+      "x": -877,
+      "y": -417
+    },
+    {
+      "number_of_city": 24,
+      "x": -547,
+      "y": 209
+    },
+    {
+      "number_of_city": 25,
+      "x": 870,
+      "y": -658
+    },
+    {
+      "number_of_city": 26,
+      "x": 180,
+      "y": -826
+    },
+    {
+      "number_of_city": 27,
+      "x": 862,
+      "y": -397
+    },
+    {
+      "number_of_city": 28,
+      "x": -199,
+      "y": -56
+    },
+    {
+      "number_of_city": 29,
+      "x": 473,
+      "y": 82
+    },
+    {
+      "number_of_city": 0,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "number_of_city": 1,
+      "x": 375,
+      "y": -403
+    },
+    {
+      "number_of_city": 2,
+      "x": 410,
+      "y": 128
+    },
+    {
+      "number_of_city": 3,
+      "x": 47,
+      "y": 739
+    },
+    {
+      "number_of_city": 4,
+      "x": -758,
+      "y": 65
+    },
+    {
+      "number_of_city": 5,
+      "x": -525,
+      "y": 855
+    },
+    {
+      "number_of_city": 6,
+      "x": 902,
+      "y": 39
+    },
+    {
+      "number_of_city": 7,
+      "x": 435,
+      "y": -293
+    },
+    {
+      "number_of_city": 8,
+      "x": -301,
+      "y": 447
+    },
+    {
+      "number_of_city": 9,
+      "x": -45,
+      "y": 332
+    },
+    {
+      "number_of_city": 10,
+      "x": -800,
+      "y": -51
+    },
+    {
+      "number_of_city": 11,
+      "x": -692,
+      "y": 602
+    },
+    {
+      "number_of_city": 12,
+      "x": -451,
+      "y": -422
+    },
+    {
+      "number_of_city": 13,
+      "x": -453,
+      "y": -628
+    },
+    {
+      "number_of_city": 14,
+      "x": -461,
+      "y": -168
+    },
+    {
+      "number_of_city": 15,
+      "x": 143,
+      "y": 909
+    },
+    {
+      "number_of_city": 16,
+      "x": 752,
+      "y": 921
+    },
+    {
+      "number_of_city": 17,
+      "x": 986,
+      "y": 655
+    },
+    {
+      "number_of_city": 18,
+      "x": -536,
+      "y": 506
+    },
+    {
+      "number_of_city": 19,
+      "x": 849,
+      "y": 390
+    },
+    {
+      "number_of_city": 20,
+      "x": -212,
+      "y": 615
+    },
+    {
+      "number_of_city": 21,
+      "x": 75,
+      "y": -320
+    },
+    {
+      "number_of_city": 22,
+      "x": 627,
+      "y": 509
+    },
+    {
+      "number_of_city": 23,
+      "x": 509,
+      "y": 202
+    },
+    {
+      "number_of_city": 24,
+      "x": 934,
+      "y": 999
+    },
+    {
+      "number_of_city": 25,
+      "x": 135,
+      "y": 202
+    },
+    {
+      "number_of_city": 26,
+      "x": -122,
+      "y": -61
+    },
+    {
+      "number_of_city": 27,
+      "x": 663,
+      "y": 65
+    },
+    {
+      "number_of_city": 28,
+      "x": 564,
+      "y": 576
+    },
+    {
+      "number_of_city": 29,
+      "x": -488,
+      "y": -550
+    }
+  ],
+  "distance_matrix": {
+    "0": {
+      "29": 735.2849787667363
+    },
+    "1": {
+      "29": 875.4301799686826
+    },
+    "2": {
+      "29": 1125.2057589614444
+    },
+    "3": {
+      "29": 1395.616709558896
+    },
+    "4": {
+      "29": 671.6583953171433
+    },
+    "5": {
+      "29": 1405.4871041742076
+    },
+    "6": {
+      "29": 1509.6426729527752
+    },
+    "7": {
+      "29": 958.1116845128233
+    },
+    "8": {
+      "29": 1014.3855282879384
+    },
+    "9": {
+      "29": 987.0020263403718
+    },
+    "10": {
+      "29": 588.5108325256214
+    },
+    "11": {
+      "29": 1169.9230743942098
+    },
+    "12": {
+      "29": 133.24038426843418
+    },
+    "13": {
+      "29": 85.492689745966
+    },
+    "14": {
+      "29": 382.9529997271206
+    },
+    "15": {
+      "29": 1589.6043532904657
+    },
+    "16": {
+      "29": 1923.9129398182238
+    },
+    "17": {
+      "29": 1903.864753599898
+    },
+    "18": {
+      "29": 1057.0903461861715
+    },
+    "19": {
+      "29": 1634.3711328826143
+    },
+    "20": {
+      "29": 1197.247259341194
+    },
+    "21": {
+      "29": 608.1685621601958
+    },
+    "22": {
+      "29": 1537.7600593070429
+    },
+    "23": {
+      "29": 1248.8046284347283
+    },
+    "24": {
+      "29": 2102.732745738269
+    },
+    "25": {
+      "29": 976.5413457708793
+    },
+    "26": {
+      "29": 610.8002946954102
+    },
+    "27": {
+      "29": 1305.0003831417062
+    },
+    "28": {
+      "29": 1540.9672287235703
+    },
+    "29": {
+      "29": 0.0
+    }
+  },
+  "stats": {
+    "x": {
+      "min": -800,
+      "avg": 85.4,
+      "stdev": 555.4767197704117,
+      "median": 61.0,
+      "q1": -452.5,
+      "q3": 550.25,
+      "max": 986
+    },
+    "y": {
+      "min": -628,
+      "avg": 228.66666666666666,
+      "stdev": 463.4142656513666,
+      "median": 202.0,
+      "q1": -58.5,
+      "q3": 595.5,
+      "max": 999
+    }
+  }
+}
