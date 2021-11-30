@@ -1,0 +1,26 @@
+{
+  "used_algorithm": "dynamic_programing_exact_held_karp_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_98_N_10.json",
+  "best_way": [
+    0,
+    2,
+    1,
+    9,
+    5,
+    8,
+    4,
+    3,
+    6,
+    7,
+    0
+  ],
+  "full_cost": 5487.10887047061,
+  "time_duration_without_malloc_in_sec": 0.01437440000000123,
+  "time_duration_with_malloc_in_sec": 0.03522159999999985,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 1443528,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 1445896,
+  "used_memory_after_measurement_in_bytes": 1443528,
+  "used_memory_peak_after_measurement_in_bytes": 1445896
+}

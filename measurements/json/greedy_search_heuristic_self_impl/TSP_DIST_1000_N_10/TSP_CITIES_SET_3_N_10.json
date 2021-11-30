@@ -1,0 +1,26 @@
+{
+  "used_algorithm": "greedy_search_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_3_N_10.json",
+  "best_way": [
+    0,
+    6,
+    2,
+    5,
+    1,
+    8,
+    3,
+    9,
+    4,
+    7,
+    0
+  ],
+  "full_cost": 7492.707427581417,
+  "time_duration_without_malloc_in_sec": 9.35999999995829e-05,
+  "time_duration_with_malloc_in_sec": 0.00011829999999690699,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 1576,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 2959,
+  "used_memory_after_measurement_in_bytes": 1576,
+  "used_memory_peak_after_measurement_in_bytes": 2959
+}

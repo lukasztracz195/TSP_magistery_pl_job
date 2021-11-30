@@ -1,0 +1,32 @@
+{
+  "used_algorithm": "local_search_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_59_N_16.json",
+  "best_way": [
+    0,
+    13,
+    12,
+    10,
+    3,
+    4,
+    9,
+    5,
+    15,
+    6,
+    2,
+    1,
+    11,
+    14,
+    8,
+    7,
+    0
+  ],
+  "full_cost": 7495.006323954241,
+  "time_duration_without_malloc_in_sec": 0.010495500000004654,
+  "time_duration_with_malloc_in_sec": 0.01164130000000796,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 6400,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 10680,
+  "used_memory_after_measurement_in_bytes": 6400,
+  "used_memory_peak_after_measurement_in_bytes": 10680
+}

@@ -16,6 +16,7 @@ class City:
         self._number_of_city = number_of_city
         self._x = x
         self._y = y
+        self._visited = False
 
     def __hash__(self):
         return hash((self.x, self.y))
@@ -49,3 +50,11 @@ class City:
     @number_of_city.setter
     def number_of_city(self, value):
         self._number_of_city = value
+
+    @property
+    def visited(self):
+        return self._visited
+
+    @visited.setter
+    def visited(self, value):
+        self._visited = value

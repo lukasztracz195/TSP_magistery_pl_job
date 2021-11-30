@@ -1,0 +1,24 @@
+{
+  "used_algorithm": "astar_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_48_N_8.json",
+  "best_way": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    0
+  ],
+  "full_cost": 7960.5211890791925,
+  "time_duration_without_malloc_in_sec": 9.520000000406981e-05,
+  "time_duration_with_malloc_in_sec": 0.00018289999999865358,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 1888,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 3360,
+  "used_memory_after_measurement_in_bytes": 1888,
+  "used_memory_peak_after_measurement_in_bytes": 3360
+}

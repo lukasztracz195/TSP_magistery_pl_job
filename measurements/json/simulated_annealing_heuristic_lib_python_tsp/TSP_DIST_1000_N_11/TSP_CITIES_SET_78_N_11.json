@@ -1,0 +1,27 @@
+{
+  "used_algorithm": "simulated_annealing_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_78_N_11.json",
+  "best_way": [
+    0,
+    7,
+    9,
+    10,
+    6,
+    1,
+    2,
+    5,
+    3,
+    8,
+    4,
+    0
+  ],
+  "full_cost": 5768.969048652857,
+  "time_duration_without_malloc_in_sec": 0.08826670000007653,
+  "time_duration_with_malloc_in_sec": 0.20985429999996086,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 7400,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 12680,
+  "used_memory_after_measurement_in_bytes": 7400,
+  "used_memory_peak_after_measurement_in_bytes": 12680
+}

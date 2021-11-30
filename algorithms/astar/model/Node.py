@@ -1,15 +1,12 @@
 class Node:
     def __init__(self, parent, cost, index_city):
-        if parent is None:
-            self.__parent = None
-            self.__cost = 0.0
-            self.__way = []
-            self.__way.append(index_city)
-        else:
-            self.__parent = parent
-            self.__cost = parent.cost + self.cost
-            self.__way.append(index_city)
-
+        self.__cost = cost
+        self.__way = []
+        self.__parent = parent
+        if parent is not None:
+            self.__cost = parent.cost + self.__cost
+            self.__way = parent.way
+        self.__way.append(index_city)
         self.__index_city = index_city
 
     def __eq__(self, other):

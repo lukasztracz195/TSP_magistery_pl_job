@@ -1,0 +1,32 @@
+{
+  "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
+  "name_of_src_file": "TSP_CITIES_SET_54_N_16.json",
+  "best_way": [
+    15,
+    1,
+    3,
+    0,
+    8,
+    7,
+    6,
+    9,
+    2,
+    13,
+    10,
+    11,
+    12,
+    5,
+    14,
+    4,
+    0
+  ],
+  "full_cost": 9560.900517970547,
+  "time_duration_without_malloc_in_sec": 1.0737819999999374,
+  "time_duration_with_malloc_in_sec": 2.1093446999998378,
+  "used_memory_before_measurement_in_bytes": 224,
+  "used_memory_peak_before_measurement_in_bytes": 1583,
+  "used_memory_diff_before_after_measurement_in_bytes": 32334,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 85439,
+  "used_memory_after_measurement_in_bytes": 32558,
+  "used_memory_peak_after_measurement_in_bytes": 87022
+}

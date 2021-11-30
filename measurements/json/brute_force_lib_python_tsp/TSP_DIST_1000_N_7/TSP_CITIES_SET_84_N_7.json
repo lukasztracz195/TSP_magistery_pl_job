@@ -1,0 +1,23 @@
+{
+  "used_algorithm": "brute_force_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_84_N_7.json",
+  "best_way": [
+    0,
+    4,
+    2,
+    6,
+    1,
+    3,
+    5,
+    0
+  ],
+  "full_cost": 4739.32816739646,
+  "time_duration_without_malloc_in_sec": 0.007603000000003135,
+  "time_duration_with_malloc_in_sec": 0.018013699999997357,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_diff_before_after_measurement_in_bytes": 5920,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 9296,
+  "used_memory_after_measurement_in_bytes": 5920,
+  "used_memory_peak_after_measurement_in_bytes": 9296
+}

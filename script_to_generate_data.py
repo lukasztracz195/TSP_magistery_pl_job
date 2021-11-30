@@ -1,37 +1,15 @@
 import json
 import os
-
+import sys
 import pandas as pd
 
+from algorithms.TSP import CITIES, DISTANCE_MATRIX, STATS, X, Y, MIN, STDEV, AVG, MEDIAN, Q1, Q3, MAX, NUMBER_OF_CITY
 from data_generator.CityGenerator import CityGenerator
 from models.City import City
 
-CITIES = "cities"
-NUMBER_OF_CITY = "number_of_city"
-X = "x"
-Y = "y"
-NUMBER_OF_SET = "number_of_set"
-MIN = "min"
-MAX = "max"
-NUMBER_OF_CITIES = "number_of_cities"
-MEDIAN = "median"
-AVG = "avg"
-STDEV = "stdev"
-Q1 = "q1"
-Q3 = "q3"
-IQR = "iqr"
-DISTANCE_MATRIX = "distance_matrix"
-STATS = "stats"
-
 PATH_TO_DATASET = "./dataset/"
 
-NUMBER_OF_SETS = 1000
-NUMBER_OF_CITIES_IN_SET = 40
-
-JSON_DICT = dict()
-JSON_DICT[CITIES] = []
-JSON_DICT[DISTANCE_MATRIX] = dict()
-JSON_DICT[STATS] = {X: dict(), Y: dict()}
+NUMBER_OF_SETS = 100
 
 DISTANCE = 1000
 MIN_X = -DISTANCE
@@ -39,7 +17,8 @@ MAX_X = DISTANCE
 MIN_Y = -DISTANCE
 MAX_Y = DISTANCE
 
-NAME_OF_DIRECTORY = "TSP_DIST_%d_N_%d" % (DISTANCE, NUMBER_OF_CITIES_IN_SET)
+# N_SETS = [3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+N_SETS = [11, 12, 13, 14, 16, 17, 18, 19]
 
 
 def prepare_stats(generated_city):
@@ -83,26 +62,43 @@ def prepare_distance_matrix(generated_city):
     return distance_matrix
 
 
+def progress_bar(current, total, barLength=20):
+    percent = float(current) * 100 / total
+    arrow = '-' * int(percent / 100 * barLength - 1) + '>'
+    spaces = ' ' * (barLength - len(arrow))
+    sys.stdout.write('\rCreate data TSP progress: [%s%s] %f %%' % (arrow, spaces, percent))
+
+
 START_CITY = City(number_of_city=0, x=0, y=0)
 generator = CityGenerator(min_x=MIN_X, max_x=MAX_X, min_y=MIN_Y, max_y=MAX_Y, start_city=START_CITY)
 
-for number_of_set in range(0, NUMBER_OF_SETS):
-    generated_cities = generator.generate_cities(NUMBER_OF_CITIES_IN_SET, distinct=True)
-    generated_cities_by_number_city_order = sorted(generated_cities, key=lambda x: x.number_of_city)
-    for generated_city in generated_cities_by_number_city_order:
-        JSON_DICT[CITIES].append({
-            NUMBER_OF_CITY: generated_city.number_of_city,
-            X: generated_city.x,
-            Y: generated_city.y})
-    stats = prepare_stats(generated_cities_by_number_city_order)
-    JSON_DICT[STATS] = stats
-    distance_matrix = prepare_distance_matrix(generated_cities_by_number_city_order)
-    JSON_DICT[DISTANCE_MATRIX] = distance_matrix
-    json_as_str = json.dumps(JSON_DICT)
-    json_name_of_file = "TSP_CITIES_SET_%d_N_%d.json" % (number_of_set, NUMBER_OF_CITIES_IN_SET)
-    if not os.path.exists(PATH_TO_DATASET + NAME_OF_DIRECTORY):
-        os.mkdir(PATH_TO_DATASET + NAME_OF_DIRECTORY)
-    path_to_json_file = PATH_TO_DATASET + NAME_OF_DIRECTORY + "/" + json_name_of_file
-    jsons_file = open(path_to_json_file, "w")
-    jsons_file.write(json_as_str)
-    jsons_file.close()
+total = pd.Series(N_SETS).multiply(NUMBER_OF_SETS).sum()
+current = 0
+for NUMBER_OF_CITIES_IN_SET in N_SETS:
+    NAME_OF_DIRECTORY = "TSP_DIST_%d_N_%d" % (DISTANCE, NUMBER_OF_CITIES_IN_SET)
+    for number_of_set in range(0, NUMBER_OF_SETS):
+        JSON_DICT = dict()
+        JSON_DICT[CITIES] = []
+        JSON_DICT[DISTANCE_MATRIX] = dict()
+        JSON_DICT[STATS] = {X: dict(), Y: dict()}
+        generated_cities = generator.generate_cities(NUMBER_OF_CITIES_IN_SET, distinct=True)
+        generated_cities_by_number_city_order = sorted(generated_cities, key=lambda x: x.number_of_city)
+        for generated_city in generated_cities_by_number_city_order:
+            JSON_DICT[CITIES].append({
+                NUMBER_OF_CITY: generated_city.number_of_city,
+                X: generated_city.x,
+                Y: generated_city.y})
+        stats = prepare_stats(generated_cities_by_number_city_order)
+        JSON_DICT[STATS] = stats
+        distance_matrix = prepare_distance_matrix(generated_cities_by_number_city_order)
+        JSON_DICT[DISTANCE_MATRIX] = distance_matrix
+        json_as_str = json.dumps(JSON_DICT)
+        json_name_of_file = "TSP_CITIES_SET_%d_N_%d.json" % (number_of_set, NUMBER_OF_CITIES_IN_SET)
+        if not os.path.exists(PATH_TO_DATASET + NAME_OF_DIRECTORY):
+            os.mkdir(PATH_TO_DATASET + NAME_OF_DIRECTORY)
+        path_to_json_file = PATH_TO_DATASET + NAME_OF_DIRECTORY + "/" + json_name_of_file
+        jsons_file = open(path_to_json_file, "w")
+        jsons_file.write(json_as_str)
+        jsons_file.close()
+        current += 1
+        progress_bar(current, total)
