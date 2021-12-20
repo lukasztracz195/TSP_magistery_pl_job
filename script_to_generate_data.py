@@ -1,9 +1,10 @@
 import json
 import os
 import sys
+
 import pandas as pd
 
-from algorithms.TSP import CITIES, DISTANCE_MATRIX, STATS, X, Y, MIN, STDEV, AVG, MEDIAN, Q1, Q3, MAX, NUMBER_OF_CITY
+from constants.CsvKeys import *
 from data_generator.CityGenerator import CityGenerator
 from models.City import City
 
@@ -18,7 +19,7 @@ MIN_Y = -DISTANCE
 MAX_Y = DISTANCE
 
 # N_SETS = [3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
-N_SETS = [11, 12, 13, 14, 16, 17, 18, 19]
+N_SETS = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 
 def prepare_stats(generated_city):
@@ -60,13 +61,6 @@ def prepare_distance_matrix(generated_city):
         for in_city in generated_city:
             distance_matrix[out_city.number_of_city] = {in_city.number_of_city: City.count_distance(out_city, in_city)}
     return distance_matrix
-
-
-def progress_bar(current, total, barLength=20):
-    percent = float(current) * 100 / total
-    arrow = '-' * int(percent / 100 * barLength - 1) + '>'
-    spaces = ' ' * (barLength - len(arrow))
-    sys.stdout.write('\rCreate data TSP progress: [%s%s] %f %%' % (arrow, spaces, percent))
 
 
 START_CITY = City(number_of_city=0, x=0, y=0)

@@ -1,18 +1,24 @@
 import time
 import tracemalloc
-import gc
+
+from scalene import profile
+
 from algorithms.TSP import Tsp
 from algorithms.astar.model.Node import Node
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 
 
 class Astar(Tsp):
-    def __init__(self, tsp_data_json):
-        super().__init__(tsp_data_json)
+    def __init__(self, tsp_data_input):
+        super().__init__(tsp_data_input)
         self.start_city_number = 0
         self.last = None
         self.prio_dict = dict()
         self.name = "astar_heuristic_self_impl"
+
+    @profile
+    def solve(self):
+        self.best_trace, self.full_cost = self.find_way()
 
     def start_counting_with_time(self) -> MeasurementForTime:
         json_model = MeasurementForTime()
@@ -28,7 +34,7 @@ class Astar(Tsp):
 
     def start_counting_with_time_and_trace_malloc(self) -> MeasurementForTimeWithMalloc:
         json_model = MeasurementForTimeWithMalloc()
-        self.clear_memory_before_measurement()
+        self.clear_data_before_measurement()
 
         tracemalloc.start()
 
@@ -57,12 +63,12 @@ class Astar(Tsp):
     def find_way(self):
         self.prio_dict = dict()
         self.last = Node(None, 0.0, self.start_city_number)
-        while len(self.last.way) < len(self.list_of_cities):
+        while len(self.last.way) < len(self.tsp_input_data.list_of_cities):
             set_of_unvisited_nodes = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
             for unvisited_index_city in set_of_unvisited_nodes:
-                distance = self.get_distance(self.last.index_city, unvisited_index_city)
+                distance = self.tsp_input_data.get_distance(self.last.index_city, unvisited_index_city)
                 heuristic_value = self.find_min_distance_in_unvisited_nodes() * (
-                        len(self.list_of_cities) - len(self.last.way))
+                        len(self.tsp_input_data.list_of_cities) - len(self.last.way))
                 a_start_value = self.last.cost + distance + heuristic_value
                 suggest_node = Node(self.last, distance, unvisited_index_city)
                 self.prio_dict[a_start_value] = suggest_node
@@ -70,14 +76,14 @@ class Astar(Tsp):
                 selected_node = self.prio_dict[selected_value]
                 self.prio_dict.pop(selected_value)
                 self.last = selected_node
-        final_node = Node(self.last, self.get_distance(self.last.index_city, self.start_city_number),
+        final_node = Node(self.last, self.tsp_input_data.get_distance(self.last.index_city, self.start_city_number),
                           self.start_city_number)
         self.last = final_node
         return self.last.way, self.last.cost
 
     def generate_set_for_all_indexes_of_cities(self):
         temp_set = set()
-        for city in self.list_of_cities:
+        for city in self.tsp_input_data.list_of_cities:
             temp_set.add(city.number_of_city)
         return temp_set
 
@@ -89,7 +95,7 @@ class Astar(Tsp):
 
     def count_sum_lowest_distance(self, how_many):
         sum = 0.0
-        distance_from_start = list(self.cost_matrix[:, self.start_city_number])
+        distance_from_start = list(self.tsp_input_data.cost_matrix[:, self.start_city_number])
         if len(distance_from_start) > 0:
             for number_of_city in range(1, how_many):
                 first_distance = distance_from_start[0]
@@ -101,7 +107,7 @@ class Astar(Tsp):
         set_of_unvisited_index_cities = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
         min = 0.0
         for index_of_city in set_of_unvisited_index_cities:
-            distance_to_probably_new_min = self.get_distance(self.last.index_city, index_of_city)
+            distance_to_probably_new_min = self.tsp_input_data.get_distance(self.last.index_city, index_of_city)
             if min > distance_to_probably_new_min:
                 min = distance_to_probably_new_min
         return min

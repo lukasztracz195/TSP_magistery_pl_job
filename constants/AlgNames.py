@@ -1,0 +1,7 @@
+ASTAR = "Astar"
+BRUTAL_FORCE = "BrutalForceTsp"
+DYNAMIC_PROGRAMING_HELD_KARP = "DynamicProgramingHeldKarpTsp"
+GENETIC_ALGORITHM = "GeneticAlgorithmMlroseTsp"
+GREEDY_SEARCH = "GreedySearchTsp"
+LOCAL_SEARCH = "LocalSearchTsp"
+SIMULATED_ANNEALING = "SimulatedAnnealingTsp"

@@ -2,38 +2,45 @@ import time
 import tracemalloc
 
 from python_tsp.heuristics import solve_tsp_local_search
+from scalene import profile
 
-from algorithms.TSP import Tsp
+from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 
 
 class LocalSearchTsp(Tsp):
-    def __init__(self, json_tsp):
-        super().__init__(tsp_data_json=json_tsp)
+
+    def __init__(self, tsp_input_data):
+        super().__init__(tsp_input_data=tsp_input_data)
         self.name = "local_search_heuristic_lib_python_tsp"
+
+    @profile
+    def solve(self):
+        best_state, self.full_cost = solve_tsp_local_search(self.tsp_input_data.cost_matrix)
+        self.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
 
     def start_counting_with_time(self) -> MeasurementForTime:
         json_model = MeasurementForTime()
         start = time.clock()
-        best_state, best_fitness = solve_tsp_local_search(self.cost_matrix)
+        best_state, best_fitness = solve_tsp_local_search(self.tsp_input_data.cost_matrix)
         stop = time.clock()
 
         json_model.time_duration_in_sec = stop - start
         json_model.full_cost = best_fitness
-        json_model.best_trace = self.move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
+        json_model.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
         json_model.name_of_algorithm = self.name
         return json_model
 
     def start_counting_with_time_and_trace_malloc(self) -> MeasurementForTimeWithMalloc:
         json_model = MeasurementForTimeWithMalloc()
-        self.clear_memory_before_measurement()
+        self.clear_data_before_measurement()
 
         tracemalloc.start()
 
         before_size, before_peak = tracemalloc.get_traced_memory()
         start = time.clock()
 
-        best_state, best_fitness = solve_tsp_local_search(self.cost_matrix)
+        best_state, best_fitness = solve_tsp_local_search(self.tsp_input_data.cost_matrix)
 
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()
@@ -48,5 +55,5 @@ class LocalSearchTsp(Tsp):
         json_model.used_memory_after_measurement = after_size
         json_model.used_memory_peak_after_measurement = after_peak
         json_model.full_cost = best_fitness
-        json_model.best_trace = self.move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
+        json_model.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
         return json_model

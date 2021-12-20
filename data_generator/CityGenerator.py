@@ -13,7 +13,7 @@ class CityGenerator:
         self.__start_city = start_city
         self.__forbidden_city = [self.__start_city]
 
-    def generate_cities(self, number_of_cities, distinct):
+    def generate_cities(self, number_of_cities, distinct=True):
         set_of_city = set()
         number_of_city = 1
         set_of_city.add(self.__start_city)
