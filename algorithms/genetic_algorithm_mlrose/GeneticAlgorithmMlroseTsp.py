@@ -3,7 +3,6 @@ import time
 import tracemalloc
 
 import six
-from scalene import profile
 
 sys.modules['sklearn.externals.six'] = six
 
@@ -27,7 +26,6 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         self.max_attempts = 10
         self.max_iterations = np.inf
 
-    @profile
     def solve(self):
         self.best_trace, self.full_cost = mlrose.genetic_alg(self.problem_fit, random_state=self.random_state,
                                                              pop_size=self.size_of_population,

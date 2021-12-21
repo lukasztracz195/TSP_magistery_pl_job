@@ -2,7 +2,6 @@ import time
 import tracemalloc
 
 from python_tsp.exact import solve_tsp_dynamic_programming
-from scalene import profile
 
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
@@ -13,7 +12,6 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         super().__init__(tsp_input_data=tsp_input_data)
         self.name = "dynamic_programing_exact_held_karp_lib_python_tsp"
 
-    @profile
     def solve(self):
         self.best_trace, self.full_cost = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
 

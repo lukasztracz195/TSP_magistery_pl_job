@@ -2,7 +2,6 @@ import time
 import tracemalloc
 
 from python_tsp.heuristics import solve_tsp_simulated_annealing
-from scalene import profile
 
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
@@ -14,7 +13,6 @@ class SimulatedAnnealingTsp(Tsp):
         super().__init__(tsp_input_data=tsp_input_data)
         self.name = "simulated_annealing_heuristic_lib_python_tsp"
 
-    @profile
     def solve(self):
         best_state, self.full_cost = solve_tsp_simulated_annealing(self.tsp_input_data.cost_matrix)
         self.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)

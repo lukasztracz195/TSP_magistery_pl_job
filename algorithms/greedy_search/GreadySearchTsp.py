@@ -1,7 +1,6 @@
 import time
 import tracemalloc
 
-from scalene import profile
 
 from algorithms.TSP import Tsp, shuffle_solution_set_start_and_end_node_as_the_same
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
@@ -13,7 +12,6 @@ class GreedySearchTsp(Tsp):
         super().__init__(tsp_input_data=tsp_input_data)
         self.name = "greedy_search_heuristic_self_impl"
 
-    @profile
     def solve(self):
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
         self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)

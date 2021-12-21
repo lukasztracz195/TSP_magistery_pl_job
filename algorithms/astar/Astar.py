@@ -1,8 +1,6 @@
 import time
 import tracemalloc
 
-from scalene import profile
-
 from algorithms.TSP import Tsp
 from algorithms.astar.model.Node import Node
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
@@ -16,7 +14,6 @@ class Astar(Tsp):
         self.prio_dict = dict()
         self.name = "astar_heuristic_self_impl"
 
-    @profile
     def solve(self):
         self.best_trace, self.full_cost = self.find_way()
 
