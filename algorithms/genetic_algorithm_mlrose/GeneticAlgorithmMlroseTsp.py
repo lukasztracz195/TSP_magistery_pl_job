@@ -3,10 +3,10 @@ import time
 import tracemalloc
 
 import six
+from mlrose import TravellingSales, TSPOpt, genetic_alg
 
 sys.modules['sklearn.externals.six'] = six
 
-import mlrose
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node, \
     shuffle_solution_set_start_and_end_node_as_the_same
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
@@ -16,9 +16,9 @@ import numpy as np
 class GeneticAlgorithmMlroseTsp(Tsp):
     def __init__(self, tsp_input_data):
         super().__init__(tsp_input_data=tsp_input_data)
-        self.fitness_dists = mlrose.TravellingSales(distances=self.tsp_input_data.dist_list)
-        self.problem_fit = mlrose.TSPOpt(length=self.tsp_input_data.number_of_cities,
-                                         coords=self.tsp_input_data.coord_list, maximize=False)
+        self.fitness_dists = TravellingSales(distances=self.tsp_input_data.dist_list)
+        self.problem_fit = TSPOpt(length=self.tsp_input_data.number_of_cities,
+                                  coords=self.tsp_input_data.coord_list, maximize=False)
         self.name = "genetic_algorithm_heuristic_lib_mlrose"
         self.random_state = 2
         self.size_of_population = 200
@@ -27,19 +27,19 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         self.max_iterations = np.inf
 
     def solve(self):
-        self.best_trace, self.full_cost = mlrose.genetic_alg(self.problem_fit, random_state=self.random_state,
-                                                             pop_size=self.size_of_population,
-                                                             mutation_prob=self.probability_of_mutation,
-                                                             max_attempts=self.max_attempts,
-                                                             max_iters=self.max_iterations)
+        self.best_trace, self.full_cost = genetic_alg(self.problem_fit, random_state=self.random_state,
+                                                      pop_size=self.size_of_population,
+                                                      mutation_prob=self.probability_of_mutation,
+                                                      max_attempts=self.max_attempts,
+                                                      max_iters=self.max_iterations)
 
     def start_counting_with_time(self) -> MeasurementForTime:
         json_model = MeasurementForTime()
         start = time.clock()
-        best_state, best_fitness = mlrose.genetic_alg(self.problem_fit, random_state=self.random_state,
-                                                      pop_size=self.size_of_population,
-                                                      mutation_prob=self.probability_of_mutation,
-                                                      max_attempts=self.max_attempts, max_iters=self.max_iterations)
+        best_state, best_fitness = genetic_alg(self.problem_fit, random_state=self.random_state,
+                                               pop_size=self.size_of_population,
+                                               mutation_prob=self.probability_of_mutation,
+                                               max_attempts=self.max_attempts, max_iters=self.max_iterations)
         stop = time.clock()
 
         json_model.time_duration_in_sec = stop - start
@@ -56,10 +56,10 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         start = time.clock()
         before_size, before_peak = tracemalloc.get_traced_memory()
 
-        best_state, best_fitness = mlrose.genetic_alg(self.problem_fit, random_state=self.random_state,
-                                                      pop_size=self.size_of_population,
-                                                      mutation_prob=self.probability_of_mutation,
-                                                      max_attempts=self.max_attempts, max_iters=self.max_iterations)
+        best_state, best_fitness = genetic_alg(self.problem_fit, random_state=self.random_state,
+                                               pop_size=self.size_of_population,
+                                               mutation_prob=self.probability_of_mutation,
+                                               max_attempts=self.max_attempts, max_iters=self.max_iterations)
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
