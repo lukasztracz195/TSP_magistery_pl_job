@@ -38,7 +38,7 @@ args = parser.parse_args()
 
 NAME_OF_ALGORITHM = args.name_of_algorithm
 NUMBER_OF_CITIES = args.number_of_cities
-NUMBER_OF_SAMPLES = args.number_of_samples
+NUMBER_OF_SAMPLES = args.number_of_all_samples
 NUMBER_OF_SAMPLE = args.number_of_sample
 
 
@@ -68,7 +68,8 @@ def main():
     algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
     algorithm.clear_data_before_measurement()
     algorithm.solve()
-    logging.info("FINISH")
+    msg = "best_trace: %s | full_cost: %s" % (algorithm.best_trace, algorithm.full_cost)
+    print(msg)
 
 
 if __name__ == "__main__":
