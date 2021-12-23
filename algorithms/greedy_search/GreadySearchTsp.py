@@ -1,9 +1,11 @@
 import time
 import tracemalloc
 
-
 from algorithms.TSP import Tsp, shuffle_solution_set_start_and_end_node_as_the_same
+from collector.DataCollector import DataCollector
+from constants import MeasurementTimeWithOutputData, MeasurementMemory
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
+from threads.profiler import CpuProfiler
 
 
 class GreedySearchTsp(Tsp):
@@ -12,25 +14,29 @@ class GreedySearchTsp(Tsp):
         super().__init__(tsp_input_data=tsp_input_data)
         self.name = "greedy_search_heuristic_self_impl"
 
-    def solve(self):
+    def start_counting_with_cpu_profiler(self) -> DataCollector:
+        cpu_profiler = CpuProfiler()
+        cpu_profiler.start()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
+        cpu_profiler.stop()
         self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
         self.full_cost = opt_tour[1]
+        return cpu_profiler.get_collector()
 
-    def start_counting_with_time(self) -> MeasurementForTime:
-        json_model = MeasurementForTime()
+    def start_counting_with_time(self) -> DataCollector:
+        collector = DataCollector()
         start = time.clock()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
         stop = time.clock()
+        self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
+        self.full_cost = opt_tour[1]
+        collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
+        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, self.full_cost)
+        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, self.best_trace)
+        return collector
 
-        json_model.time_duration_in_sec = stop - start
-        json_model.full_cost = opt_tour[1]
-        json_model.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
-        json_model.name_of_algorithm = self.name
-        return json_model
-
-    def start_counting_with_time_and_trace_malloc(self) -> MeasurementForTimeWithMalloc:
-        json_model = MeasurementForTimeWithMalloc()
+    def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
+        collector = DataCollector()
         self.clear_data_before_measurement()
 
         tracemalloc.start()
@@ -43,18 +49,16 @@ class GreedySearchTsp(Tsp):
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-        json_model.name_of_algorithm = self.name
-        json_model.time_duration_in_sec = stop - start
-        json_model.used_memory_before_measurement = before_size
-        json_model.used_memory_peak_before_measurement = before_peak
-        json_model.used_memory_diff_before_after_measurement = after_size - before_size
-        json_model.used_memory_peak_diff_before_after_measurement = after_peak - before_peak
-        json_model.used_memory_after_measurement = after_size
-        json_model.used_memory_peak_after_measurement = after_peak
-        json_model.full_cost = opt_tour[1]
-        json_model.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
-
-        return json_model
+        collector.add_data(MeasurementMemory.TIME_DURATION_WITH_MALLOC_IS_SEC, stop - start)
+        collector.add_data(MeasurementMemory.USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
+        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
+        collector.add_data(MeasurementMemory.USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+                           after_size - before_size)
+        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_PEAK_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+                           after_size - before_size)
+        return collector
 
     def get_nearest_neighbor(self, i):
         # Start at infinity

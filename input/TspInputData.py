@@ -1,6 +1,6 @@
 import numpy as np
 
-from constants.CsvKeys import *
+from constants.InputCityDataJson import *
 from models.City import City
 
 

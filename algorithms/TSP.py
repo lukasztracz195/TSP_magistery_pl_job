@@ -4,6 +4,7 @@ import tracemalloc
 
 import numpy as np
 
+from collector.DataCollector import DataCollector
 from input.TspInputData import TspInputData
 
 
@@ -45,22 +46,24 @@ class Tsp(abc.ABC):
         self.tsp_input_data: TspInputData = tsp_input_data
         self.full_cost = 0
         self.best_trace = None
-        self.measurement = None
+        self.collector = DataCollector()
 
     @abc.abstractmethod
-    def solve(self):
+    def start_counting_with_cpu_profiler(self) -> DataCollector:
         pass
 
     @abc.abstractmethod
-    def start_counting_with_time(self):
+    def start_counting_with_time(self) -> DataCollector:
         pass
 
     @abc.abstractmethod
-    def start_counting_with_time_and_trace_malloc(self):
+    def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
         pass
 
     def clear_data_before_measurement(self):
         clear_memory_before_measurement()
         self.full_cost = 0
         self.best_trace = None
-        self.measurement = None
+
+    def clear_data_collector(self):
+        self.collector.clear()

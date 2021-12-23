@@ -1,12 +1,12 @@
 import json
 import os
-import sys
 
 import pandas as pd
 
-from constants.CsvKeys import *
+from constants.InputCityDataJson import *
 from data_generator.CityGenerator import CityGenerator
 from models.City import City
+from progress.progress import progress_bar
 
 PATH_TO_DATASET = "./dataset/"
 
@@ -19,7 +19,7 @@ MIN_Y = -DISTANCE
 MAX_Y = DISTANCE
 
 # N_SETS = [3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
-N_SETS = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+N_SETS = list(range(3, 51))
 
 
 def prepare_stats(generated_city):
@@ -95,4 +95,4 @@ for NUMBER_OF_CITIES_IN_SET in N_SETS:
         jsons_file.write(json_as_str)
         jsons_file.close()
         current += 1
-        progress_bar(current, total)
+        progress_bar(current, total, "generate_data")

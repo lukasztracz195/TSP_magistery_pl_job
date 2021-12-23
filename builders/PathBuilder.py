@@ -19,5 +19,10 @@ class PathBuilder:
         self.build_path = "%s/%s" % (self.build_path, file_name_with_extension)
         return self
 
+    def create_directory_if_not_exists(self):
+        if not os.path.exists(self.build_path):
+            os.mkdir(self.build_path)
+        return self
+
     def build(self):
         return self.build_path
