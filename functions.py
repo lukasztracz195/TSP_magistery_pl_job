@@ -9,6 +9,10 @@ def create_directory_if_not_exists(path):
         os.mkdir(path)
 
 
+def exist_file(path):
+    return os.path.exists(path)
+
+
 def prepare_name_of_directory_measurements_for_n_cities(number_of_all_samples, number_of_cities):
     return "TSP_DIST_%d_N_%d" % (number_of_all_samples, number_of_cities)
 

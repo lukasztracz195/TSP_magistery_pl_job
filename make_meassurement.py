@@ -15,6 +15,7 @@ from constants.ArgNames import *
 from constants.FileExtensions import JSON
 from constants.MeasurementBasic import *
 from data_reader import JsonTspReader
+from functions import exist_file
 from input.TspInputData import TspInputData
 
 # ALGORITHMS
@@ -33,8 +34,8 @@ PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE = "TSP_MEASUREMENTS_FROM_SET_%d_
 NAME_OF_DATASET_DIR = "dataset"
 NAME_OF_MEASUREMENT_DIR = "measurements"
 parser = ArgumentParser()
-parser.add_argument(NAME_OF_ALGORITHM, help="name of algorithm to solve TSP problem\n%s" \
-                                            % AVAILABLE_ALGORITHM_NAMES, type=str)
+parser.add_argument(NAME_OF_ALGORITHM, help="name of algorithm to solve TSP problem\n%s" % AVAILABLE_ALGORITHM_NAMES,
+                    type=str)
 parser.add_argument(NUMBER_OF_CITIES, help="number of cities to select correct dir with samples from dataset",
                     type=int)
 parser.add_argument(NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
@@ -78,15 +79,11 @@ def main():
         .add_dir(name_of_dir_with_samples) \
         .add_file_with_extension(name_of_file_name_sample) \
         .build()
+    name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
+        NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
     json_data = JsonTspReader.read_json_from_path(path_to_sample)
     tsp_input_data = TspInputData(json_data)
     algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
-    algorithm.clear_data_before_measurement()
-    collector = make_measurement(algorithm)
-    collector.add_data(USED_ALGORITHM, algorithm.name)
-    collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
-    name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
-        NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
     path_to_output_json = PathBuilder() \
         .add_dir(NAME_OF_MEASUREMENT_DIR) \
         .add_dir(JSON) \
@@ -98,9 +95,14 @@ def main():
         .create_directory_if_not_exists() \
         .add_file(MEASUREMENT, JSON) \
         .build()
-    json_result_data = json.dumps(collector.get_dictionary_with_data())
-    with open(path_to_output_json, 'w') as outfile:
-        outfile.write(json_result_data)
+    if not exist_file(path_to_output_json):
+        algorithm.clear_data_before_measurement()
+        collector = make_measurement(algorithm)
+        collector.add_data(USED_ALGORITHM, algorithm.name)
+        collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
+        json_result_data = json.dumps(collector.get_dictionary_with_data())
+        with open(path_to_output_json, 'w') as outfile:
+            outfile.write(json_result_data)
 
 
 if __name__ == "__main__":
