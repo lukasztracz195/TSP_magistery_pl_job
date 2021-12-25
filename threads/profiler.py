@@ -38,7 +38,7 @@ class CpuProfiler(threading.Thread):
             self.collector.add_data_to_list(MeasurementCpuProfiler.UTILIZATION_OF_CPU, psutil.cpu_percent(interval=0.5))
             self.collector.add_data_to_list(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE,
                                             psutil.virtual_memory().percent)
-            self.collector.add_data_to_list(MeasurementCpuProfiler.CPU_FREQUENCY_IN_MHZ, int(psutil.cpu_freq().current))
+            # self.collector.add_data_to_list(MeasurementCpuProfiler.CPU_FREQUENCY_IN_MHZ, int(psutil.cpu_freq().current))
 
     def stop(self):
         self.stopped = True
