@@ -86,7 +86,9 @@ def main():
     algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
     path_to_output_json = PathBuilder() \
         .add_dir(NAME_OF_MEASUREMENT_DIR) \
+        .create_directory_if_not_exists() \
         .add_dir(JSON) \
+        .create_directory_if_not_exists() \
         .add_dir("N_%d" % NUMBER_OF_CITIES) \
         .create_directory_if_not_exists() \
         .add_dir(name_of_dir_for_measurements) \
