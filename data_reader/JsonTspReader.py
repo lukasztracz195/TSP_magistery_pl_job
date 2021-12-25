@@ -5,10 +5,12 @@ PATH_TO_DATASET = "dataset"
 PATH_TO_MEASUREMENTS = "measurements"
 
 
-def get_json_from_file_from_dataset(name_of_directory, name_of_json_file_with_extension):
+def get_json_from_file_from_dataset(name_of_directory, name_of_json_file_with_extension, remove_spaces=True):
     current_path = os.getcwd()
     path_to_json = "%s/%s/%s/%s" % (current_path, PATH_TO_DATASET, name_of_directory, name_of_json_file_with_extension)
     data = None
+    if remove_spaces:
+        path_to_json.replace(" ", "")
     with open(path_to_json) as f:
         data = json.load(f)
     return data
