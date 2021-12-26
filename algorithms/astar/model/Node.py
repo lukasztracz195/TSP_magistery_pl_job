@@ -1,3 +1,6 @@
+import copy
+
+
 class Node:
     def __init__(self, parent, cost, index_city):
         self.__cost = cost
@@ -5,7 +8,7 @@ class Node:
         self.__parent = parent
         if parent is not None:
             self.__cost = parent.cost + self.__cost
-            self.__way = parent.way
+            self.__way = copy.deepcopy(parent.way)
         self.__way.append(index_city)
         self.__index_city = index_city
 

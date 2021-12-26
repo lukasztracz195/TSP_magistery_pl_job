@@ -11,8 +11,8 @@ TYPE_OF_MEASUREMENTS = ["CPU", "TIME_AND_DATA", "TIME_AND_MEMORY"]
 
 alg = "Astar"
 index_of_sample = 0
-n_cites = 50
-type_of_measure = "CPU"
+n_cites = 8
+type_of_measure = "TIME_AND_DATA"
 args_builder = ArgsBuilder()
 args_builder.add_arg(ArgNames.NAME_OF_ALGORITHM, alg) \
     .add_arg(ArgNames.NUMBER_OF_CITIES, n_cites) \

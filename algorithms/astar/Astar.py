@@ -1,3 +1,4 @@
+import sys
 import time
 import tracemalloc
 
@@ -74,10 +75,10 @@ class Astar(Tsp):
                 a_start_value = self.last.cost + distance + heuristic_value
                 suggest_node = Node(self.last, distance, unvisited_index_city)
                 self.prio_dict[a_start_value] = suggest_node
-                selected_value = min(self.prio_dict.keys())
-                selected_node = self.prio_dict[selected_value]
-                self.prio_dict.pop(selected_value)
-                self.last = selected_node
+            selected_value = min(self.prio_dict.keys())
+            selected_node = self.prio_dict[selected_value]
+            self.prio_dict.pop(selected_value)
+            self.last = selected_node
         final_node = Node(self.last, self.tsp_input_data.get_distance(self.last.index_city, self.start_city_number),
                           self.start_city_number)
         self.last = final_node
@@ -107,7 +108,7 @@ class Astar(Tsp):
 
     def find_min_distance_in_unvisited_nodes(self):
         set_of_unvisited_index_cities = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
-        min = 0.0
+        min = sys.maxsize
         for index_of_city in set_of_unvisited_index_cities:
             distance_to_probably_new_min = self.tsp_input_data.get_distance(self.last.index_city, index_of_city)
             if min > distance_to_probably_new_min:
