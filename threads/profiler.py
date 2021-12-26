@@ -38,10 +38,8 @@ class CpuProfiler(threading.Thread):
         if not self.stopped:
             self.collector.add_data_to_list(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES,
                                             int(psutil.virtual_memory().total - psutil.virtual_memory().available))
-        if not self.stopped:
             self.collector.add_data_to_list(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE,
                                             psutil.virtual_memory()[2])
-        if not self.stopped:
             self.collector.add_data_to_list(MeasurementCpuProfiler.UTILIZATION_OF_CPU, psutil.cpu_percent(0.1))
 
     def stop(self):
