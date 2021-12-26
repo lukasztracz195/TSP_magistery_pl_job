@@ -1,4 +1,3 @@
-import os
 import threading
 import time
 
@@ -50,12 +49,12 @@ class CpuProfiler(threading.Thread):
         stop = time.clock()
         self.collector.add_data(MeasurementCpuProfiler.TIME_DURATION_WITH_CPU_PROFILER_IN_SEC,
                                 stop - self.start_time)
+
+    def get_collector(self):
         fields = [MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES,
                   MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE,
                   MeasurementCpuProfiler.UTILIZATION_OF_CPU]
         for field in fields:
             if len(self.collector.dictionary_of_data[field]) == 0:
                 self.collector.dictionary_of_data[field] = DEFAULT_VALUE
-
-    def get_collector(self):
         return self.collector
