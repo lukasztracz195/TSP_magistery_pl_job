@@ -40,6 +40,7 @@ parser.add_argument(NUMBER_OF_CITIES, help="number of cities to select correct d
                     type=int)
 parser.add_argument(NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
 parser.add_argument(TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY", type=str)
+parser.add_argument(OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]", type=bool)
 args = parser.parse_args()
 
 DISTANCE = 1000
@@ -47,6 +48,7 @@ NAME_OF_ALGORITHM = args.name_of_algorithm
 NUMBER_OF_CITIES = args.number_of_cities
 NUMBER_OF_SAMPLE = args.number_of_sample
 MEASUREMENT = args.type_of_measurement
+OVERRIDE_RESULTS = args.override_exist_measure_results
 
 
 def prepare_algorithm(name_of_algorithm, data_to_inject):
@@ -97,7 +99,7 @@ def main():
         .create_directory_if_not_exists() \
         .add_file(MEASUREMENT, JSON) \
         .build()
-    if not exist_file(path_to_output_json):
+    if not (exist_file(path_to_output_json) and not OVERRIDE_RESULTS):
         algorithm.clear_data_before_measurement()
         collector = make_measurement(algorithm)
         collector.add_data(USED_ALGORITHM, algorithm.name)
