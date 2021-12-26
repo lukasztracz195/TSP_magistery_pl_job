@@ -17,7 +17,8 @@ args_builder = ArgsBuilder()
 args_builder.add_arg(ArgNames.NAME_OF_ALGORITHM, alg) \
     .add_arg(ArgNames.NUMBER_OF_CITIES, n_cites) \
     .add_arg(ArgNames.NUMBER_OF_SAMPLE, index_of_sample) \
-    .add_arg(ArgNames.TYPE_OF_MEASUREMENT, type_of_measure)
+    .add_arg(ArgNames.TYPE_OF_MEASUREMENT, type_of_measure) \
+    .add_arg(ArgNames.OVERRIDE_EXIST_MEASURE_RESULTS, True)
 args = args_builder.build()
 
 python_file_name_to_execute = "make_meassurement.py"
