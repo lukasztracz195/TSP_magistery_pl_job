@@ -40,6 +40,7 @@ class GeneticAlgorithmMlroseTsp(Tsp):
                                                       max_iters=self.max_iterations)
 
         cpu_profiler.stop()
+        cpu_profiler.join()
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:

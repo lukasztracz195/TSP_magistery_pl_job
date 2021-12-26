@@ -22,6 +22,7 @@ class LocalSearchTsp(Tsp):
         best_state, self.full_cost = solve_tsp_local_search(self.tsp_input_data.cost_matrix)
         self.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
         cpu_profiler.stop()
+        cpu_profiler.join()
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:

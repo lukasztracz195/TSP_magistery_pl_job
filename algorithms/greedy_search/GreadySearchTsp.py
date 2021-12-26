@@ -19,6 +19,7 @@ class GreedySearchTsp(Tsp):
         cpu_profiler.start()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
         cpu_profiler.stop()
+        cpu_profiler.join()
         self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
         self.full_cost = opt_tour[1]
         return cpu_profiler.get_collector()

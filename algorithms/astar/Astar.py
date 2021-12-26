@@ -22,6 +22,7 @@ class Astar(Tsp):
         cpu_profiler.start()
         self.best_trace, self.full_cost = self.find_way()
         cpu_profiler.stop()
+        cpu_profiler.join()
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:

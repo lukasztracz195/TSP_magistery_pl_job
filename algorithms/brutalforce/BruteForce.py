@@ -19,6 +19,7 @@ class BrutalForceTsp(Tsp):
         cpu_profiler.start()
         self.best_trace, self.full_cost = solve_tsp_brute_force(self.tsp_input_data.cost_matrix)
         cpu_profiler.stop()
+        cpu_profiler.join()
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:
