@@ -1,3 +1,4 @@
+import argparse
 import json
 from argparse import ArgumentParser
 
@@ -18,6 +19,7 @@ from data_reader import JsonTspReader
 from functions import exist_file
 from input.TspInputData import TspInputData
 
+
 # ALGORITHMS
 # Astar 3-60 DONE
 # BrutalForceTsp 3-10
@@ -26,6 +28,18 @@ from input.TspInputData import TspInputData
 # GreedySearchTsp 3-60
 # LocalSearchTsp 3-60
 # SimulatedAnnealingTsp 3-60
+
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
 AVAILABLE_ALGORITHM_NAMES = ["Astar", "BrutalForceTsp", "DynamicProgramingHeldKarpTsp", "GeneticAlgorithmMlroseTsp",
                              "GreedySearchTsp", "LocalSearchTsp", "SimulatedAnnealingTsp"]
 PATTERN_TO_DIRECTORY_FROM_DATASET = "TSP_DIST_%d_N_%d"
@@ -40,7 +54,8 @@ parser.add_argument(NUMBER_OF_CITIES, help="number of cities to select correct d
                     type=int)
 parser.add_argument(NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
 parser.add_argument(TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY", type=str)
-parser.add_argument(OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]", type=bool)
+parser.add_argument(OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]",
+                    type=str2bool, default=False)
 args = parser.parse_args()
 
 DISTANCE = 1000
@@ -49,6 +64,7 @@ NUMBER_OF_CITIES = args.number_of_cities
 NUMBER_OF_SAMPLE = args.number_of_sample
 MEASUREMENT = args.type_of_measurement
 OVERRIDE_RESULTS = args.override_exist_measure_results
+
 
 
 def prepare_algorithm(name_of_algorithm, data_to_inject):
@@ -83,6 +99,7 @@ def main():
         .build()
     name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
         NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
+    print("path to sample: ", path_to_sample)
     json_data = JsonTspReader.read_json_from_path(path_to_sample)
     tsp_input_data = TspInputData(json_data)
     algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
@@ -99,7 +116,8 @@ def main():
         .create_directory_if_not_exists() \
         .add_file(MEASUREMENT, JSON) \
         .build()
-    if not (exist_file(path_to_output_json) and not OVERRIDE_RESULTS):
+    file_exist = exist_file(path_to_output_json)
+    if (OVERRIDE_RESULTS and file_exist) or not file_exist:
         algorithm.clear_data_before_measurement()
         collector = make_measurement(algorithm)
         collector.add_data(USED_ALGORITHM, algorithm.name)
