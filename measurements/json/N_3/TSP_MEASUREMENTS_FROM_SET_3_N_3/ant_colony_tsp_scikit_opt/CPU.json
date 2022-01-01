@@ -1,0 +1,29 @@
+{
+  "used_read_access_memory_in_bytes": [
+    6889381888,
+    6884581376,
+    6870192128,
+    6876815360,
+    6838591488,
+    6840078336
+  ],
+  "utilization_of_cpu": [
+    15.6,
+    13.2,
+    12.5,
+    35.7,
+    23.2,
+    12.5
+  ],
+  "used_read_access_memory_in_percentage": [
+    40.5,
+    40.5,
+    40.4,
+    40.5,
+    40.2,
+    40.2
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 5.987563399999999,
+  "used_algorithm": "ant_colony_tsp_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_3_N_3.json"
+}

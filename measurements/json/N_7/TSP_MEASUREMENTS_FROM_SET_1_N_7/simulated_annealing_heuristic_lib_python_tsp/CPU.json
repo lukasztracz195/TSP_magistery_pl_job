@@ -1,0 +1,17 @@
+{
+  "used_read_access_memory_in_bytes": [
+    10673184768,
+    10664005632
+  ],
+  "utilization_of_cpu": [
+    28.6,
+    26.6
+  ],
+  "used_read_access_memory_in_percentage": [
+    62.8,
+    62.7
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 1.7485672,
+  "used_algorithm": "simulated_annealing_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_1_N_7.json"
+}

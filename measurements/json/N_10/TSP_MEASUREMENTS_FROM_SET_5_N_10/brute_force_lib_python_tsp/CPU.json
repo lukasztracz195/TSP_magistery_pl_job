@@ -1,0 +1,41 @@
+{
+  "used_read_access_memory_in_bytes": [
+    11648839680,
+    11642920960,
+    11643068416,
+    11643015168,
+    11642871808,
+    11643109376,
+    11643936768,
+    11643936768,
+    11643781120,
+    11643924480
+  ],
+  "utilization_of_cpu": [
+    12.5,
+    14.3,
+    12.5,
+    13.1,
+    19.4,
+    12.5,
+    12.5,
+    12.5,
+    14.3,
+    8.9
+  ],
+  "used_read_access_memory_in_percentage": [
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5,
+    68.5
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 10.0943439,
+  "used_algorithm": "brute_force_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_5_N_10.json"
+}
