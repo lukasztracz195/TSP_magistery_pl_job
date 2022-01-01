@@ -6,6 +6,7 @@ from python_tsp.exact import solve_tsp_dynamic_programming
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
 
@@ -13,7 +14,7 @@ from threads.profiler import CpuProfiler
 class DynamicProgramingHeldKarpTsp(Tsp):
     def __init__(self, tsp_input_data):
         super().__init__(tsp_input_data=tsp_input_data)
-        self.name = "dynamic_programing_exact_held_karp_lib_python_tsp"
+        self.name = DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

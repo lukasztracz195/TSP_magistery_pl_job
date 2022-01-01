@@ -18,6 +18,11 @@ class TspInputData:
         self.dist_list = self.__prepare_distance_list()
         self.coord_list = self.__prepare_coords_list()
 
+    def cal_total_distance(self, routine):
+        num_points, = routine.shape
+        return sum(
+            [self.cost_matrix[routine[i % num_points], routine[(i + 1) % num_points]] for i in range(num_points)])
+
     def __init_list_of_cities(self):
         if self.list_of_cities is not None and len(self.list_of_cities) > 0:
             return self.list_of_cities

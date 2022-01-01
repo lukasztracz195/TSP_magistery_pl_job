@@ -54,5 +54,5 @@ def prepare_files_list_from_measurement_algorithm_name_and_directory(name_of_alg
 
 def prepare_path_to_save_csv_summary(name_of_algorithm, name_of_csv_summary_file):
     current_path = os.getcwd()
-    return "%s/%s/csv/%s/%s" % (
+    return "%s/%s/feature/%s/%s" % (
         current_path, PATH_TO_MEASUREMENTS, name_of_algorithm, name_of_csv_summary_file)

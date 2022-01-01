@@ -6,6 +6,7 @@ from algorithms.TSP import Tsp
 from algorithms.astar.model.Node import Node
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import ASTAR_HEURISTIC_SELF_IMPL_DIR
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
 
@@ -16,7 +17,7 @@ class Astar(Tsp):
         self.start_city_number = 0
         self.last = None
         self.prio_dict = dict()
-        self.name = "astar_heuristic_self_impl"
+        self.name = ASTAR_HEURISTIC_SELF_IMPL_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

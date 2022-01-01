@@ -4,6 +4,7 @@ import tracemalloc
 from algorithms.TSP import Tsp, shuffle_solution_set_start_and_end_node_as_the_same
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
 
@@ -12,7 +13,7 @@ class GreedySearchTsp(Tsp):
 
     def __init__(self, tsp_input_data):
         super().__init__(tsp_input_data=tsp_input_data)
-        self.name = "greedy_search_heuristic_self_impl"
+        self.name = GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

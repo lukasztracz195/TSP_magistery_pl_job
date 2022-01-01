@@ -6,6 +6,7 @@ import six
 
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
 from threads.profiler import CpuProfiler
 
 sys.modules['sklearn.externals.six'] = six
@@ -23,7 +24,7 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         self.fitness_dists = TravellingSales(distances=self.tsp_input_data.dist_list)
         self.problem_fit = TSPOpt(length=self.tsp_input_data.number_of_cities,
                                   coords=self.tsp_input_data.coord_list, maximize=False)
-        self.name = "genetic_algorithm_heuristic_lib_mlrose"
+        self.name = GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
         self.random_state = 2
         self.size_of_population = 200
         self.probability_of_mutation = 0.1
@@ -51,7 +52,9 @@ class GeneticAlgorithmMlroseTsp(Tsp):
                                                mutation_prob=self.probability_of_mutation,
                                                max_attempts=self.max_attempts, max_iters=self.max_iterations)
         stop = time.clock()
-
+        best_state = best_state.tolist()
+        if best_state[0] != 0:
+            best_state = [0] + best_state
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
         collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)

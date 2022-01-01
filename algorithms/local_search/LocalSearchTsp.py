@@ -5,7 +5,8 @@ from python_tsp.heuristics import solve_tsp_local_search
 
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
 from collector.DataCollector import DataCollector
-from constants import MeasurementTimeWithOutputData
+from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import LOCAL_SEARCH_HEURISTIC_LIB_PYTHON_TSP_DIR
 from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
 
@@ -14,7 +15,7 @@ class LocalSearchTsp(Tsp):
 
     def __init__(self, tsp_input_data):
         super().__init__(tsp_input_data=tsp_input_data)
-        self.name = "local_search_heuristic_lib_python_tsp"
+        self.name = LOCAL_SEARCH_HEURISTIC_LIB_PYTHON_TSP_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()
@@ -29,11 +30,12 @@ class LocalSearchTsp(Tsp):
         collector = DataCollector()
         start = time.clock()
         best_state, best_fitness = solve_tsp_local_search(self.tsp_input_data.cost_matrix)
+        self.best_trace = move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
         stop = time.clock()
 
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)
+        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, self.best_trace)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:

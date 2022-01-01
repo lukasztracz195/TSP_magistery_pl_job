@@ -6,13 +6,14 @@ from python_tsp.exact import solve_tsp_brute_force
 from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants.AlgNamesResults.names import BRUTAL_FORCE_LIB_PYTHON_TSP_DIR
 from threads.profiler import CpuProfiler
 
 
 class BrutalForceTsp(Tsp):
     def __init__(self, tsp_input_data):
         super().__init__(tsp_input_data)
-        self.name = "brute_force_lib_python_tsp"
+        self.name = BRUTAL_FORCE_LIB_PYTHON_TSP_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

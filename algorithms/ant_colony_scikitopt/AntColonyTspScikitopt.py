@@ -1,55 +1,62 @@
 import time
 import tracemalloc
 
-from python_tsp.heuristics import solve_tsp_simulated_annealing
+from sko.ACA import ACA_TSP
 
-from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
+from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
-from constants.AlgNamesResults.names import SIMULATED_ANNEALING_HEURISTIC_LIB_PYTHON_TSP_DIR
-from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
+from constants.AlgNamesResults.names import ANT_COLONY_TSP_SCIKIT_OPT_DIR
 from threads.profiler import CpuProfiler
 
 
-class SimulatedAnnealingTsp(Tsp):
+class AntColonyTspScikitopt(Tsp):
 
     def __init__(self, tsp_input_data):
-        super().__init__(tsp_input_data=tsp_input_data)
-        self.name = SIMULATED_ANNEALING_HEURISTIC_LIB_PYTHON_TSP_DIR
+        super().__init__(tsp_input_data)
+        self.distance_matrix = self.tsp_input_data.cost_matrix
+        self.name = ANT_COLONY_TSP_SCIKIT_OPT_DIR
+        self.aca = None
+        self.size_pop = 50
+        self.max_iter = 200
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()
+        self.aca = ACA_TSP(func=self.tsp_input_data.cal_total_distance, n_dim=self.tsp_input_data.number_of_cities,
+                           size_pop=self.size_pop, max_iter=self.max_iter,
+                           distance_matrix=self.tsp_input_data.cost_matrix)
         cpu_profiler.start()
-        self.best_trace, self.full_cost = solve_tsp_simulated_annealing(self.tsp_input_data.cost_matrix)
+        self.best_trace, self.full_cost = self.aca.run()
         cpu_profiler.stop()
         cpu_profiler.join()
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:
         collector = DataCollector()
-
+        self.aca = ACA_TSP(func=self.tsp_input_data.cal_total_distance, n_dim=self.tsp_input_data.number_of_cities,
+                           size_pop=self.size_pop, max_iter=self.max_iter,
+                           distance_matrix=self.tsp_input_data.cost_matrix)
         start = time.clock()
-        self.best_trace, self.full_cost = solve_tsp_simulated_annealing(self.tsp_input_data.cost_matrix)
-        self.best_trace = move_solution_to_start_and_stop_from_the_same_node(self.best_trace, 0)
+        best_state, best_fitness = self.aca.run()
         stop = time.clock()
 
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
-        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, self.full_cost)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, self.best_trace)
+        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
+        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state.tolist())
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
         collector = DataCollector()
+
         self.clear_data_before_measurement()
-
         tracemalloc.start()
-
-        before_size, before_peak = tracemalloc.get_traced_memory()
         start = time.clock()
+        before_size, before_peak = tracemalloc.get_traced_memory()
 
-        self.best_trace, self.full_cost = solve_tsp_simulated_annealing(self.tsp_input_data.cost_matrix)
-        self.best_trace = move_solution_to_start_and_stop_from_the_same_node(self.best_trace, 0)
-
+        self.aca = ACA_TSP(func=self.tsp_input_data.cal_total_distance, n_dim=self.tsp_input_data.number_of_cities,
+                           size_pop=self.size_pop, max_iter=self.max_iter,
+                           distance_matrix=self.tsp_input_data.cost_matrix)
+        best_state, best_fitness = self.aca.run()
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
