@@ -1,5 +1,6 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 from algorithms.ant_colony_scikitopt.AntColonyTspScikitopt import AntColonyTspScikitopt
 from algorithms.astar.Astar import Astar
 from algorithms.brutalforce.BruteForce import BrutalForceTsp
@@ -11,9 +12,11 @@ from algorithms.simulated_annealing.SimulatedAnnealing import SimulatedAnnealing
 from builders.PathBuilder import PathBuilder
 from constants.AlgNames import *
 from constants.AlgNamesResults.names import *
-from constants.FileExtensions import JSON, FEATHER
+from constants.FileExtensions import JSON, FEATHER, CSV
+from constants.MeasurementTimeWithOutputData import BEST_WAY
 from constants.MeasurementsTypes import *
 from data_reader import JsonTspReader
+from functions import exist_file
 
 DISTANCE = 1000
 NAME_OF_MEASUREMENT_DIR = "measurements"
@@ -64,6 +67,19 @@ def get_name_dir_on_results(name_of_algorithm):
     return switcher.get(name_of_algorithm, "Invalid name of algorithm")
 
 
+def customize_way(input_way):
+    processed_way = input_way
+    if input_way[0] != 0:
+        tmp_list = [0]
+        for node in input_way:
+            tmp_list.append(node)
+        processed_way = tmp_list
+    if input_way[len(input_way) - 1] != 0:
+        tmp_list = processed_way
+        tmp_list.append(0)
+        processed_way = tmp_list
+    return processed_way
+
 def merge_dictionarys(list_dictionarys):
     result_dict = dict()
     for dictionary in list_dictionarys:
@@ -89,6 +105,10 @@ TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(TYPE_OF_MEASUREMENT)
 current = 0
 result_df = None
+faulty_files = []
+all_dictionarys = list()
+columns = None
+RESULT_DICT = dict()
 for alg in NAMES_OF_ALGORITHMS:
     for n_cites in NUMBER_OF_CITIES:
         for index_of_sample in INDEXES_OF_SAMPLES:
@@ -100,29 +120,47 @@ for alg in NAMES_OF_ALGORITHMS:
                 path_to_json_result = prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results,
                                                                   n_cites, type_of_measure)
                 list_of_paths_to_results_of_json.append(path_to_json_result)
-            json_dicts = list()
+            list_dicts = list()
             for path_to_json in list_of_paths_to_results_of_json:
-                json_data = JsonTspReader.read_json_from_path(path_to_json)
-                json_dicts.append(json_data)
-            results_measurements_dict = merge_dictionarys(json_dicts)
-            columns = list(results_measurements_dict.keys())
-            values = list()
-            for column in columns:
-                if type(results_measurements_dict[column]) is list and len(results_measurements_dict[column]) > 1:
-                    results_measurements_dict[column] = [results_measurements_dict[column]]
-                elif type(results_measurements_dict[column]) is list and len(results_measurements_dict[column]) == 1:
-                    results_measurements_dict[column] = results_measurements_dict[column][0]
-
-                # else:
-                #     values.append(results_measurements_dict[column])
-            # print(results_measurements_dict)
-            result_df = pd.DataFrame(results_measurements_dict)
-            # print(results_measurements_dict)
-            # feature_result_path = PathBuilder() \
-            #     .add_dir("results_tsp") \
-            #     .create_directory_if_not_exists() \
-            #     .add_dir(FEATHER) \
-            #     .create_directory_if_not_exists() \
-            #     .add_file(NAME_FEATURE_FILE, FEATHER) \
-            #     .build()
-            # result_df.to_feather(feature_result_path)
+                if exist_file(path_to_json):
+                    json_data = JsonTspReader.read_json_from_path(path_to_json)
+                    list_dicts.append(json_data)
+                else:
+                    print("Not found json: ", path_to_json)
+            if len(list_dicts) != 0:
+                results_measurements_dict = merge_dictionarys(list_dicts)
+                if columns is None:
+                    columns = list(results_measurements_dict.keys())
+                all_dictionarys.append(results_measurements_dict)
+for column in columns:
+    RESULT_DICT[column] = list()
+for dictionary in all_dictionarys:
+    for column in columns:
+        if column in dictionary:
+            if column == "used_algorithm" and dictionary[column] == ANT_COLONY_TSP_SCIKIT_OPT_DIR:
+                print()
+            if type(dictionary[column]) is list and len(dictionary[column]) == 1:
+                dictionary[column] = dictionary[column][0]
+        else:
+            dictionary[column] = None
+        RESULT_DICT[column].append(dictionary[column])
+result_df = pd.DataFrame(RESULT_DICT)
+result_df.replace("", np.nan, inplace=True)
+result_df = result_df.dropna()
+ways = result_df[BEST_WAY]
+new_ways = list()
+for way in ways:
+    new_ways.append(customize_way(way))
+new_ways = pd.Series(new_ways)
+result_df[BEST_WAY] = new_ways
+# print(results_measurements_dict)
+feature_result_path = PathBuilder() \
+    .add_dir("results_tsp") \
+    .create_directory_if_not_exists() \
+    .add_dir(FEATHER) \
+    .create_directory_if_not_exists() \
+    .add_file(NAME_FEATURE_FILE, CSV) \
+    .build()
+result_df.to_csv(feature_result_path)
+print("FAULTY JSONS")
+print(faulty_files)

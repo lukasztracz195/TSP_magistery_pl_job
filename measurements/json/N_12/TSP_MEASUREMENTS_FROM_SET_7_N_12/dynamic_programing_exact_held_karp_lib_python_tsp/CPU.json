@@ -1,14 +1,14 @@
 {
   "used_read_access_memory_in_bytes": [
-    10895372288
+    7649886208
   ],
   "utilization_of_cpu": [
-    32.1
+    8.1
   ],
   "used_read_access_memory_in_percentage": [
-    64.1
+    45.0
   ],
-  "time_duration_with_cpu_profiler_in_sec": 0.09337010000000001,
+  "time_duration_with_cpu_profiler_in_sec": 0.07724489999999973,
   "used_algorithm": "dynamic_programing_exact_held_karp_lib_python_tsp",
   "name_of_src_file": "TSP_CITIES_SET_7_N_12.json"
 }

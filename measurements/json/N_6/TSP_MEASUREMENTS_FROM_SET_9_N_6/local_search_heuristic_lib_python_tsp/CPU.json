@@ -1,14 +1,14 @@
 {
   "used_read_access_memory_in_bytes": [
-    12267167744
+    7869693952
   ],
   "utilization_of_cpu": [
-    8.9
+    4.7
   ],
   "used_read_access_memory_in_percentage": [
-    72.2
+    46.3
   ],
-  "time_duration_with_cpu_profiler_in_sec": 0.000785099999999872,
+  "time_duration_with_cpu_profiler_in_sec": 0.0007527999999998869,
   "used_algorithm": "local_search_heuristic_lib_python_tsp",
   "name_of_src_file": "TSP_CITIES_SET_9_N_6.json"
 }

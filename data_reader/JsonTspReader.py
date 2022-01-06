@@ -18,7 +18,6 @@ def get_json_from_file_from_dataset(name_of_directory, name_of_json_file_with_ex
 
 def read_json_from_path(path_to_json):
     data = None
-    print("path_to_json: ", path_to_json)
     with open(path_to_json) as f:
         data = json.load(f)
     return data

@@ -1,5 +1,5 @@
 {
-  "time_duration_without_malloc_in_sec": 0.36491130000000016,
+  "time_duration_without_malloc_in_sec": 0.34412319999999985,
   "full_cost": 4340.617043486078,
   "best_way": [
     0,

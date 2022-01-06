@@ -1,6 +1,6 @@
 {
-  "time_duration_without_malloc_in_sec": 7.402116799999999,
-  "full_cost": 7817.047737410699,
+  "time_duration_without_malloc_in_sec": 7.6771651,
+  "full_cost": 7726.125685944764,
   "best_way": [
     0,
     7,
@@ -14,8 +14,8 @@
     4,
     10,
     11,
-    12,
     8,
+    12,
     13
   ],
   "used_algorithm": "ant_colony_tsp_scikit_opt",

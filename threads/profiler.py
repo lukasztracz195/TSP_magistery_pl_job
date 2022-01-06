@@ -33,6 +33,8 @@ class CpuProfiler(threading.Thread):
                 if time.perf_counter() > self.after:
                     self.make_measure()
                     self.after = time.perf_counter() + self.interval_in_seconds
+            if self.stopped:
+                break
 
     def make_measure(self):
         if not self.stopped:
@@ -47,7 +49,6 @@ class CpuProfiler(threading.Thread):
         stop = time.clock()
         self.collector.add_data(MeasurementCpuProfiler.TIME_DURATION_WITH_CPU_PROFILER_IN_SEC,
                                 stop - self.start_time)
-        raise SystemExit()
 
     def get_collector(self):
         fields = [MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES,

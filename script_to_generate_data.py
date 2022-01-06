@@ -5,6 +5,7 @@ import pandas as pd
 
 from constants.InputCityDataJson import *
 from data_generator.CityGenerator import CityGenerator
+from functions import exist_file
 from models.City import City
 from progress.progress import progress_bar
 
@@ -70,7 +71,7 @@ total = pd.Series(N_SETS).multiply(NUMBER_OF_SETS).sum()
 current = 0
 for NUMBER_OF_CITIES_IN_SET in N_SETS:
     NAME_OF_DIRECTORY = "TSP_DIST_%d_N_%d" % (DISTANCE, NUMBER_OF_CITIES_IN_SET)
-    for number_of_set in range(0, NUMBER_OF_SETS):
+    for number_of_set in range(11, NUMBER_OF_SETS):
         JSON_DICT = dict()
         JSON_DICT[CITIES] = []
         JSON_DICT[DISTANCE_MATRIX] = dict()
@@ -91,8 +92,9 @@ for NUMBER_OF_CITIES_IN_SET in N_SETS:
         if not os.path.exists(PATH_TO_DATASET + NAME_OF_DIRECTORY):
             os.mkdir(PATH_TO_DATASET + NAME_OF_DIRECTORY)
         path_to_json_file = PATH_TO_DATASET + NAME_OF_DIRECTORY + "/" + json_name_of_file
-        jsons_file = open(path_to_json_file, "w")
-        jsons_file.write(json_as_str)
-        jsons_file.close()
+        if not exist_file(path_to_json_file):
+            jsons_file = open(path_to_json_file, "w")
+            jsons_file.write(json_as_str)
+            jsons_file.close()
         current += 1
         progress_bar(current, total, "generate_data")

@@ -1,11 +1,11 @@
 {
-  "time_duration_with_malloc_in_sec": 9.970000000025792e-05,
+  "time_duration_with_malloc_in_sec": 0.00013580000000024128,
   "used_memory_before_measurement_in_bytes": 0,
   "used_memory_peak_before_measurement_in_bytes": 0,
-  "used_memory_after_measurement_in_bytes": 8392,
-  "used_memory_peak_after_measurement_in_bytes": 8392,
-  "used_memory_diff_before_after_measurement_in_bytes": 8392,
-  "used_memory_peak_diff_before_after_measurement_in_bytes": 8392,
+  "used_memory_after_measurement_in_bytes": 9344,
+  "used_memory_peak_after_measurement_in_bytes": 9344,
+  "used_memory_diff_before_after_measurement_in_bytes": 9344,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 9344,
   "used_algorithm": "dynamic_programing_exact_held_karp_lib_python_tsp",
   "name_of_src_file": "TSP_CITIES_SET_5_N_3.json"
 }

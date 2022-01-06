@@ -1,5 +1,5 @@
 {
-  "time_duration_with_malloc_in_sec": 0.0001984999999997683,
+  "time_duration_with_malloc_in_sec": 0.00020680000000039556,
   "used_memory_before_measurement_in_bytes": 0,
   "used_memory_peak_before_measurement_in_bytes": 0,
   "used_memory_after_measurement_in_bytes": 3880,

@@ -1,6 +1,6 @@
 {
-  "time_duration_without_malloc_in_sec": 0.0031679000000002233,
-  "full_cost": 6075.611300425264,
+  "time_duration_without_malloc_in_sec": 0.002028300000000094,
+  "full_cost": 5950.287010879661,
   "best_way": [
     0,
     8,
@@ -9,9 +9,9 @@
     9,
     6,
     4,
+    5,
     1,
     3,
-    5,
     0
   ],
   "used_algorithm": "local_search_heuristic_lib_python_tsp",

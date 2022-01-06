@@ -1,29 +1,26 @@
 {
   "used_read_access_memory_in_bytes": [
-    11703111680,
-    11733630976,
-    11680477184,
-    11667746816,
-    11670843392,
-    11672293376
+    8533295104,
+    7726886912,
+    7727030272,
+    7726510080,
+    7726997504
   ],
   "utilization_of_cpu": [
-    51.8,
-    38.0,
-    26.8,
-    12.5,
-    12.5,
-    16.7
+    25.0,
+    14.1,
+    23.2,
+    17.2,
+    14.1
   ],
   "used_read_access_memory_in_percentage": [
-    68.8,
-    69.0,
-    68.7,
-    68.6,
-    68.7,
-    68.7
+    50.2,
+    45.5,
+    45.5,
+    45.5,
+    45.5
   ],
-  "time_duration_with_cpu_profiler_in_sec": 5.601999599999999,
+  "time_duration_with_cpu_profiler_in_sec": 4.4577361,
   "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
   "name_of_src_file": "TSP_CITIES_SET_0_N_15.json"
 }

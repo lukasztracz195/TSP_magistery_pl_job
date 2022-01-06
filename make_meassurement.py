@@ -1,6 +1,7 @@
 import argparse
 import json
 from argparse import ArgumentParser
+import time
 
 from algorithms.ant_colony_scikitopt.AntColonyTspScikitopt import AntColonyTspScikitopt
 from algorithms.astar.Astar import Astar
@@ -150,7 +151,9 @@ def main():
         tsp_input_data = TspInputData(json_data)
         algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
         algorithm.clear_data_before_measurement()
+        print(time.time())
         collector = make_measurement(algorithm)
+        print(time.time())
         collector.add_data(USED_ALGORITHM, algorithm.name)
         collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
         # print_dict_debug(collector.get_dictionary_with_data())

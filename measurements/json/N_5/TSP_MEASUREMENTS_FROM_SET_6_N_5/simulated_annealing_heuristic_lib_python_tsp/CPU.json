@@ -1,17 +1,14 @@
 {
   "used_read_access_memory_in_bytes": [
-    11292205056,
-    11275354112
+    7490531328
   ],
   "utilization_of_cpu": [
-    39.1,
-    36.1
+    11.8
   ],
   "used_read_access_memory_in_percentage": [
-    66.4,
-    66.3
+    44.1
   ],
-  "time_duration_with_cpu_profiler_in_sec": 1.2915453000000001,
+  "time_duration_with_cpu_profiler_in_sec": 0.7937865,
   "used_algorithm": "simulated_annealing_heuristic_lib_python_tsp",
   "name_of_src_file": "TSP_CITIES_SET_6_N_5.json"
 }

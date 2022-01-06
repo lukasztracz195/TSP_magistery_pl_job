@@ -1,14 +1,14 @@
 {
-  "time_duration_without_malloc_in_sec": 0.012859100000000012,
+  "time_duration_without_malloc_in_sec": 0.025865899999999886,
   "full_cost": 4633.444504906415,
   "best_way": [
     0,
-    6,
-    1,
-    5,
-    4,
-    2,
     3,
+    2,
+    4,
+    5,
+    1,
+    6,
     0
   ],
   "used_algorithm": "simulated_annealing_heuristic_lib_python_tsp",
