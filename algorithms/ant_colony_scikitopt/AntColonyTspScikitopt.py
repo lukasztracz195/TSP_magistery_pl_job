@@ -39,10 +39,11 @@ class AntColonyTspScikitopt(Tsp):
         start = time.clock()
         best_state, best_fitness = self.aca.run()
         stop = time.clock()
-
+        best_state = best_state.tolist()
+        best_state.append(0)
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state.tolist())
+        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:

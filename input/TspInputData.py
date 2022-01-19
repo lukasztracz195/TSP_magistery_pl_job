@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 
 from constants.InputCityDataJson import *
@@ -19,9 +21,26 @@ class TspInputData:
         self.coord_list = self.__prepare_coords_list()
 
     def cal_total_distance(self, routine):
-        num_points, = routine.shape
-        return sum(
-            [self.cost_matrix[routine[i % num_points], routine[(i + 1) % num_points]] for i in range(num_points)])
+        if not self.is_valid_way_for_any_type(routine):
+            # raise BaseException("Detected wrong path TSP")
+            return np.nan
+        way_as_list = list()
+        if type(routine) == list:
+            way_as_list = routine
+        if type(routine) == np.ndarray:
+            way_as_list = routine.tolist()
+        sum_value = 0.0
+        number_of_cities = len(way_as_list)
+        src_index = 0
+        dest_index = 1
+        while dest_index < number_of_cities - 1:
+            dest_index = src_index + 1
+            src_city = way_as_list[src_index]
+            dest_city = way_as_list[dest_index]
+            distance = self.get_distance(src_city, dest_city)
+            sum_value += distance
+            src_index += 1
+        return sum_value
 
     def __init_list_of_cities(self):
         if self.list_of_cities is not None and len(self.list_of_cities) > 0:
@@ -75,3 +94,30 @@ class TspInputData:
             tuple_item = (city.x, city.y)
             coord_list.append(tuple_item)
         return coord_list
+
+    def is_valid_way_as_str(self, actual_path_as_str):
+        actual_path_as_list = json.loads(actual_path_as_str)
+        first_node = actual_path_as_list[0]
+        end_node = actual_path_as_list[len(actual_path_as_list) - 1]
+        return first_node == end_node and len(actual_path_as_list) == self.number_of_cities + 1
+
+    def is_valid_way_as_array(self, actual_path_as_array):
+        actual_path_as_list = actual_path_as_array.tolist()
+        first_node = actual_path_as_list[0]
+        end_node = actual_path_as_list[len(actual_path_as_list) - 1]
+        return first_node == end_node and len(actual_path_as_list) == self.number_of_cities + 1
+
+    def is_valid_way_as_list(self, actual_path_as_list):
+        first_node = actual_path_as_list[0]
+        end_node = actual_path_as_list[len(actual_path_as_list) - 1]
+        return first_node == end_node and len(actual_path_as_list) == self.number_of_cities + 1
+
+    def is_valid_way_for_any_type(self, way_to_valid):
+        if type(way_to_valid) == list:
+            return self.is_valid_way_as_list(way_to_valid)
+        if type(way_to_valid) == str:
+            return self.is_valid_way_as_str(way_to_valid)
+        if type(way_to_valid) == np.ndarray:
+            return self.is_valid_way_as_array(way_to_valid)
+        else:
+            raise Exception("Not recognize type of way")

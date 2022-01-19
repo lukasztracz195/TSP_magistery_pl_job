@@ -4,6 +4,7 @@ import tracemalloc
 
 import six
 
+from algorithms import TSP
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
 from constants.AlgNamesResults.names import GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
@@ -12,9 +13,7 @@ from threads.profiler import CpuProfiler
 sys.modules['sklearn.externals.six'] = six
 from mlrose import TravellingSales, TSPOpt, genetic_alg
 
-from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node, \
-    shuffle_solution_set_start_and_end_node_as_the_same
-from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
+from algorithms.TSP import Tsp
 import numpy as np
 
 
@@ -53,8 +52,7 @@ class GeneticAlgorithmMlroseTsp(Tsp):
                                                max_attempts=self.max_attempts, max_iters=self.max_iterations)
         stop = time.clock()
         best_state = best_state.tolist()
-        if best_state[0] != 0:
-            best_state = [0] + best_state
+        best_state = TSP.shuffle_solution_set_start_and_end_node_as_the_same(best_state, 0)
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
         collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)

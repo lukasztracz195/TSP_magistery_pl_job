@@ -12,7 +12,8 @@
     3,
     2,
     5,
-    10
+    10,
+    0
   ],
   "used_algorithm": "brute_force_lib_python_tsp",
   "name_of_src_file": "TSP_CITIES_SET_7_N_11.json"

@@ -7,3 +7,4 @@ GENETIC_ALGORITHM_HEURISTIC_LIB_SCIKIT_OPT_DIR = "genetic_algorithm_heuristic_sc
 GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR = "greedy_search_heuristic_self_impl"
 LOCAL_SEARCH_HEURISTIC_LIB_PYTHON_TSP_DIR = "local_search_heuristic_lib_python_tsp"
 SIMULATED_ANNEALING_HEURISTIC_LIB_PYTHON_TSP_DIR = "simulated_annealing_heuristic_lib_python_tsp"
+PARTICLE_SWARM_OPT_TSP_DIR = "particle_swarm_tsp"

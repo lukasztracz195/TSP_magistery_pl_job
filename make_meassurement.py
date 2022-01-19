@@ -1,23 +1,28 @@
 import argparse
 import json
-from argparse import ArgumentParser
+import re
 import time
+from argparse import ArgumentParser
 
 from algorithms.ant_colony_scikitopt.AntColonyTspScikitopt import AntColonyTspScikitopt
 from algorithms.astar.Astar import Astar
 from algorithms.brutalforce.BruteForce import BrutalForceTsp
 from algorithms.dynamic_programing_held_karp.DynamicProgramingTsp import DynamicProgramingHeldKarpTsp
 from algorithms.genetic_algorithm_mlrose.GeneticAlgorithmMlroseTsp import GeneticAlgorithmMlroseTsp
+from algorithms.genetic_algorithm_scikitopt.GeneticAlgorithmScikitOpt import GeneticAlgorithmScikitOpt
 from algorithms.greedy_search.GreadySearchTsp import GreedySearchTsp
 from algorithms.local_search.LocalSearchTsp import LocalSearchTsp
+from algorithms.pso_tsp.ParticleSwarmTsp import ParticleSwarmTsp
 from algorithms.simulated_annealing.SimulatedAnnealing import SimulatedAnnealingTsp
 from builders.PathBuilder import PathBuilder
 from collector.DataCollector import DataCollector
+from constants import ArgNames
 from constants.AlgNames import *
 from constants.AlgNamesResults.names import *
 from constants.ArgNames import *
 from constants.FileExtensions import JSON
 from constants.MeasurementBasic import *
+from constants.MeasurementTimeWithOutputData import BEST_WAY
 from constants.MeasurementsTypes import *
 from data_reader import JsonTspReader
 from functions import exist_file
@@ -47,7 +52,7 @@ def str2bool(v):
 AVAILABLE_ALGORITHM_NAMES = [ASTAR,
                              BRUTAL_FORCE,
                              DYNAMIC_PROGRAMING_HELD_KARP,
-                             GENETIC_ALGORITHM,
+                             GENETIC_ALGORITHM_MLROSE,
                              GREEDY_SEARCH,
                              LOCAL_SEARCH,
                              SIMULATED_ANNEALING]
@@ -57,13 +62,15 @@ PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE = "TSP_MEASUREMENTS_FROM_SET_%d_
 NAME_OF_DATASET_DIR = "dataset"
 NAME_OF_MEASUREMENT_DIR = "measurements"
 parser = ArgumentParser()
-parser.add_argument(NAME_OF_ALGORITHM, help="name of algorithm to solve TSP problem\n%s" % AVAILABLE_ALGORITHM_NAMES,
+parser.add_argument(ArgNames.NAME_OF_ALGORITHM,
+                    help="name of algorithm to solve TSP problem\n%s" % AVAILABLE_ALGORITHM_NAMES,
                     type=str)
-parser.add_argument(NUMBER_OF_CITIES, help="number of cities to select correct dir with samples from dataset",
+parser.add_argument(ArgNames.NUMBER_OF_CITIES, help="number of cities to select correct dir with samples from dataset",
                     type=int)
-parser.add_argument(NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
-parser.add_argument(TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY", type=str)
-parser.add_argument(OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]",
+parser.add_argument(ArgNames.NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
+parser.add_argument(ArgNames.TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY",
+                    type=str)
+parser.add_argument(ArgNames.OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]",
                     type=str2bool, default=False)
 args = parser.parse_args()
 
@@ -80,15 +87,30 @@ def print_dict_debug(dict):
         print("key: %s | type: %s   dict[%s]: %s" % (key, type(dict[key]), key, dict[key]))
 
 
+def get_number_of_city_from_src_name(src_tsp_file):
+    numbers = [int(s) for s in re.findall(r'\d+', src_tsp_file)]
+    return numbers[1]
+
+
+def check_valid_way(actual_path_as_str, src_tsp_file):
+    actual_path_as_list = json.loads(actual_path_as_str)
+    first_node = actual_path_as_list[0]
+    number_of_cities = get_number_of_city_from_src_name(src_tsp_file)
+    end_node = actual_path_as_list[len(actual_path_as_list) - 1]
+    return first_node == end_node and len(actual_path_as_list) == number_of_cities + 1
+
+
 def prepare_algorithm(name_of_algorithm, data_to_inject):
     switcher = {
         ASTAR: Astar(data_to_inject),
         BRUTAL_FORCE: BrutalForceTsp(data_to_inject),
         DYNAMIC_PROGRAMING_HELD_KARP: DynamicProgramingHeldKarpTsp(data_to_inject),
-        GENETIC_ALGORITHM: GeneticAlgorithmMlroseTsp(data_to_inject),
+        GENETIC_ALGORITHM_MLROSE: GeneticAlgorithmMlroseTsp(data_to_inject),
+        GENETIC_ALGORITHM_SCIKIT_OPT: GeneticAlgorithmScikitOpt(data_to_inject),
         GREEDY_SEARCH: GreedySearchTsp(data_to_inject),
         LOCAL_SEARCH: LocalSearchTsp(data_to_inject),
         SIMULATED_ANNEALING: SimulatedAnnealingTsp(data_to_inject),
+        PARTICLE_SWARM_TSP: ParticleSwarmTsp(data_to_inject),
         ANT_COLONY_TSP: AntColonyTspScikitopt(data_to_inject)
     }
     return switcher.get(name_of_algorithm, "Invalid name of algorithm")
@@ -115,7 +137,9 @@ def get_name_dir_on_results(name_of_algorithm):
         ASTAR: ASTAR_HEURISTIC_SELF_IMPL_DIR,
         BRUTAL_FORCE: BRUTAL_FORCE_LIB_PYTHON_TSP_DIR,
         DYNAMIC_PROGRAMING_HELD_KARP: DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR,
-        GENETIC_ALGORITHM: GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR,
+        GENETIC_ALGORITHM_MLROSE: GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR,
+        GENETIC_ALGORITHM_SCIKIT_OPT: GENETIC_ALGORITHM_HEURISTIC_LIB_SCIKIT_OPT_DIR,
+        PARTICLE_SWARM_TSP: PARTICLE_SWARM_OPT_TSP_DIR,
         GREEDY_SEARCH: GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR,
         LOCAL_SEARCH: LOCAL_SEARCH_HEURISTIC_LIB_PYTHON_TSP_DIR,
         SIMULATED_ANNEALING: SIMULATED_ANNEALING_HEURISTIC_LIB_PYTHON_TSP_DIR,
@@ -138,7 +162,7 @@ def main():
     name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
     name_of_alg_dir_results = get_name_dir_on_results(NAME_OF_ALGORITHM)
     name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
-    NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
+        NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
     path_to_output_json = prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results)
     path_to_sample = PathBuilder() \
         .add_dir(NAME_OF_DATASET_DIR) \
@@ -156,7 +180,12 @@ def main():
         print(time.time())
         collector.add_data(USED_ALGORITHM, algorithm.name)
         collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
-        # print_dict_debug(collector.get_dictionary_with_data())
+        # print_dict_debug(collectorcol.get_dictionary_with_data())
+        if BEST_WAY in collector.get_dictionary_with_data():
+            if not tsp_input_data.is_valid_way_for_any_type(collector.get_dictionary_with_data()[BEST_WAY]):
+                best_way = collector.get_dictionary_with_data()[BEST_WAY]
+                raise Exception("Detected wrong generated way for implementation of ", NAME_OF_ALGORITHM, " : ",
+                                best_way)
         json_result_data = json.dumps(collector.get_dictionary_with_data())
         with open(path_to_output_json, 'w') as outfile:
             outfile.write(json_result_data)

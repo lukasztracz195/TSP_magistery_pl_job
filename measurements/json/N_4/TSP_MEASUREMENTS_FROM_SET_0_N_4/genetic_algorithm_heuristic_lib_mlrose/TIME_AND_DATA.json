@@ -1,12 +1,12 @@
 {
-  "time_duration_without_malloc_in_sec": 0.2827126,
+  "time_duration_without_malloc_in_sec": 0.2767515999999999,
   "full_cost": 1935.2081759273137,
   "best_way": [
     0,
-    3,
-    0,
     1,
-    2
+    2,
+    3,
+    0
   ],
   "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
   "name_of_src_file": "TSP_CITIES_SET_0_N_4.json"
