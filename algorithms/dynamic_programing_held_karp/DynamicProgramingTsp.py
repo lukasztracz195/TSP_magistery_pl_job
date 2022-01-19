@@ -29,7 +29,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         start = time.clock()
         best_state, best_fitness = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
         stop = time.clock()
-
+        best_state.append(self.tsp_input_data.selected_city_on_start)
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
         collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)

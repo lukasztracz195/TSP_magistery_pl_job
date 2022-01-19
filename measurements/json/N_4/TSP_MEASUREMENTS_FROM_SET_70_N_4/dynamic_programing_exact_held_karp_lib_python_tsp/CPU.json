@@ -1,0 +1,14 @@
+{
+  "used_read_access_memory_in_bytes": [
+    7640154112
+  ],
+  "utilization_of_cpu": [
+    19.3
+  ],
+  "used_read_access_memory_in_percentage": [
+    44.9
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 0.0003191000000000166,
+  "used_algorithm": "dynamic_programing_exact_held_karp_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_70_N_4.json"
+}

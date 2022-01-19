@@ -1,0 +1,24 @@
+{
+  "time_duration_without_malloc_in_sec": 0.00017439999999968592,
+  "full_cost": 6505.30912720307,
+  "best_way": [
+    0,
+    7,
+    12,
+    5,
+    3,
+    14,
+    6,
+    11,
+    1,
+    10,
+    8,
+    9,
+    2,
+    13,
+    4,
+    0
+  ],
+  "used_algorithm": "greedy_search_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_96_N_15.json"
+}

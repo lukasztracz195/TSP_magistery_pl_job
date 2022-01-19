@@ -1,0 +1,18 @@
+{
+  "time_duration_without_malloc_in_sec": 0.00013979999999991222,
+  "full_cost": 5990.603145077384,
+  "best_way": [
+    0,
+    2,
+    3,
+    4,
+    6,
+    7,
+    1,
+    8,
+    5,
+    0
+  ],
+  "used_algorithm": "greedy_search_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_60_N_9.json"
+}

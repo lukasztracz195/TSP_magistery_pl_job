@@ -1,0 +1,26 @@
+{
+  "used_read_access_memory_in_bytes": [
+    8045780992,
+    8046850048,
+    8045912064,
+    8045805568,
+    8051900416
+  ],
+  "utilization_of_cpu": [
+    12.5,
+    12.5,
+    12.5,
+    12.5,
+    12.5
+  ],
+  "used_read_access_memory_in_percentage": [
+    47.3,
+    47.3,
+    47.3,
+    47.3,
+    47.4
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 5.1677159,
+  "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
+  "name_of_src_file": "TSP_CITIES_SET_56_N_8.json"
+}

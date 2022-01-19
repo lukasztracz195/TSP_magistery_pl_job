@@ -1,0 +1,21 @@
+{
+  "time_duration_without_malloc_in_sec": 0.0024831000000000714,
+  "full_cost": 7085.067261384588,
+  "best_way": [
+    0,
+    3,
+    1,
+    4,
+    9,
+    5,
+    6,
+    10,
+    11,
+    7,
+    8,
+    2,
+    0
+  ],
+  "used_algorithm": "local_search_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_44_N_12.json"
+}

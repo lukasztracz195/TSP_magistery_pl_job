@@ -3,6 +3,7 @@ import tracemalloc
 
 from python_tsp.exact import solve_tsp_brute_force
 
+from algorithms import TSP
 from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
 from constants import MeasurementTimeWithOutputData, MeasurementMemory
@@ -28,7 +29,7 @@ class BrutalForceTsp(Tsp):
         start = time.clock()
         best_state, best_fitness = solve_tsp_brute_force(self.tsp_input_data.cost_matrix)
         stop = time.clock()
-
+        best_state = TSP.move_solution_to_start_and_stop_from_the_same_node(best_state, 0)
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
         collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)

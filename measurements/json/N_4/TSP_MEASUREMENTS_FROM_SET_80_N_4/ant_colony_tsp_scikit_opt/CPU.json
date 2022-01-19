@@ -1,0 +1,35 @@
+{
+  "used_read_access_memory_in_bytes": [
+    8143368192,
+    8135684096,
+    8135921664,
+    8135618560,
+    8136065024,
+    8132542464,
+    8136204288,
+    8136257536
+  ],
+  "utilization_of_cpu": [
+    12.3,
+    19.4,
+    12.5,
+    15.6,
+    10.8,
+    18.8,
+    12.5,
+    14.1
+  ],
+  "used_read_access_memory_in_percentage": [
+    47.9,
+    47.9,
+    47.9,
+    47.9,
+    47.9,
+    47.8,
+    47.9,
+    47.9
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 8.4835522,
+  "used_algorithm": "ant_colony_tsp_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_80_N_4.json"
+}

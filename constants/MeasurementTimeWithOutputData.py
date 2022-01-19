@@ -7,3 +7,4 @@ TIME_DURATION_WITHOUT_MALLOC_IN_SEC = "time_duration_without_malloc_in_sec"
 
 BEST_WAY = "best_way"
 FULL_COST = "full_cost"
+HAMILTONIAN_CYCLE_COST = "hamiltonian_cycle_cost"

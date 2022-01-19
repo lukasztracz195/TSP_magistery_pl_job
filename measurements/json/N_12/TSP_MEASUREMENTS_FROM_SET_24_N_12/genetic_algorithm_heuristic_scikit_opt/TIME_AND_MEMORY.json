@@ -1,0 +1,11 @@
+{
+  "time_duration_with_malloc_in_sec": 3.1217449999999998,
+  "used_memory_before_measurement_in_bytes": 464,
+  "used_memory_peak_before_measurement_in_bytes": 1823,
+  "used_memory_after_measurement_in_bytes": 764900,
+  "used_memory_peak_after_measurement_in_bytes": 764900,
+  "used_memory_diff_before_after_measurement_in_bytes": 764436,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 764436,
+  "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_24_N_12.json"
+}

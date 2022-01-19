@@ -1,0 +1,14 @@
+{
+  "time_duration_without_malloc_in_sec": 0.00039210000000000633,
+  "full_cost": 4429.400867030373,
+  "best_way": [
+    0,
+    4,
+    1,
+    3,
+    2,
+    0
+  ],
+  "used_algorithm": "local_search_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_16_N_5.json"
+}

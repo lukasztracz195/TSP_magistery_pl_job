@@ -1,0 +1,26 @@
+{
+  "used_read_access_memory_in_bytes": [
+    8698941440,
+    8699613184,
+    8700395520,
+    8692596736,
+    8688218112
+  ],
+  "utilization_of_cpu": [
+    12.1,
+    17.9,
+    17.2,
+    14.3,
+    11.8
+  ],
+  "used_read_access_memory_in_percentage": [
+    51.2,
+    51.2,
+    51.2,
+    51.1,
+    51.1
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 4.5041912,
+  "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_49_N_6.json"
+}

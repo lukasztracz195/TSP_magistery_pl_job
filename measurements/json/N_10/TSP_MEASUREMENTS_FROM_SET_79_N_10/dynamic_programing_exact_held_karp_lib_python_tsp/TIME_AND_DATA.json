@@ -1,0 +1,19 @@
+{
+  "time_duration_without_malloc_in_sec": 0.012379999999999836,
+  "full_cost": 4061.1088023269867,
+  "best_way": [
+    0,
+    1,
+    4,
+    5,
+    7,
+    6,
+    9,
+    3,
+    2,
+    8,
+    0
+  ],
+  "used_algorithm": "dynamic_programing_exact_held_karp_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_79_N_10.json"
+}

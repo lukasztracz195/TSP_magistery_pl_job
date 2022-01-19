@@ -1,0 +1,38 @@
+{
+  "used_read_access_memory_in_bytes": [
+    8529162240,
+    8526299136,
+    8527765504,
+    8527724544,
+    8528146432,
+    8529588224,
+    8530456576,
+    8530403328,
+    8530436096
+  ],
+  "utilization_of_cpu": [
+    16.9,
+    19.6,
+    12.1,
+    15.6,
+    12.5,
+    12.5,
+    32.1,
+    12.5,
+    3.6
+  ],
+  "used_read_access_memory_in_percentage": [
+    50.2,
+    50.2,
+    50.2,
+    50.2,
+    50.2,
+    50.2,
+    50.2,
+    50.2,
+    50.2
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 8.9256642,
+  "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_22_N_14.json"
+}

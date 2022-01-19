@@ -1,0 +1,17 @@
+{
+  "time_duration_without_malloc_in_sec": 0.1332081999999999,
+  "full_cost": 4702.147321631379,
+  "best_way": [
+    0,
+    5,
+    3,
+    6,
+    1,
+    4,
+    2,
+    7,
+    0
+  ],
+  "used_algorithm": "particle_swarm_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_65_N_8.json"
+}

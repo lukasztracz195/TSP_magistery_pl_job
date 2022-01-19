@@ -1,0 +1,22 @@
+{
+  "time_duration_without_malloc_in_sec": 0.27032919999999994,
+  "full_cost": 6694.428176322384,
+  "best_way": [
+    0,
+    9,
+    12,
+    6,
+    3,
+    7,
+    5,
+    8,
+    1,
+    4,
+    10,
+    2,
+    11,
+    0
+  ],
+  "used_algorithm": "simulated_annealing_heuristic_lib_python_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_75_N_13.json"
+}

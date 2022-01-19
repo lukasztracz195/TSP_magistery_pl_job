@@ -1,0 +1,14 @@
+{
+  "used_read_access_memory_in_bytes": [
+    8916426752
+  ],
+  "utilization_of_cpu": [
+    19.6
+  ],
+  "used_read_access_memory_in_percentage": [
+    52.5
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 0.00038629999999972853,
+  "used_algorithm": "greedy_search_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_64_N_13.json"
+}

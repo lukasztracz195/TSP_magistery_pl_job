@@ -1,0 +1,21 @@
+{
+  "time_duration_without_malloc_in_sec": 1.2454307,
+  "full_cost": 6051.208428204232,
+  "best_way": [
+    0,
+    9,
+    11,
+    6,
+    7,
+    10,
+    5,
+    2,
+    3,
+    4,
+    8,
+    1,
+    0
+  ],
+  "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
+  "name_of_src_file": "TSP_CITIES_SET_98_N_12.json"
+}

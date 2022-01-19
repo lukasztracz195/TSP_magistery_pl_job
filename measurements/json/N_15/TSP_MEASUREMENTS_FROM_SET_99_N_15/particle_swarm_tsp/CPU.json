@@ -1,0 +1,14 @@
+{
+  "used_read_access_memory_in_bytes": [
+    9165729792
+  ],
+  "utilization_of_cpu": [
+    25.0
+  ],
+  "used_read_access_memory_in_percentage": [
+    53.9
+  ],
+  "time_duration_with_cpu_profiler_in_sec": 0.6898541000000002,
+  "used_algorithm": "particle_swarm_tsp",
+  "name_of_src_file": "TSP_CITIES_SET_99_N_15.json"
+}
