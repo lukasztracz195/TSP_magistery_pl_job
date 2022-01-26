@@ -1,38 +1,14 @@
 {
   "used_read_access_memory_in_bytes": [
-    13852352512,
-    13833297920,
-    13833420800,
-    13827117056,
-    13814239232,
-    13802885120,
-    13780541440,
-    13781401600,
-    13776297984
+    7667363840
   ],
   "utilization_of_cpu": [
-    29.7,
-    27.9,
-    40.6,
-    30.8,
-    23.4,
-    43.8,
-    28.3,
-    44.3,
-    25.0
+    1.5
   ],
   "used_read_access_memory_in_percentage": [
-    81.5,
-    81.4,
-    81.4,
-    81.3,
-    81.3,
-    81.2,
-    81.1,
-    81.1,
-    81.0
+    45.1
   ],
-  "time_duration_with_cpu_profiler_in_sec": 9.5544741,
+  "time_duration_with_cpu_profiler_in_sec": 0.0006276000000000614,
   "used_algorithm": "astar_heuristic_self_impl",
   "name_of_src_file": "TSP_CITIES_SET_2_N_11.json"
 }

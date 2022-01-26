@@ -1,20 +1,17 @@
 {
   "used_read_access_memory_in_bytes": [
-    7682125824,
-    7676932096,
-    7691833344
+    6229094400,
+    6230093824
   ],
   "utilization_of_cpu": [
-    18.2,
     12.5,
-    20.3
+    12.7
   ],
   "used_read_access_memory_in_percentage": [
-    45.2,
-    45.2,
-    45.2
+    36.6,
+    36.6
   ],
-  "time_duration_with_cpu_profiler_in_sec": 2.2530906,
+  "time_duration_with_cpu_profiler_in_sec": 1.7963763999999998,
   "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
   "name_of_src_file": "TSP_CITIES_SET_23_N_7.json"
 }

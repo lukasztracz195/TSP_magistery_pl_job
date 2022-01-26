@@ -1,11 +1,1 @@
-{
-  "time_duration_with_malloc_in_sec": 10.9264803,
-  "used_memory_before_measurement_in_bytes": 464,
-  "used_memory_peak_before_measurement_in_bytes": 1823,
-  "used_memory_after_measurement_in_bytes": 63077,
-  "used_memory_peak_after_measurement_in_bytes": 63077,
-  "used_memory_diff_before_after_measurement_in_bytes": 62613,
-  "used_memory_peak_diff_before_after_measurement_in_bytes": 62613,
-  "used_algorithm": "ant_colony_tsp_scikit_opt",
-  "name_of_src_file": "TSP_CITIES_SET_86_N_11.json"
-}
+{"time_duration_with_malloc_in_sec": 19.251986600000002, "used_memory_before_measurement_in_bytes": 464, "used_memory_peak_before_measurement_in_bytes": 1823, "used_memory_after_measurement_in_bytes": 50376, "used_memory_peak_after_measurement_in_bytes": 50376, "used_memory_diff_before_after_measurement_in_bytes": 49912, "used_memory_peak_diff_before_after_measurement_in_bytes": 49912, "used_algorithm": "ant_colony_tsp_scikit_opt", "name_of_src_file": "TSP_CITIES_SET_86_N_11.json"}

@@ -16,8 +16,11 @@ class Astar(Tsp):
         super().__init__(tsp_data_input)
         self.start_city_number = 0
         self.last = None
-        self.prio_dict = dict()
         self.name = ASTAR_HEURISTIC_SELF_IMPL_DIR
+        self.list_all_cities_numbers = list(map(lambda x: x.number_of_city, self.tsp_input_data.list_of_cities))
+        self.set_for_all_indexes_of_cities = set(self.list_all_cities_numbers)
+        self.dict_city_A_to_city_B_with_minimum_distance = self.init_dict_city_a_to_city_b_with_minimum_distance()
+        self.number_of_all_cities = len(self.list_all_cities_numbers)
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()
@@ -47,7 +50,7 @@ class Astar(Tsp):
         before_size, before_peak = tracemalloc.get_traced_memory()
         start = time.clock()
 
-        best_state, best_fitness = self.find_way()
+        _, _ = self.find_way()
 
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()
@@ -67,34 +70,29 @@ class Astar(Tsp):
     def find_way(self):
         self.prio_dict = dict()
         self.last = Node(None, 0.0, self.start_city_number)
-        while len(self.last.way) < len(self.tsp_input_data.list_of_cities):
+        prio_dict = dict()
+        while len(self.last.way) < self.number_of_all_cities:
             set_of_unvisited_nodes = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
+            prio_dict = dict()
             for unvisited_index_city in set_of_unvisited_nodes:
                 distance = self.tsp_input_data.get_distance(self.last.index_city, unvisited_index_city)
                 heuristic_value = self.find_min_distance_in_unvisited_nodes() * (
-                        len(self.tsp_input_data.list_of_cities) - len(self.last.way))
+                        self.number_of_all_cities - len(self.last.way))
                 a_start_value = self.last.cost + distance + heuristic_value
                 suggest_node = Node(self.last, distance, unvisited_index_city)
-                self.prio_dict[a_start_value] = suggest_node
-            selected_value = min(self.prio_dict.keys())
-            selected_node = self.prio_dict[selected_value]
-            self.prio_dict.pop(selected_value)
+                prio_dict[a_start_value] = suggest_node
+            selected_value = min(prio_dict.keys())
+            selected_node = prio_dict[selected_value]
             self.last = selected_node
         final_node = Node(self.last, self.tsp_input_data.get_distance(self.last.index_city, self.start_city_number),
                           self.start_city_number)
         self.last = final_node
         return self.last.way, self.last.cost
 
-    def generate_set_for_all_indexes_of_cities(self):
-        temp_set = set()
-        for city in self.tsp_input_data.list_of_cities:
-            temp_set.add(city.number_of_city)
-        return temp_set
-
     def generate_set_for_all_unvisited_indexes_of_cities(self, parent):
-        temp_set = self.generate_set_for_all_indexes_of_cities()
-        for index_of_city in parent.way:
-            temp_set.remove(index_of_city)
+        temp_set = self.set_for_all_indexes_of_cities.copy()
+        to_delete = parent.way
+        temp_set.difference_update(to_delete)
         return temp_set
 
     def count_sum_lowest_distance(self, how_many):
@@ -108,10 +106,17 @@ class Astar(Tsp):
         return sum
 
     def find_min_distance_in_unvisited_nodes(self):
-        set_of_unvisited_index_cities = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
-        min = sys.maxsize
-        for index_of_city in set_of_unvisited_index_cities:
-            distance_to_probably_new_min = self.tsp_input_data.get_distance(self.last.index_city, index_of_city)
-            if min > distance_to_probably_new_min:
-                min = distance_to_probably_new_min
-        return min
+        tuple_city_and_distance_min = self.dict_city_A_to_city_B_with_minimum_distance[self.last.index_city]
+        return tuple_city_and_distance_min[1]
+
+    def init_dict_city_a_to_city_b_with_minimum_distance(self):
+        tmp = dict()
+        for city_A in self.list_all_cities_numbers:
+            min = sys.maxsize
+            for city_B in self.list_all_cities_numbers:
+                if city_A != city_B:
+                    distance_to_probably_new_min = self.tsp_input_data.get_distance(city_A, city_B)
+                    if min > distance_to_probably_new_min:
+                        min = distance_to_probably_new_min
+                        tmp[city_A] = (city_B, min)
+        return tmp

@@ -1,11 +1,1 @@
-{
-  "time_duration_with_malloc_in_sec": 2.5599179000000003,
-  "used_memory_before_measurement_in_bytes": 464,
-  "used_memory_peak_before_measurement_in_bytes": 1823,
-  "used_memory_after_measurement_in_bytes": 45437,
-  "used_memory_peak_after_measurement_in_bytes": 45437,
-  "used_memory_diff_before_after_measurement_in_bytes": 44973,
-  "used_memory_peak_diff_before_after_measurement_in_bytes": 44973,
-  "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
-  "name_of_src_file": "TSP_CITIES_SET_73_N_12.json"
-}
+{"time_duration_with_malloc_in_sec": 2.3182086999999996, "used_memory_before_measurement_in_bytes": 464, "used_memory_peak_before_measurement_in_bytes": 1823, "used_memory_after_measurement_in_bytes": 45373, "used_memory_peak_after_measurement_in_bytes": 45373, "used_memory_diff_before_after_measurement_in_bytes": 44909, "used_memory_peak_diff_before_after_measurement_in_bytes": 44909, "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose", "name_of_src_file": "TSP_CITIES_SET_73_N_12.json"}

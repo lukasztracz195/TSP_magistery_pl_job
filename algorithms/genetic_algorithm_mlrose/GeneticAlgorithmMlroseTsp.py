@@ -28,7 +28,7 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         self.size_of_population = 200
         self.probability_of_mutation = 0.1
         self.max_attempts = 10
-        self.max_iterations = np.inf
+        self.max_iterations = 100
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

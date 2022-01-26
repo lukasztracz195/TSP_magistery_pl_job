@@ -21,9 +21,6 @@ class TspInputData:
         self.coord_list = self.__prepare_coords_list()
 
     def cal_total_distance(self, routine):
-        if not self.is_valid_way_for_any_type(routine):
-            # raise BaseException("Detected wrong path TSP")
-            return np.nan
         way_as_list = list()
         if type(routine) == list:
             way_as_list = routine

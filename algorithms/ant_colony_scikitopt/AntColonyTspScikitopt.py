@@ -17,8 +17,8 @@ class AntColonyTspScikitopt(Tsp):
         self.distance_matrix = self.tsp_input_data.cost_matrix
         self.name = ANT_COLONY_TSP_SCIKIT_OPT_DIR
         self.aca = None
-        self.size_pop = 50
-        self.max_iter = 200
+        self.size_pop = 200
+        self.max_iter = 100
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()

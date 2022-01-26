@@ -1,0 +1,1 @@
+{"time_duration_without_malloc_in_sec": 336.2545436, "full_cost": 6403.908364736395, "best_way": [0, 7, 11, 1, 6, 9, 5, 4, 2, 8, 3, 10, 0], "used_algorithm": "brute_force_lib_python_tsp", "name_of_src_file": "TSP_CITIES_SET_53_N_12.json"}

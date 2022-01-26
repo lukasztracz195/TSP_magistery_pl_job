@@ -178,16 +178,16 @@ def prepare_dict_alg_per_n_cities_per_index_sample_per_measure_type_and_faulty_p
                                                                                               number_of_city_list,
                                                                                               index_of_sample_list,
                                                                                               type_measurement_list):
-    dict_alg_per_n_cities_per_index_sample_per_measure_type = dict()
+    inner_dict_alg_per_n_cities_per_index_sample_per_measure_type = dict()
     faulty_files = list()
     for alg in name_of_algorithm_list:
-        dict_alg_per_n_cities_per_index_sample_per_measure_type[alg] = dict()
+        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg] = dict()
         for n_cites in number_of_city_list:
-            dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites] = dict()
+            inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites] = dict()
             for index_of_sample in index_of_sample_list:
-                dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample] = dict()
+                inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample] = dict()
                 for type_of_measure in type_measurement_list:
-                    dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
+                    inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
                         type_of_measure] = dict()
                     name_of_alg_dir_results = get_name_dir_on_results(alg)
                     name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
@@ -202,15 +202,15 @@ def prepare_dict_alg_per_n_cities_per_index_sample_per_measure_type_and_faulty_p
                         path_to_src_tsp_json = prepare_path_to_src_tsp_json(name_of_dir_with_samples,
                                                                             name_of_file_name_sample)
                         json_src_data = JsonTspReader.read_json_from_path(path_to_src_tsp_json)
-                        dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
+                        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
                             type_of_measure][PATH_TO_JSON] = path_to_json_result
-                        dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
+                        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
                             type_of_measure][JSON_DATA] = json_data
-                        dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
+                        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
                             type_of_measure][TSP_INPUT_OBJECT] = TspInputData(json_src_data)
                     else:
                         faulty_files.append(path_to_json_result)
-    return dict_alg_per_n_cities_per_index_sample_per_measure_type, faulty_files
+    return inner_dict_alg_per_n_cities_per_index_sample_per_measure_type, faulty_files
 
 
 def init_dictionary_by_keys_from_list_and_empty_list_as_values(list_of_keys):
@@ -313,7 +313,7 @@ feature_result_path = PathBuilder() \
     .build()
 # result_df.to_csv(feature_result_path)
 # print("Created new csv file :\n %s" % feature_result_path)
-# print("NOT_EXISTS_JSONS")
-# print(faulty_json_paths)
-print("JSON_RESULTS_WITH_FAULTY WAYS")
-print(files_with_wrong_paths)
+print("NOT_EXISTS_JSONS")
+print(faulty_json_paths)
+# print("JSON_RESULTS_WITH_FAULTY WAYS")
+# print(files_with_wrong_paths)

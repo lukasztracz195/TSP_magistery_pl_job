@@ -1,0 +1,1 @@
+{"time_duration_without_malloc_in_sec": 0.0005023999999997919, "full_cost": 6231.92986580761, "best_way": [0, 8, 10, 7, 4, 3, 6, 1, 5, 2, 9, 0], "used_algorithm": "astar_heuristic_self_impl", "name_of_src_file": "TSP_CITIES_SET_97_N_11.json"}

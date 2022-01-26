@@ -1,17 +1,1 @@
-{
-  "time_duration_without_malloc_in_sec": 4.3198864,
-  "full_cost": 4901.407483920378,
-  "best_way": [
-    0,
-    4,
-    3,
-    5,
-    7,
-    8,
-    1,
-    2,
-    6
-  ],
-  "used_algorithm": "ant_colony_tsp_scikit_opt",
-  "name_of_src_file": "TSP_CITIES_SET_49_N_9.json"
-}
+{"time_duration_without_malloc_in_sec": 8.1957679, "full_cost": 4042.4022452867594, "best_way": [0, 4, 3, 5, 7, 8, 1, 2, 6, 0], "used_algorithm": "ant_colony_tsp_scikit_opt", "name_of_src_file": "TSP_CITIES_SET_49_N_9.json"}

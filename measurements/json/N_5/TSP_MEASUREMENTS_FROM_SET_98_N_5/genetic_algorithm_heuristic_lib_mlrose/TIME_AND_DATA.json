@@ -1,14 +1,1 @@
-{
-  "time_duration_without_malloc_in_sec": 0.3018658999999997,
-  "full_cost": 4230.921212333527,
-  "best_way": [
-    0,
-    2,
-    1,
-    0,
-    4,
-    3
-  ],
-  "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose",
-  "name_of_src_file": "TSP_CITIES_SET_98_N_5.json"
-}
+{"time_duration_without_malloc_in_sec": 0.29205720000000035, "full_cost": 4230.921212333527, "best_way": [0, 4, 3, 2, 1, 0], "used_algorithm": "genetic_algorithm_heuristic_lib_mlrose", "name_of_src_file": "TSP_CITIES_SET_98_N_5.json"}

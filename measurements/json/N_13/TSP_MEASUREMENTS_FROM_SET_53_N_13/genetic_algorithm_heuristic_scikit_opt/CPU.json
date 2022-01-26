@@ -1,35 +1,35 @@
 {
   "used_read_access_memory_in_bytes": [
-    8690417664,
-    8683401216,
-    8683368448,
-    8682541056,
-    8683884544,
-    8684154880,
-    8670826496,
-    8669937664
+    6231060480,
+    6229913600,
+    6229987328,
+    6230228992,
+    6230478848,
+    6230548480,
+    6230519808,
+    6230278144
   ],
   "utilization_of_cpu": [
-    11.9,
-    23.7,
-    14.3,
-    11.8,
     12.5,
     12.5,
     12.5,
-    18.8
+    12.5,
+    12.5,
+    12.5,
+    14.1,
+    11.3
   ],
   "used_read_access_memory_in_percentage": [
-    51.1,
-    51.1,
-    51.1,
-    51.1,
-    51.1,
-    51.1,
-    51.0,
-    51.0
+    36.7,
+    36.6,
+    36.6,
+    36.6,
+    36.7,
+    36.7,
+    36.7,
+    36.7
   ],
-  "time_duration_with_cpu_profiler_in_sec": 8.7348459,
+  "time_duration_with_cpu_profiler_in_sec": 8.0484673,
   "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
   "name_of_src_file": "TSP_CITIES_SET_53_N_13.json"
 }

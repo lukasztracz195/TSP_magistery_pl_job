@@ -1,18 +1,1 @@
-{
-  "time_duration_without_malloc_in_sec": 1.0011359999999998,
-  "full_cost": 6611.59466542135,
-  "best_way": [
-    0,
-    4,
-    1,
-    5,
-    3,
-    7,
-    2,
-    8,
-    6,
-    0
-  ],
-  "used_algorithm": "genetic_algorithm_heuristic_scikit_opt",
-  "name_of_src_file": "TSP_CITIES_SET_14_N_9.json"
-}
+{"time_duration_without_malloc_in_sec": 0.9668549, "full_cost": 6611.594665421349, "best_way": [0, 6, 8, 2, 7, 3, 5, 1, 4, 0], "used_algorithm": "genetic_algorithm_heuristic_scikit_opt", "name_of_src_file": "TSP_CITIES_SET_14_N_9.json"}
