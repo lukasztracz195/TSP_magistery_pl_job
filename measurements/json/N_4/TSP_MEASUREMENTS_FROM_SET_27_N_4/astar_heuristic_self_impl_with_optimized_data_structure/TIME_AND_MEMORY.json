@@ -1,0 +1,11 @@
+{
+  "time_duration_with_malloc_in_sec": 0.000455200000000211,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_after_measurement_in_bytes": 20184,
+  "used_memory_peak_after_measurement_in_bytes": 20184,
+  "used_memory_diff_before_after_measurement_in_bytes": 20184,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 20184,
+  "used_algorithm": "astar_heuristic_self_impl_with_optimized_data_structure",
+  "name_of_src_file": "TSP_CITIES_SET_27_N_4.json"
+}
