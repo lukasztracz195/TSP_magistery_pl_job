@@ -1,5 +1,6 @@
 ANT_COLONY_TSP_SCIKIT_OPT_DIR = "ant_colony_tsp_scikit_opt"
 ASTAR_HEURISTIC_SELF_IMPL_DIR = "astar_heuristic_self_impl"
+ASTAR_HEURISTIC_SELF_IMPL_OPTIMIZED_DATA_STRUCTURE_DIR = "astar_heuristic_self_impl_with_optimized_data_structure"
 BRUTAL_FORCE_LIB_PYTHON_TSP_DIR = "brute_force_lib_python_tsp"
 DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR = "dynamic_programing_exact_held_karp_lib_python_tsp"
 GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR = "genetic_algorithm_heuristic_lib_mlrose"

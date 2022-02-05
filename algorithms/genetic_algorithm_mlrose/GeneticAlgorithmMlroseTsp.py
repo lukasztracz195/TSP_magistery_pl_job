@@ -6,59 +6,80 @@ import six
 
 from algorithms import TSP
 from collector.DataCollector import DataCollector
-from constants import MeasurementTimeWithOutputData, MeasurementMemory
+from constants import MeasurementTimeWithOutputData, MeasurementMemory, MeasurementBasic
 from constants.AlgNamesResults.names import GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
+from constants.algconfig.AlgConfigNames import *
 from threads.profiler import CpuProfiler
 
 sys.modules['sklearn.externals.six'] = six
 from mlrose import TravellingSales, TSPOpt, genetic_alg
 
 from algorithms.TSP import Tsp
-import numpy as np
 
 
 class GeneticAlgorithmMlroseTsp(Tsp):
-    def __init__(self, tsp_input_data):
-        super().__init__(tsp_input_data=tsp_input_data)
+    def define_necessary_config_name_to_run(self):
+        self.necessary_config_names_to_run = [SUFFIX, SIZE_OF_POPULATION, PROBABILITY_OF_MUTATION, MAX_ATTEMPTS,
+                                              MAX_ITERATIONS]
+
+    def inject_configuration(self, dictionary_with_config=None):
+        self.config = dictionary_with_config
+        self.remove_unnecessary_config()
+        self.configured = True
+
+    def __init__(self):
+        super().__init__()
+        self.define_necessary_config_name_to_run()
+        self.fitness_dists = None
+        self.problem_fit = None
+        self.name = GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
+        self.random_state = 2
+
+    def start_counting_with_cpu_profiler(self) -> DataCollector:
+        self.can_be_run()
         self.fitness_dists = TravellingSales(distances=self.tsp_input_data.dist_list)
         self.problem_fit = TSPOpt(length=self.tsp_input_data.number_of_cities,
                                   coords=self.tsp_input_data.coord_list, maximize=False)
-        self.name = GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR
-        self.random_state = 2
-        self.size_of_population = 200
-        self.probability_of_mutation = 0.1
-        self.max_attempts = 10
-        self.max_iterations = 100
-
-    def start_counting_with_cpu_profiler(self) -> DataCollector:
         cpu_profiler = CpuProfiler()
         cpu_profiler.start()
         self.best_trace, self.full_cost = genetic_alg(self.problem_fit, random_state=self.random_state,
-                                                      pop_size=self.size_of_population,
-                                                      mutation_prob=self.probability_of_mutation,
-                                                      max_attempts=self.max_attempts,
-                                                      max_iters=self.max_iterations)
+                                                      pop_size=self.config[SIZE_OF_POPULATION],
+                                                      mutation_prob=self.config[PROBABILITY_OF_MUTATION],
+                                                      max_attempts=self.config[MAX_ATTEMPTS],
+                                                      max_iters=self.config[MAX_ITERATIONS])
 
         cpu_profiler.stop()
         cpu_profiler.join()
-        return cpu_profiler.get_collector()
+        collector = cpu_profiler.get_collector()
+        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
+        return collector
 
     def start_counting_with_time(self) -> DataCollector:
+        self.can_be_run()
+        self.fitness_dists = TravellingSales(distances=self.tsp_input_data.dist_list)
+        self.problem_fit = TSPOpt(length=self.tsp_input_data.number_of_cities,
+                                  coords=self.tsp_input_data.coord_list, maximize=False)
         collector = DataCollector()
         start = time.clock()
         best_state, best_fitness = genetic_alg(self.problem_fit, random_state=self.random_state,
-                                               pop_size=self.size_of_population,
-                                               mutation_prob=self.probability_of_mutation,
-                                               max_attempts=self.max_attempts, max_iters=self.max_iterations)
+                                               pop_size=self.config[SIZE_OF_POPULATION],
+                                               mutation_prob=self.config[PROBABILITY_OF_MUTATION],
+                                               max_attempts=self.config[MAX_ATTEMPTS],
+                                               max_iters=self.config[MAX_ITERATIONS])
         stop = time.clock()
         best_state = best_state.tolist()
         best_state = TSP.shuffle_solution_set_start_and_end_node_as_the_same(best_state, 0)
         collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
         collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
         collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)
+        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
+        self.can_be_run()
+        self.fitness_dists = TravellingSales(distances=self.tsp_input_data.dist_list)
+        self.problem_fit = TSPOpt(length=self.tsp_input_data.number_of_cities,
+                                  coords=self.tsp_input_data.coord_list, maximize=False)
         collector = DataCollector()
 
         self.clear_data_before_measurement()
@@ -66,10 +87,11 @@ class GeneticAlgorithmMlroseTsp(Tsp):
         start = time.clock()
         before_size, before_peak = tracemalloc.get_traced_memory()
 
-        best_state, best_fitness = genetic_alg(self.problem_fit, random_state=self.random_state,
-                                               pop_size=self.size_of_population,
-                                               mutation_prob=self.probability_of_mutation,
-                                               max_attempts=self.max_attempts, max_iters=self.max_iterations)
+        _, _ = genetic_alg(self.problem_fit, random_state=self.random_state,
+                           pop_size=self.config[SIZE_OF_POPULATION],
+                           mutation_prob=self.config[PROBABILITY_OF_MUTATION],
+                           max_attempts=self.config[MAX_ATTEMPTS],
+                           max_iters=self.config[MAX_ITERATIONS])
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -83,4 +105,5 @@ class GeneticAlgorithmMlroseTsp(Tsp):
                            after_size - before_size)
         collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_PEAK_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
+        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
         return collector

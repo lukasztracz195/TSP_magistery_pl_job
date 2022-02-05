@@ -1,1 +1,19 @@
-{"time_duration_without_malloc_in_sec": 0.00040679999999992944, "full_cost": 7315.434904916805, "best_way": [0, 4, 9, 2, 5, 3, 1, 6, 7, 8, 0], "used_algorithm": "astar_heuristic_self_impl", "name_of_src_file": "TSP_CITIES_SET_19_N_10.json"}
+{
+  "time_duration_without_malloc_in_sec": 1.5331173000000002,
+  "full_cost": 6342.495091924593,
+  "best_way": [
+    0,
+    6,
+    7,
+    1,
+    3,
+    5,
+    2,
+    9,
+    4,
+    8,
+    0
+  ],
+  "used_algorithm": "astar_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_19_N_10.json"
+}

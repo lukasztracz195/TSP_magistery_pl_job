@@ -12,11 +12,20 @@ from threads.profiler import CpuProfiler
 
 
 class DynamicProgramingHeldKarpTsp(Tsp):
-    def __init__(self, tsp_input_data):
-        super().__init__(tsp_input_data=tsp_input_data)
+    def define_necessary_config_name_to_run(self):
+        self.necessary_config_names_to_run = None
+
+    def inject_configuration(self, dictionary_with_config=None):
+        self.config = None
+        self.config = True
+
+    def __init__(self):
+        super().__init__()
         self.name = DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
+        self.define_necessary_config_name_to_run()
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
+        self.can_be_run()
         cpu_profiler = CpuProfiler()
         cpu_profiler.start()
         self.best_trace, self.full_cost = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
@@ -25,6 +34,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:
+        self.can_be_run()
         collector = DataCollector()
         start = time.clock()
         best_state, best_fitness = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
@@ -36,6 +46,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
+        self.can_be_run()
         collector = DataCollector()
         tracemalloc.clear_traces()
 
@@ -43,7 +54,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         before_size, before_peak = tracemalloc.get_traced_memory()
         start = time.clock()
 
-        best_state, best_fitness = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
+        _, _ = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
 
         stop = time.clock()
         after_size, after_peak = tracemalloc.get_traced_memory()

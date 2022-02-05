@@ -1,7 +1,6 @@
 import argparse
 import json
 import re
-import time
 from argparse import ArgumentParser
 
 from algorithms.ant_colony_scikitopt.AntColonyTspScikitopt import AntColonyTspScikitopt
@@ -24,6 +23,7 @@ from constants.FileExtensions import JSON
 from constants.MeasurementBasic import *
 from constants.MeasurementTimeWithOutputData import BEST_WAY
 from constants.MeasurementsTypes import *
+from constants.algconfig.AlgConfigNames import SUFFIX
 from data_reader import JsonTspReader
 from functions import exist_file
 from input.TspInputData import TspInputData
@@ -37,6 +37,44 @@ from input.TspInputData import TspInputData
 # GreedySearchTsp 3-60
 # LocalSearchTsp 3-60
 # SimulatedAnnealingTsp 3-60
+
+
+class ParseKwargs(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, dict())
+        for value in values:
+            key, value = value.split('=')
+            getattr(namespace, self.dest)[key] = value
+
+
+def can_str2int(text):
+    list = re.findall(r'\d+', text)
+    if len(text) == len(list):
+        return True
+    return False
+
+
+def can_str2float(text):
+    list = re.findall(r'\d+.\d+', text)
+    if len(text) == len(list):
+        return True
+    return False
+
+
+def list_of_list_to_dict(list_of_list):
+    dictionary = []
+    for list_key_value in list_of_list:
+        key = list_key_value[0]
+        value = list_key_value[1]
+        if value.find('.') == -1:
+            if can_str2int(value):
+                dictionary[key] = int(value)
+            else:
+                dictionary[key] = value
+        else:
+            dictionary[key] = float(value)
+    return dictionary
+
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -60,15 +98,20 @@ PATTERN_TO_DIRECTORY_FROM_DATASET = "TSP_DIST_%d_N_%d"
 PATTERN_TO_FILE_NAME_OF_SAMPLE = "TSP_CITIES_SET_%d_N_%d.json"
 PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE = "TSP_MEASUREMENTS_FROM_SET_%d_N_%d"
 NAME_OF_DATASET_DIR = "dataset"
-NAME_OF_MEASUREMENT_DIR = "measurements"
 parser = ArgumentParser()
+parser.add_argument(ArgNames.DIR_OF_MEASUREMENTS,
+                    help="name of dir to save results of measurements",
+                    type=str)
 parser.add_argument(ArgNames.NAME_OF_ALGORITHM,
                     help="name of algorithm to solve TSP problem\n%s" % AVAILABLE_ALGORITHM_NAMES,
                     type=str)
 parser.add_argument(ArgNames.NUMBER_OF_CITIES, help="number of cities to select correct dir with samples from dataset",
                     type=int)
+
 parser.add_argument(ArgNames.NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
 parser.add_argument(ArgNames.TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY",
+                    type=str)
+parser.add_argument(ArgNames.PARAMETERS_DICTIONARY, nargs='*', action=ParseKwargs, help="dictionary of parameters",
                     type=str)
 parser.add_argument(ArgNames.OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]",
                     type=str2bool, default=False)
@@ -80,6 +123,8 @@ NUMBER_OF_CITIES = args.number_of_cities
 NUMBER_OF_SAMPLE = args.number_of_sample
 MEASUREMENT = args.type_of_measurement
 OVERRIDE_RESULTS = args.override_exist_measure_results
+DICTIONARY_OF_PARAMETERS = args.parameters_dictionary
+DIR_ON_MEASUREMENTS = args.dir_of_measurements
 
 
 def print_dict_debug(dict):
@@ -100,25 +145,25 @@ def check_valid_way(actual_path_as_str, src_tsp_file):
     return first_node == end_node and len(actual_path_as_list) == number_of_cities + 1
 
 
-def prepare_algorithm(name_of_algorithm, data_to_inject):
+def prepare_algorithm(name_of_algorithm):
     switcher = {
-        ASTAR: Astar(data_to_inject),
-        BRUTAL_FORCE: BrutalForceTsp(data_to_inject),
-        DYNAMIC_PROGRAMING_HELD_KARP: DynamicProgramingHeldKarpTsp(data_to_inject),
-        GENETIC_ALGORITHM_MLROSE: GeneticAlgorithmMlroseTsp(data_to_inject),
-        GENETIC_ALGORITHM_SCIKIT_OPT: GeneticAlgorithmScikitOpt(data_to_inject),
-        GREEDY_SEARCH: GreedySearchTsp(data_to_inject),
-        LOCAL_SEARCH: LocalSearchTsp(data_to_inject),
-        SIMULATED_ANNEALING: SimulatedAnnealingTsp(data_to_inject),
-        PARTICLE_SWARM_TSP: ParticleSwarmTsp(data_to_inject),
-        ANT_COLONY_TSP: AntColonyTspScikitopt(data_to_inject)
+        ASTAR: Astar(),
+        BRUTAL_FORCE: BrutalForceTsp(),
+        DYNAMIC_PROGRAMING_HELD_KARP: DynamicProgramingHeldKarpTsp(),
+        GENETIC_ALGORITHM_MLROSE: GeneticAlgorithmMlroseTsp(),
+        GENETIC_ALGORITHM_SCIKIT_OPT: GeneticAlgorithmScikitOpt(),
+        GREEDY_SEARCH: GreedySearchTsp(),
+        LOCAL_SEARCH: LocalSearchTsp(),
+        SIMULATED_ANNEALING: SimulatedAnnealingTsp(),
+        PARTICLE_SWARM_TSP: ParticleSwarmTsp(),
+        ANT_COLONY_TSP: AntColonyTspScikitopt()
     }
     return switcher.get(name_of_algorithm, "Invalid name of algorithm")
 
 
 def prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results):
     return PathBuilder() \
-        .add_dir(NAME_OF_MEASUREMENT_DIR) \
+        .add_dir(DIR_ON_MEASUREMENTS) \
         .create_directory_if_not_exists() \
         .add_dir(JSON) \
         .create_directory_if_not_exists() \
@@ -163,6 +208,8 @@ def main():
     name_of_alg_dir_results = get_name_dir_on_results(NAME_OF_ALGORITHM)
     name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
         NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
+    if SUFFIX in PARAMETERS_DICTIONARY:
+        name_of_dir_for_measurements = "%s_%s" % (name_of_dir_for_measurements, PARAMETERS_DICTIONARY[SUFFIX])
     path_to_output_json = prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results)
     path_to_sample = PathBuilder() \
         .add_dir(NAME_OF_DATASET_DIR) \
@@ -173,14 +220,14 @@ def main():
     if (OVERRIDE_RESULTS and file_exist) or not file_exist:
         json_data = JsonTspReader.read_json_from_path(path_to_sample)
         tsp_input_data = TspInputData(json_data)
-        algorithm = prepare_algorithm(NAME_OF_ALGORITHM, tsp_input_data)
+        algorithm = prepare_algorithm(NAME_OF_ALGORITHM)
+        algorithm.inject_input_data(tsp_input_data)
+        algorithm.inject_configuration(DICTIONARY_OF_PARAMETERS)
         algorithm.clear_data_before_measurement()
-        print(time.time())
         collector = make_measurement(algorithm)
-        print(time.time())
         collector.add_data(USED_ALGORITHM, algorithm.name)
         collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
-        # print_dict_debug(collectorcol.get_dictionary_with_data())
+        print_dict_debug(collector.get_dictionary_with_data())
         if BEST_WAY in collector.get_dictionary_with_data():
             if not tsp_input_data.is_valid_way_for_any_type(collector.get_dictionary_with_data()[BEST_WAY]):
                 best_way = collector.get_dictionary_with_data()[BEST_WAY]

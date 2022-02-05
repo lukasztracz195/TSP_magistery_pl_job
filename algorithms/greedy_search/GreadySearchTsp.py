@@ -11,11 +11,20 @@ from threads.profiler import CpuProfiler
 
 class GreedySearchTsp(Tsp):
 
-    def __init__(self, tsp_input_data):
-        super().__init__(tsp_input_data=tsp_input_data)
+    def define_necessary_config_name_to_run(self):
+        self.necessary_config_names_to_run = None
+
+    def inject_configuration(self, dictionary_with_config=None):
+        self.config = None
+        self.configured = True
+
+    def __init__(self):
+        super().__init__()
+        self.define_necessary_config_name_to_run()
         self.name = GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
+        self.can_be_run()
         cpu_profiler = CpuProfiler()
         cpu_profiler.start()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
@@ -26,6 +35,7 @@ class GreedySearchTsp(Tsp):
         return cpu_profiler.get_collector()
 
     def start_counting_with_time(self) -> DataCollector:
+        self.can_be_run()
         collector = DataCollector()
         start = time.clock()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
@@ -38,6 +48,7 @@ class GreedySearchTsp(Tsp):
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
+        self.can_be_run()
         collector = DataCollector()
         self.clear_data_before_measurement()
 

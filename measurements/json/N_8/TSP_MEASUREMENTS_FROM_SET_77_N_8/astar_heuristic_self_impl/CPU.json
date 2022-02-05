@@ -1,14 +1,14 @@
 {
   "used_read_access_memory_in_bytes": [
-    7844790272
+    7081816064
   ],
   "utilization_of_cpu": [
-    1.8
+    3.4
   ],
   "used_read_access_memory_in_percentage": [
-    46.1
+    41.7
   ],
-  "time_duration_with_cpu_profiler_in_sec": 0.00038999999999989043,
+  "time_duration_with_cpu_profiler_in_sec": 0.026831099999999886,
   "used_algorithm": "astar_heuristic_self_impl",
   "name_of_src_file": "TSP_CITIES_SET_77_N_8.json"
 }

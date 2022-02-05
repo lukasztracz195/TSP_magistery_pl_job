@@ -3,6 +3,7 @@ import gc
 import tracemalloc
 
 import numpy as np
+from pydantic import ConfigError
 
 from collector.DataCollector import DataCollector
 from input.TspInputData import TspInputData
@@ -42,11 +43,23 @@ def clear_memory_before_measurement():
 
 class Tsp(abc.ABC):
 
-    def __init__(self, tsp_input_data):
-        self.tsp_input_data: TspInputData = tsp_input_data
+    def __init__(self):
+        self.tsp_input_data = None
+        self.config = None
         self.full_cost = 0
         self.best_trace = None
         self.collector = DataCollector()
+        self.configured = False
+        self.injected_input_data = False
+        self.necessary_config_names_to_run = None
+
+    def inject_input_data(self, tsp_input_data):
+        self.tsp_input_data = tsp_input_data
+        self.injected_input_data = True
+
+    @abc.abstractmethod
+    def define_necessary_config_name_to_run(self):
+        pass
 
     @abc.abstractmethod
     def start_counting_with_cpu_profiler(self) -> DataCollector:
@@ -60,10 +73,42 @@ class Tsp(abc.ABC):
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
         pass
 
+    @abc.abstractmethod
+    def inject_configuration(self, dictionary_with_config=None):
+        pass
+
     def clear_data_before_measurement(self):
         clear_memory_before_measurement()
         self.full_cost = 0
         self.best_trace = None
+
+    def remove_unnecessary_config(self):
+        if self.config is not None and self.necessary_config_names_to_run is not None:
+            tmp_dict = self.config.copy()
+            keys = self.config.keys()
+            necessary_keys_as_set = set(self.necessary_config_names_to_run)
+            for key in keys:
+                if key not in necessary_keys_as_set:
+                    del tmp_dict[key]
+            self.config = tmp_dict
+
+    def can_be_run(self):
+        if self.configured is True:
+            if self.injected_input_data is True:
+                if self.necessary_config_names_to_run is None and self.config is None:
+                    return True
+                elif self.necessary_config_names_to_run is None:
+                    raise ConfigError(
+                        "Algorithm cannot be started because not necessary_config_names_to_run is not initialized")
+                else:
+                    for config_name in self.necessary_config_names_to_run:
+                        if config_name not in self.config:
+                            raise ConfigError(
+                                "Algorithm cannot be started because not all required config was achievement")
+                    return True
+            else:
+                raise ConfigError("Algorithm cannot be started because not injected input data")
+        raise ConfigError("Algorithm cannot be started because was not configured")
 
     def clear_data_collector(self):
         self.collector.clear()

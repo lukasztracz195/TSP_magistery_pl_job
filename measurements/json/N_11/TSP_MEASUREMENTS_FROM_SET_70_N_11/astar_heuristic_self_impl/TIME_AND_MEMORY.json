@@ -1,1 +1,11 @@
-{"time_duration_with_malloc_in_sec": 0.0009368999999996852, "used_memory_before_measurement_in_bytes": 0, "used_memory_peak_before_measurement_in_bytes": 0, "used_memory_after_measurement_in_bytes": 12544, "used_memory_peak_after_measurement_in_bytes": 12544, "used_memory_diff_before_after_measurement_in_bytes": 12544, "used_memory_peak_diff_before_after_measurement_in_bytes": 12544, "used_algorithm": "astar_heuristic_self_impl", "name_of_src_file": "TSP_CITIES_SET_70_N_11.json"}
+{
+  "time_duration_with_malloc_in_sec": 9.781141700000001,
+  "used_memory_before_measurement_in_bytes": 0,
+  "used_memory_peak_before_measurement_in_bytes": 0,
+  "used_memory_after_measurement_in_bytes": 24416,
+  "used_memory_peak_after_measurement_in_bytes": 24416,
+  "used_memory_diff_before_after_measurement_in_bytes": 24416,
+  "used_memory_peak_diff_before_after_measurement_in_bytes": 24416,
+  "used_algorithm": "astar_heuristic_self_impl",
+  "name_of_src_file": "TSP_CITIES_SET_70_N_11.json"
+}
