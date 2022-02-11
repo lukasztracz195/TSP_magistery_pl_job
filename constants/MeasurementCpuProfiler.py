@@ -1,4 +1,8 @@
 UTILIZATION_OF_CPU = "utilization_of_cpu"
+AVG_UTILIZATION_OF_CPU = "avg_utilization_of_cpu"
+STD_UTILIZATION_OF_CPU = "std_utilization_of_cpu"
+MIN_UTILIZATION_OF_CPU = "min_utilization_of_cpu"
+MAX_UTILIZATION_OF_CPU = "max_utilization_of_cpu"
 USED_READ_ACCESS_MEMORY_IN_BYTES = "used_read_access_memory_in_bytes"
 USED_READ_ACCESS_MEMORY_IN_PERCENTAGE = "used_read_access_memory_in_percentage"
 TIME_DURATION_WITH_CPU_PROFILER_IN_SEC = "time_duration_with_cpu_profiler_in_sec"

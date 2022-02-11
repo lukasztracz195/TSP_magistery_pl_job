@@ -3,11 +3,9 @@ import tracemalloc
 
 from algorithms.TSP import Tsp, shuffle_solution_set_start_and_end_node_as_the_same
 from collector.DataCollector import DataCollector
-from constants import MeasurementTimeWithOutputData, MeasurementMemory
 from constants.AlgNamesResults.names import GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR
-from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
-
+from constants.CsvColumnNames import *
 
 class GreedySearchTsp(Tsp):
 
@@ -42,9 +40,9 @@ class GreedySearchTsp(Tsp):
         stop = time.clock()
         self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
         self.full_cost = opt_tour[1]
-        collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
-        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, self.full_cost)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, self.best_trace)
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(FULL_COST, self.full_cost)
+        collector.add_data(BEST_WAY, self.best_trace)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
@@ -62,14 +60,14 @@ class GreedySearchTsp(Tsp):
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-        collector.add_data(MeasurementMemory.TIME_DURATION_WITH_MALLOC_IS_SEC, stop - start)
-        collector.add_data(MeasurementMemory.USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
-        collector.add_data(MeasurementMemory.USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
+        collector.add_data(USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
+        collector.add_data(USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_PEAK_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(USED_MEMORY_PEAK_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
         return collector
 

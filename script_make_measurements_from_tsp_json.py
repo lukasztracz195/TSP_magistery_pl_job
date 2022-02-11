@@ -1,5 +1,5 @@
 import subprocess
-import json
+
 from builders.ArgsBuilder import ArgsBuilder
 from builders.PathBuilder import PathBuilder
 from constants import ArgNames
@@ -7,7 +7,6 @@ from constants.AlgNames import *
 from constants.MeasurementsTypes import *
 from constants.algconfig.AlgConfigNames import *
 from progress.progress import progress_bar
-import json
 
 
 def prepare_output_from_stream(stream_src):
@@ -22,12 +21,12 @@ def prepare_output_from_stream(stream_src):
 NUMBER_OF_CITIES = list(range(4, 16))
 # NUMBER_OF_CITIES = list(range(4, 6))
 # NUMBER_OF_CITIES = [4]
-INDEXES_OF_SAMPLES = list(range(0, 10))
+INDEXES_OF_SAMPLES = list(range(0, 100))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
-    ASTAR,
+    # ASTAR,
     # GREEDY_SEARCH,
-    # LOCAL_SEARCH,
+    LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
     # DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
@@ -36,15 +35,35 @@ NAMES_OF_ALGORITHMS = [
     # PARTICLE_SWARM_TSP,
     # ANT_COLONY_TSP
 ]
-NAME_OF_DIR_FOR_MEASUREMENTS = "astar_2_heuristic_measurements"
+NAME_OF_DIR_FOR_MEASUREMENTS = "local_search_compare_any_pertrubation_modes"
 CONFIGURATION_LIST_OF_DICT = [
     {
-        SUFFIX: "heuristic_A",
-        HEURISTIC_MODEL: "A"
+        SUFFIX: "ps1",
+        PERTURBATION_SCHEME: "ps1"
     },
     {
-        SUFFIX: "heuristic_B",
-        HEURISTIC_MODEL: "B"
+        SUFFIX: "ps2",
+        PERTURBATION_SCHEME: "ps2"
+    },
+    {
+        SUFFIX: "ps3",
+        PERTURBATION_SCHEME: "ps3"
+    },
+    {
+        SUFFIX: "ps4",
+        PERTURBATION_SCHEME: "ps4"
+    },
+    {
+        SUFFIX: "ps5",
+        PERTURBATION_SCHEME: "ps5"
+    },
+    {
+        SUFFIX: "ps6",
+        PERTURBATION_SCHEME: "ps6"
+    },
+    {
+        SUFFIX: "two_opt",
+        PERTURBATION_SCHEME: "two_opt"
     }
 ]
 
@@ -57,7 +76,8 @@ def dictionary_to_str(dictionary):
 
 
 TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
-total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(TYPE_OF_MEASUREMENT)
+total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
+    CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
 for alg in NAMES_OF_ALGORITHMS:
     for n_cites in NUMBER_OF_CITIES:
@@ -89,5 +109,5 @@ for alg in NAMES_OF_ALGORITHMS:
                     current += 1
                     measure = "{0:^15s}".format(type_of_measure)
                     title = "ALG: %s | N: %d | ns: %d | measure: %s | suffix: %s |" % (
-                    alg, n_cites, index_of_sample, measure, config_dict[SUFFIX])
+                        alg, n_cites, index_of_sample, measure, config_dict[SUFFIX])
                     progress_bar(current, total, title)

@@ -1,10 +1,10 @@
 import threading
 import time
-
+import pandas as pd
 import psutil
 
 from collector.DataCollector import DataCollector
-from constants import MeasurementCpuProfiler
+from constants.CsvColumnNames import *
 
 DEFAULT_VALUE = "TOO_SHORT_TIME_EXEC_TO_PROFILE_CPU_AND_RAM"
 
@@ -16,9 +16,7 @@ class CpuProfiler(threading.Thread):
         self.collector = DataCollector()
         self.stopped = False
         self.after = time.perf_counter()
-        self.collector.add_data(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES, list())
-        self.collector.add_data(MeasurementCpuProfiler.UTILIZATION_OF_CPU, list())
-        self.collector.add_data(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE, list())
+        self.collector.add_data(UTILIZATION_OF_CPU, list())
         self.start_time = None
 
     def run(self):
@@ -38,23 +36,22 @@ class CpuProfiler(threading.Thread):
 
     def make_measure(self):
         if not self.stopped:
-            self.collector.add_data_to_list(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES,
-                                            int(psutil.virtual_memory().total - psutil.virtual_memory().available))
-            self.collector.add_data_to_list(MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE,
-                                            psutil.virtual_memory()[2])
-            self.collector.add_data_to_list(MeasurementCpuProfiler.UTILIZATION_OF_CPU, psutil.cpu_percent(0.1))
+            self.collector.add_data_to_list(UTILIZATION_OF_CPU, psutil.cpu_percent(0.1))
 
     def stop(self):
         self.stopped = True
         stop = time.clock()
-        self.collector.add_data(MeasurementCpuProfiler.TIME_DURATION_WITH_CPU_PROFILER_IN_SEC,
+        self.collector.add_data(TIME_DURATION_IN_SEC,
                                 stop - self.start_time)
 
     def get_collector(self):
-        fields = [MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_BYTES,
-                  MeasurementCpuProfiler.USED_READ_ACCESS_MEMORY_IN_PERCENTAGE,
-                  MeasurementCpuProfiler.UTILIZATION_OF_CPU]
+        fields = [UTILIZATION_OF_CPU]
         for field in fields:
             if len(self.collector.dictionary_of_data[field]) == 0:
                 self.collector.dictionary_of_data[field] = DEFAULT_VALUE
+        series = pd.Series(self.collector.dictionary_of_data[UTILIZATION_OF_CPU])
+        self.collector.dictionary_of_data[MIN_UTILIZATION_OF_CPU] = series.min()
+        self.collector.dictionary_of_data[AVG_UTILIZATION_OF_CPU] = series.mean()
+        self.collector.dictionary_of_data[MAX_UTILIZATION_OF_CPU] = series.max()
+        self.collector.dictionary_of_data[STD_UTILIZATION_OF_CPU] = series.std()
         return self.collector

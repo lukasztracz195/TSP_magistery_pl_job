@@ -1,11 +1,10 @@
 import time
 import tracemalloc
-
 from sko.ACA import ACA_TSP
 
 from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
-from constants import MeasurementTimeWithOutputData, MeasurementMemory, MeasurementBasic
+from constants.CsvColumnNames import *
 from constants.AlgNamesResults.names import ANT_COLONY_TSP_SCIKIT_OPT_DIR
 from constants.algconfig.AlgConfigNames import *
 from threads.profiler import CpuProfiler
@@ -45,7 +44,7 @@ class AntColonyTspScikitopt(Tsp):
         cpu_profiler.stop()
         cpu_profiler.join()
         collector = cpu_profiler.get_collector()
-        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
+        collector.add_data(PARAMETERS, self.config)
         return collector
 
     def start_counting_with_time(self) -> DataCollector:
@@ -64,10 +63,10 @@ class AntColonyTspScikitopt(Tsp):
         stop = time.clock()
         best_state = best_state.tolist()
         best_state.append(0)
-        collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
-        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)
-        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(FULL_COST, best_fitness)
+        collector.add_data(BEST_WAY, best_state)
+        collector.add_data(PARAMETERS, self.config)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
@@ -91,14 +90,14 @@ class AntColonyTspScikitopt(Tsp):
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-        collector.add_data(MeasurementMemory.TIME_DURATION_WITH_MALLOC_IS_SEC, stop - start)
-        collector.add_data(MeasurementMemory.USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
-        collector.add_data(MeasurementMemory.USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
+        collector.add_data(USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
+        collector.add_data(USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_PEAK_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(USED_MEMORY_PEAK_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
-        collector.add_data(MeasurementBasic.PARAMETERS, self.config)
+        collector.add_data(PARAMETERS, self.config)
         return collector

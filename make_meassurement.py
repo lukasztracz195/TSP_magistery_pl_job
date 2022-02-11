@@ -19,14 +19,15 @@ from constants import ArgNames
 from constants.AlgNames import *
 from constants.AlgNamesResults.names import *
 from constants.ArgNames import *
-from constants.FileExtensions import JSON
+from constants.FileExtensions import CSV
 from constants.MeasurementBasic import *
 from constants.MeasurementTimeWithOutputData import BEST_WAY
 from constants.MeasurementsTypes import *
-from constants.algconfig.AlgConfigNames import SUFFIX
+from csv_package.csv_manager import CsvManager
+from csv_package.csv_record import CsvRecord
 from data_reader import JsonTspReader
-from functions import exist_file
 from input.TspInputData import TspInputData
+from constants.CsvColumnNames import *
 
 
 # ALGORITHMS
@@ -98,6 +99,7 @@ PATTERN_TO_DIRECTORY_FROM_DATASET = "TSP_DIST_%d_N_%d"
 PATTERN_TO_FILE_NAME_OF_SAMPLE = "TSP_CITIES_SET_%d_N_%d.json"
 PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE = "TSP_MEASUREMENTS_FROM_SET_%d_N_%d"
 NAME_OF_DATASET_DIR = "dataset"
+
 parser = ArgumentParser()
 parser.add_argument(ArgNames.DIR_OF_MEASUREMENTS,
                     help="name of dir to save results of measurements",
@@ -111,20 +113,21 @@ parser.add_argument(ArgNames.NUMBER_OF_CITIES, help="number of cities to select 
 parser.add_argument(ArgNames.NUMBER_OF_SAMPLE, help="number of sample witch contain input TSP data", type=int)
 parser.add_argument(ArgNames.TYPE_OF_MEASUREMENT, help="type of measurement: CPU, TIME_AND_DATA, TIME_AND_MEMORY",
                     type=str)
-parser.add_argument(ArgNames.PARAMETERS_DICTIONARY, nargs='*', action=ParseKwargs, help="dictionary of parameters",
+parser.add_argument(ArgNames.PARAMETERS_DICTIONARY, dest="dest", nargs='*', action=ParseKwargs,
+                    help="dictionary of parameters",
                     type=str)
 parser.add_argument(ArgNames.OVERRIDE_EXIST_MEASURE_RESULTS, help="OVERRIDE_EXIST_MEASURE_RESULTS [ True / False ]",
                     type=str2bool, default=False)
 args = parser.parse_args()
 
 DISTANCE = 1000
-NAME_OF_ALGORITHM = args.name_of_algorithm
-NUMBER_OF_CITIES = args.number_of_cities
-NUMBER_OF_SAMPLE = args.number_of_sample
-MEASUREMENT = args.type_of_measurement
+NAME_OF_ALGORITHM_VALUE_FROM_ARGS = args.name_of_algorithm
+NUMBER_OF_CITIES_VALUE_FROM_ARGS = args.number_of_cities
+NUMBER_OF_SAMPLE_VALUE_FROM_ARGS = args.number_of_sample
+TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS = args.type_of_measurement
 OVERRIDE_RESULTS = args.override_exist_measure_results
-DICTIONARY_OF_PARAMETERS = args.parameters_dictionary
-DIR_ON_MEASUREMENTS = args.dir_of_measurements
+DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS = args.dest
+DIR_ON_MEASUREMENTS_VALUE_FROM_ARGS = args.dir_of_measurements
 
 
 def print_dict_debug(dict):
@@ -161,22 +164,6 @@ def prepare_algorithm(name_of_algorithm):
     return switcher.get(name_of_algorithm, "Invalid name of algorithm")
 
 
-def prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results):
-    return PathBuilder() \
-        .add_dir(DIR_ON_MEASUREMENTS) \
-        .create_directory_if_not_exists() \
-        .add_dir(JSON) \
-        .create_directory_if_not_exists() \
-        .add_dir("N_%d" % NUMBER_OF_CITIES) \
-        .create_directory_if_not_exists() \
-        .add_dir(name_of_dir_for_measurements) \
-        .create_directory_if_not_exists() \
-        .add_dir(name_of_alg_dir_results) \
-        .create_directory_if_not_exists() \
-        .add_file(MEASUREMENT, JSON) \
-        .build()
-
-
 def get_name_dir_on_results(name_of_algorithm):
     switcher = {
         ASTAR: ASTAR_HEURISTIC_SELF_IMPL_DIR,
@@ -194,48 +181,49 @@ def get_name_dir_on_results(name_of_algorithm):
 
 
 def make_measurement(algorithm) -> DataCollector:
-    if MEASUREMENT == CPU:
+    if TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS == CPU:
         return algorithm.start_counting_with_cpu_profiler()
-    if MEASUREMENT == TIME_AND_DATA:
+    if TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS == TIME_AND_DATA:
         return algorithm.start_counting_with_time()
-    if MEASUREMENT == TIME_AND_MEMORY:
+    if TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS == TIME_AND_MEMORY:
         return algorithm.start_counting_with_time_and_trace_malloc()
 
 
 def main():
-    name_of_dir_with_samples = PATTERN_TO_DIRECTORY_FROM_DATASET % (DISTANCE, NUMBER_OF_CITIES)
-    name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
-    name_of_alg_dir_results = get_name_dir_on_results(NAME_OF_ALGORITHM)
-    name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
-        NUMBER_OF_SAMPLE, NUMBER_OF_CITIES)
-    if SUFFIX in PARAMETERS_DICTIONARY:
-        name_of_dir_for_measurements = "%s_%s" % (name_of_dir_for_measurements, PARAMETERS_DICTIONARY[SUFFIX])
-    path_to_output_json = prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_results)
+    name_of_dir_with_samples = PATTERN_TO_DIRECTORY_FROM_DATASET % (DISTANCE, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
+    name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (NUMBER_OF_SAMPLE_VALUE_FROM_ARGS, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
     path_to_sample = PathBuilder() \
         .add_dir(NAME_OF_DATASET_DIR) \
         .add_dir(name_of_dir_with_samples) \
         .add_file_with_extension(name_of_file_name_sample) \
         .build()
-    file_exist = exist_file(path_to_output_json)
-    if (OVERRIDE_RESULTS and file_exist) or not file_exist:
-        json_data = JsonTspReader.read_json_from_path(path_to_sample)
-        tsp_input_data = TspInputData(json_data)
-        algorithm = prepare_algorithm(NAME_OF_ALGORITHM)
-        algorithm.inject_input_data(tsp_input_data)
-        algorithm.inject_configuration(DICTIONARY_OF_PARAMETERS)
-        algorithm.clear_data_before_measurement()
-        collector = make_measurement(algorithm)
-        collector.add_data(USED_ALGORITHM, algorithm.name)
-        collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
-        print_dict_debug(collector.get_dictionary_with_data())
-        if BEST_WAY in collector.get_dictionary_with_data():
-            if not tsp_input_data.is_valid_way_for_any_type(collector.get_dictionary_with_data()[BEST_WAY]):
-                best_way = collector.get_dictionary_with_data()[BEST_WAY]
-                raise Exception("Detected wrong generated way for implementation of ", NAME_OF_ALGORITHM, " : ",
-                                best_way)
-        json_result_data = json.dumps(collector.get_dictionary_with_data())
-        with open(path_to_output_json, 'w') as outfile:
-            outfile.write(json_result_data)
+    path_to_output_csv = PathBuilder() \
+        .add_dir(DIR_ON_MEASUREMENTS_VALUE_FROM_ARGS) \
+        .create_directory_if_not_exists() \
+        .add_file(TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS, CSV) \
+        .build()
+    csv_manager = CsvManager(path_to_csv=path_to_output_csv)
+    json_data = JsonTspReader.read_json_from_path(path_to_sample)
+    tsp_input_data = TspInputData(json_data)
+    algorithm = prepare_algorithm(NAME_OF_ALGORITHM_VALUE_FROM_ARGS)
+    algorithm.inject_input_data(tsp_input_data)
+    algorithm.inject_configuration(DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS)
+    algorithm.clear_data_before_measurement()
+    collector = make_measurement(algorithm)
+    collector.add_data(NUMBER_OF_CITIES, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
+    collector.add_data(INDEX_OF_SAMPLE, NUMBER_OF_SAMPLE_VALUE_FROM_ARGS)
+    collector.add_data(USED_ALGORITHM, algorithm.name)
+    collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
+    collector.add_data(SUFFIX, DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS[SUFFIX])
+    # print_dict_debug(collector.get_dictionary_with_data())
+    if BEST_WAY in collector.get_dictionary_with_data():
+        if not tsp_input_data.is_valid_way_for_any_type(collector.get_dictionary_with_data()[BEST_WAY]):
+            best_way = collector.get_dictionary_with_data()[BEST_WAY]
+            raise Exception("Detected wrong generated way for implementation of ", NAME_OF_ALGORITHM_VALUE_FROM_ARGS, " : ",
+                            best_way)
+    csv_record = CsvRecord()
+    csv_record.set_values_from_dict(collector.get_dictionary_with_data())
+    csv_manager.append_row_to_file(csv_record)
 
 
 if __name__ == "__main__":

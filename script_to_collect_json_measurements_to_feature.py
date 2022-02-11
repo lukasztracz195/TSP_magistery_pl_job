@@ -16,13 +16,13 @@ from algorithms.simulated_annealing.SimulatedAnnealing import SimulatedAnnealing
 from builders.PathBuilder import PathBuilder
 from constants import MeasurementBasic
 from constants.AlgNames import *
-from constants.AlgNamesResults.names import *
 from constants.FileExtensions import JSON, CSV
 from constants.MeasurementBasic import *
 from constants.MeasurementCpuProfiler import *
 from constants.MeasurementMemory import *
 from constants.MeasurementTimeWithOutputData import *
 from constants.MeasurementsTypes import *
+from constants.algconfig.AlgConfigNames import SUFFIX, HEURISTIC_MODEL
 from data_reader import JsonTspReader
 from functions import exist_file
 from input.TspInputData import TspInputData
@@ -35,22 +35,24 @@ JSON_DATA = "JSON_DATA"
 PATH_TO_JSON = "PATH_TO_JSON"
 TSP_INPUT_OBJECT = "TSP_INPUT_OBJECT"
 PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE = "TSP_MEASUREMENTS_FROM_SET_%d_N_%d"
-PATTERN_TO_DIRECTORY_FROM_DATASET = "TSP_DIST_%d_N_%d"
+PATTERN_TO_DIRECTORY_FROM_DATASET = "TSP_DIST_1000_N_%d"
 PATTERN_TO_FILE_NAME_OF_SAMPLE = "TSP_CITIES_SET_%d_N_%d.json"
 
 
-def prepare_algorithm(name_of_algorithm, data_to_inject):
+def get_name_dir_on_results(name_of_algorithm, suffix=""):
     switcher = {
-        ASTAR: Astar(data_to_inject),
-        BRUTAL_FORCE: BrutalForceTsp(data_to_inject),
-        DYNAMIC_PROGRAMING_HELD_KARP: DynamicProgramingHeldKarpTsp(data_to_inject),
-        GENETIC_ALGORITHM_MLROSE: GeneticAlgorithmMlroseTsp(data_to_inject),
-        GREEDY_SEARCH: GreedySearchTsp(data_to_inject),
-        LOCAL_SEARCH: LocalSearchTsp(data_to_inject),
-        SIMULATED_ANNEALING: SimulatedAnnealingTsp(data_to_inject),
-        ANT_COLONY_TSP: AntColonyTspScikitopt(data_to_inject)
+        ASTAR: Astar(),
+        BRUTAL_FORCE: BrutalForceTsp(),
+        DYNAMIC_PROGRAMING_HELD_KARP: DynamicProgramingHeldKarpTsp(),
+        GENETIC_ALGORITHM_MLROSE: GeneticAlgorithmMlroseTsp(),
+        GREEDY_SEARCH: GreedySearchTsp(),
+        LOCAL_SEARCH: LocalSearchTsp(),
+        SIMULATED_ANNEALING: SimulatedAnnealingTsp(),
+        ANT_COLONY_TSP: AntColonyTspScikitopt()
     }
-    return switcher.get(name_of_algorithm, "Invalid name of algorithm")
+    if suffix != "":
+        return "%s_%s" % (switcher.get(name_of_algorithm, "Invalid name of algorithm").name, suffix)
+    return switcher.get(name_of_algorithm, "Invalid name of algorithm").name
 
 
 def prepare_path_to_src_tsp_json(name_of_dir_with_samples, name_of_file_name_sample):
@@ -75,22 +77,6 @@ def prepare_path_to_json_result(name_of_dir_for_measurements, name_of_alg_dir_re
         .create_directory_if_not_exists() \
         .add_file(measurement, JSON) \
         .build()
-
-
-def get_name_dir_on_results(name_of_algorithm):
-    switcher = {
-        ASTAR: ASTAR_HEURISTIC_SELF_IMPL_DIR,
-        BRUTAL_FORCE: BRUTAL_FORCE_LIB_PYTHON_TSP_DIR,
-        DYNAMIC_PROGRAMING_HELD_KARP: DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR,
-        GENETIC_ALGORITHM_MLROSE: GENETIC_ALGORITHM_HEURISTIC_LIB_MLROSE_DIR,
-        GENETIC_ALGORITHM_SCIKIT_OPT: GENETIC_ALGORITHM_HEURISTIC_LIB_SCIKIT_OPT_DIR,
-        PARTICLE_SWARM_TSP: PARTICLE_SWARM_OPT_TSP_DIR,
-        GREEDY_SEARCH: GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR,
-        LOCAL_SEARCH: LOCAL_SEARCH_HEURISTIC_LIB_PYTHON_TSP_DIR,
-        SIMULATED_ANNEALING: SIMULATED_ANNEALING_HEURISTIC_LIB_PYTHON_TSP_DIR,
-        ANT_COLONY_TSP: ANT_COLONY_TSP_SCIKIT_OPT_DIR
-    }
-    return switcher.get(name_of_algorithm, "Invalid name of algorithm")
 
 
 def is_valid_way_as_str(actual_path_as_str, number_of_cities):
@@ -177,6 +163,7 @@ def merge_dictionarys(list_dictionarys):
 def prepare_dict_alg_per_n_cities_per_index_sample_per_measure_type_and_faulty_path_json_list(name_of_algorithm_list,
                                                                                               number_of_city_list,
                                                                                               index_of_sample_list,
+                                                                                              configuration_list_of_dict,
                                                                                               type_measurement_list):
     inner_dict_alg_per_n_cities_per_index_sample_per_measure_type = dict()
     faulty_files = list()
@@ -186,30 +173,36 @@ def prepare_dict_alg_per_n_cities_per_index_sample_per_measure_type_and_faulty_p
             inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites] = dict()
             for index_of_sample in index_of_sample_list:
                 inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample] = dict()
-                for type_of_measure in type_measurement_list:
-                    inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
-                        type_of_measure] = dict()
-                    name_of_alg_dir_results = get_name_dir_on_results(alg)
-                    name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
-                        index_of_sample, n_cites)
-                    path_to_json_result = prepare_path_to_json_result(name_of_dir_for_measurements,
-                                                                      name_of_alg_dir_results,
-                                                                      n_cites, type_of_measure)
-                    if exist_file(path_to_json_result):
-                        json_data = JsonTspReader.read_json_from_path(path_to_json_result)
-                        name_of_dir_with_samples = PATTERN_TO_DIRECTORY_FROM_DATASET % (DISTANCE, n_cites)
-                        name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (index_of_sample, n_cites)
-                        path_to_src_tsp_json = prepare_path_to_src_tsp_json(name_of_dir_with_samples,
-                                                                            name_of_file_name_sample)
-                        json_src_data = JsonTspReader.read_json_from_path(path_to_src_tsp_json)
+                for conf in configuration_list_of_dict:
+                    for type_of_measure in type_measurement_list:
                         inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
-                            type_of_measure][PATH_TO_JSON] = path_to_json_result
-                        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
-                            type_of_measure][JSON_DATA] = json_data
-                        inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][index_of_sample][
-                            type_of_measure][TSP_INPUT_OBJECT] = TspInputData(json_src_data)
-                    else:
-                        faulty_files.append(path_to_json_result)
+                            type_of_measure] = dict()
+                        suffix = conf[SUFFIX]
+                        name_of_alg_dir_results = get_name_dir_on_results(alg, suffix)
+                        name_of_dir_for_measurements = PATTERN_TO_OUTPUT_DIRECTORY_FROM_NAME_OF_SAMPLE % (
+                            index_of_sample, n_cites)
+
+                        path_to_json_result = prepare_path_to_json_result(name_of_dir_for_measurements,
+                                                                          name_of_alg_dir_results,
+                                                                          n_cites, type_of_measure)
+                        if exist_file(path_to_json_result):
+                            json_data = JsonTspReader.read_json_from_path(path_to_json_result)
+                            name_of_dir_with_samples = PATTERN_TO_DIRECTORY_FROM_DATASET % n_cites
+                            name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (index_of_sample, n_cites)
+                            path_to_src_tsp_json = prepare_path_to_src_tsp_json(name_of_dir_with_samples,
+                                                                                name_of_file_name_sample)
+                            json_src_data = JsonTspReader.read_json_from_path(path_to_src_tsp_json)
+                            inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][
+                                index_of_sample][
+                                type_of_measure][PATH_TO_JSON] = path_to_json_result
+                            inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][
+                                index_of_sample][
+                                type_of_measure][JSON_DATA] = json_data
+                            inner_dict_alg_per_n_cities_per_index_sample_per_measure_type[alg][n_cites][
+                                index_of_sample][
+                                type_of_measure][TSP_INPUT_OBJECT] = TspInputData(json_src_data)
+                        else:
+                            faulty_files.append(path_to_json_result)
     return inner_dict_alg_per_n_cities_per_index_sample_per_measure_type, faulty_files
 
 
@@ -243,8 +236,19 @@ NAMES_OF_ALGORITHMS = [ASTAR,
                        PARTICLE_SWARM_TSP,
                        ANT_COLONY_TSP
                        ]
+CONFIGURATION_LIST_OF_DICT = [
+    {
+        SUFFIX: "heuristic_A",
+        HEURISTIC_MODEL: "A"
+    },
+    {
+        SUFFIX: "heuristic_B",
+        HEURISTIC_MODEL: "B"
+    }
+]
 TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
-total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(TYPE_OF_MEASUREMENT)
+total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
+    CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
 column_names = [
     USED_ALGORITHM,  # ALL
@@ -254,8 +258,12 @@ column_names = [
     BEST_WAY,  # TIME_AND_DATA
     FULL_COST,
     HAMILTONIAN_CYCLE_COST,  # FROM BEST_WAY
-    TIME_DURATION_WITHOUT_MALLOC_IN_SEC,  # TIME_AND_DATA
-    UTILIZATION_OF_CPU,  # CPU
+    TIME_DURATION_WITHOUT_MALLOC_IN_SEC,
+    MIN_UTILIZATION_OF_CPU,  # TIME_AND_DATA
+    AVG_UTILIZATION_OF_CPU,
+    MAX_UTILIZATION_OF_CPU,
+    STD_UTILIZATION_OF_CPU,
+    PARAMETERS,  # CPU
     USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES,  # TIME_AND_MEMORY
     USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES  # TIME_AND_MEMORY
 ]
@@ -264,6 +272,7 @@ dict_alg_per_n_cities_per_index_sample_per_measure_type, faulty_json_paths = \
     prepare_dict_alg_per_n_cities_per_index_sample_per_measure_type_and_faulty_path_json_list(NAMES_OF_ALGORITHMS,
                                                                                               NUMBER_OF_CITIES,
                                                                                               INDEXES_OF_SAMPLES,
+                                                                                              CONFIGURATION_LIST_OF_DICT,
                                                                                               TYPE_OF_MEASUREMENT)
 dict_json = dict_alg_per_n_cities_per_index_sample_per_measure_type
 files_with_wrong_paths = list()
@@ -280,11 +289,16 @@ for alg_name in dict_json.keys():
                     if type_of_measure == CPU:
                         src_name_of_file = json_data[NAME_OF_SRC_FILE]
                         used_algorithm = json_data[USED_ALGORITHM]
-                        RESULT_DICT[USED_ALGORITHM].append(used_algorithm)
+                        RESULT_DICT[USED_ALGORITHM].append(alg_name)
                         RESULT_DICT[NAME_OF_SRC_FILE].append(src_name_of_file)
                         RESULT_DICT[MeasurementBasic.NUMBER_OF_CITIES].append(number_of_cities)
                         RESULT_DICT[MeasurementBasic.NUMBER_OF_SAMPLE].append(index_of_sample)
                         RESULT_DICT[UTILIZATION_OF_CPU].append(json_data[UTILIZATION_OF_CPU])
+                        cpu_utilization_series = pd.Series(json_data[UTILIZATION_OF_CPU])
+                        RESULT_DICT[MIN_UTILIZATION_OF_CPU].append(cpu_utilization_series.min())
+                        RESULT_DICT[AVG_UTILIZATION_OF_CPU].append(cpu_utilization_series.mean())
+                        RESULT_DICT[MAX_UTILIZATION_OF_CPU].append(cpu_utilization_series.max())
+                        RESULT_DICT[STD_UTILIZATION_OF_CPU].append(cpu_utilization_series.std())
                     if type_of_measure == TIME_AND_DATA:
                         best_way = json_data[BEST_WAY]
                         src_name_of_file = json_data[NAME_OF_SRC_FILE]
@@ -312,7 +326,7 @@ feature_result_path = PathBuilder() \
     .add_file(NAME_FILE, CSV) \
     .build()
 # result_df.to_csv(feature_result_path)
-# print("Created new csv file :\n %s" % feature_result_path)
+# print("Created new csv_package file :\n %s" % feature_result_path)
 print("NOT_EXISTS_JSONS")
 print(faulty_json_paths)
 # print("JSON_RESULTS_WITH_FAULTY WAYS")

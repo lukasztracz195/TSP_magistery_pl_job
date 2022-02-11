@@ -3,13 +3,11 @@ import tracemalloc
 
 from python_tsp.exact import solve_tsp_dynamic_programming
 
-from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
+from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
-from constants import MeasurementTimeWithOutputData, MeasurementMemory
 from constants.AlgNamesResults.names import DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
-from models.tsp_json_measurement import MeasurementForTime, MeasurementForTimeWithMalloc
 from threads.profiler import CpuProfiler
-
+from constants.CsvColumnNames import *
 
 class DynamicProgramingHeldKarpTsp(Tsp):
     def define_necessary_config_name_to_run(self):
@@ -40,9 +38,9 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         best_state, best_fitness = solve_tsp_dynamic_programming(self.tsp_input_data.cost_matrix)
         stop = time.clock()
         best_state.append(self.tsp_input_data.selected_city_on_start)
-        collector.add_data(MeasurementTimeWithOutputData.TIME_DURATION_WITHOUT_MALLOC_IN_SEC, stop - start)
-        collector.add_data(MeasurementTimeWithOutputData.FULL_COST, best_fitness)
-        collector.add_data(MeasurementTimeWithOutputData.BEST_WAY, best_state)
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(FULL_COST, best_fitness)
+        collector.add_data(BEST_WAY, best_state)
         return collector
 
     def start_counting_with_time_and_trace_malloc(self) -> DataCollector:
@@ -60,13 +58,13 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         after_size, after_peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-        collector.add_data(MeasurementMemory.TIME_DURATION_WITH_MALLOC_IS_SEC, stop - start)
-        collector.add_data(MeasurementMemory.USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
-        collector.add_data(MeasurementMemory.USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(USED_MEMORY_BEFORE_MEASUREMENT_IN_BYTES, before_size)
+        collector.add_data(USED_MEMORY_PEAK_BEFORE_MEASUREMENT_IN_BYTES, before_peak)
+        collector.add_data(USED_MEMORY_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES, after_size)
+        collector.add_data(USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
-        collector.add_data(MeasurementMemory.USED_MEMORY_DIFF_PEAK_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+        collector.add_data(USED_MEMORY_PEAK_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                            after_size - before_size)
         return collector

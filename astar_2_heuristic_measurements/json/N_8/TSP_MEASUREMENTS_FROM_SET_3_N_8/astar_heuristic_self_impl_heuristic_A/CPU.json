@@ -1,0 +1,1 @@
+{"used_read_access_memory_in_bytes": [10491174912], "utilization_of_cpu": [7.8], "used_read_access_memory_in_percentage": [61.7], "time_duration_with_cpu_profiler_in_sec": 0.02483790000000008, "parameters": {"suffix": "heuristic_A", "heuristic_model": "A"}, "used_algorithm": "astar_heuristic_self_impl", "name_of_src_file": "TSP_CITIES_SET_3_N_8.json"}
