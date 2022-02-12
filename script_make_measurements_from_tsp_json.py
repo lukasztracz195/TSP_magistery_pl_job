@@ -1,5 +1,6 @@
 import subprocess
-
+import time
+from datetime import timedelta
 from builders.ArgsBuilder import ArgsBuilder
 from builders.PathBuilder import PathBuilder
 from constants import ArgNames
@@ -16,6 +17,9 @@ def prepare_output_from_stream(stream_src):
         output += stream_line + "\n"
     return output
 
+
+def print_diff_time(diff_time_in_sec):
+    return "{:0>8}".format(str(timedelta(seconds=int(diff_time_in_sec))))
 
 # ALG: Astar | N: 10 | ns: 36 | measure:  TIME_AND_DATA  | is in progress: [--------->          ] 53.055556 %
 NUMBER_OF_CITIES = list(range(4, 16))
@@ -35,7 +39,7 @@ NAMES_OF_ALGORITHMS = [
     # PARTICLE_SWARM_TSP,
     # ANT_COLONY_TSP
 ]
-NAME_OF_DIR_FOR_MEASUREMENTS = "local_search_compare_any_pertrubation_modes"
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/local_search_compare_any_pertrubation_modes"
 CONFIGURATION_LIST_OF_DICT = [
     {
         SUFFIX: "ps1",
@@ -75,10 +79,12 @@ def dictionary_to_str(dictionary):
     return content
 
 
-TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+# TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
     CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
+start = time.time()
 for alg in NAMES_OF_ALGORITHMS:
     for n_cites in NUMBER_OF_CITIES:
         for index_of_sample in INDEXES_OF_SAMPLES:
@@ -108,6 +114,7 @@ for alg in NAMES_OF_ALGORITHMS:
                         raise BaseException("Detected exception\n %s" % stack_trace)
                     current += 1
                     measure = "{0:^15s}".format(type_of_measure)
-                    title = "ALG: %s | N: %d | ns: %d | measure: %s | suffix: %s |" % (
-                        alg, n_cites, index_of_sample, measure, config_dict[SUFFIX])
+                    diff = time.time() - start
+                    title = "ALG: %s | N: %d | ns: %d | measure: %s | suffix: %s | time_duration: %s" % (
+                        alg, n_cites, index_of_sample, measure, config_dict[SUFFIX], print_diff_time(diff))
                     progress_bar(current, total, title)

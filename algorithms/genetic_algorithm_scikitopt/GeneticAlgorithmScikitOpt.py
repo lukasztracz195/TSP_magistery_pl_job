@@ -9,7 +9,6 @@ from algorithms import TSP
 from algorithms.TSP import Tsp
 from collector.DataCollector import DataCollector
 from constants.AlgNamesResults.names import GENETIC_ALGORITHM_HEURISTIC_LIB_SCIKIT_OPT_DIR
-from constants.MeasurementTimeWithOutputData import *
 from constants.algconfig.AlgConfigNames import *
 from threads.profiler import CpuProfiler
 from constants.CsvColumnNames import *

@@ -19,17 +19,14 @@ from constants import ArgNames
 from constants.AlgNames import *
 from constants.AlgNamesResults.names import *
 from constants.ArgNames import *
+from constants.CsvColumnNames import *
 from constants.FileExtensions import CSV
 from constants.MeasurementBasic import *
-from constants.MeasurementTimeWithOutputData import BEST_WAY
 from constants.MeasurementsTypes import *
 from csv_package.csv_manager import CsvManager
 from csv_package.csv_record import CsvRecord
 from data_reader import JsonTspReader
 from input.TspInputData import TspInputData
-from constants.CsvColumnNames import *
-
-
 # ALGORITHMS
 # Astar 3-60 DONE
 # BrutalForceTsp 3-10
@@ -38,6 +35,7 @@ from constants.CsvColumnNames import *
 # GreedySearchTsp 3-60
 # LocalSearchTsp 3-60
 # SimulatedAnnealingTsp 3-60
+from metrics.tsp_metrics import TspOptimalVerifier
 
 
 class ParseKwargs(argparse.Action):
@@ -191,7 +189,8 @@ def make_measurement(algorithm) -> DataCollector:
 
 def main():
     name_of_dir_with_samples = PATTERN_TO_DIRECTORY_FROM_DATASET % (DISTANCE, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
-    name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (NUMBER_OF_SAMPLE_VALUE_FROM_ARGS, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
+    name_of_file_name_sample = PATTERN_TO_FILE_NAME_OF_SAMPLE % (
+        NUMBER_OF_SAMPLE_VALUE_FROM_ARGS, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
     path_to_sample = PathBuilder() \
         .add_dir(NAME_OF_DATASET_DIR) \
         .add_dir(name_of_dir_with_samples) \
@@ -212,15 +211,28 @@ def main():
     collector = make_measurement(algorithm)
     collector.add_data(NUMBER_OF_CITIES, NUMBER_OF_CITIES_VALUE_FROM_ARGS)
     collector.add_data(INDEX_OF_SAMPLE, NUMBER_OF_SAMPLE_VALUE_FROM_ARGS)
+    collector.add_data(TYPE_OF_MEASUREMENT, TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS)
     collector.add_data(USED_ALGORITHM, algorithm.name)
     collector.add_data(NAME_OF_SRC_FILE, name_of_file_name_sample)
     collector.add_data(SUFFIX, DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS[SUFFIX])
-    # print_dict_debug(collector.get_dictionary_with_data())
     if BEST_WAY in collector.get_dictionary_with_data():
         if not tsp_input_data.is_valid_way_for_any_type(collector.get_dictionary_with_data()[BEST_WAY]):
             best_way = collector.get_dictionary_with_data()[BEST_WAY]
-            raise Exception("Detected wrong generated way for implementation of ", NAME_OF_ALGORITHM_VALUE_FROM_ARGS, " : ",
-                            best_way)
+            raise Exception("Detected wrong generated way for implementation of ", NAME_OF_ALGORITHM_VALUE_FROM_ARGS,
+                            " : ", best_way)
+        else:
+            collector.add_data(HAMILTONIAN_CYCLE_COST,
+                               tsp_input_data.cal_total_distance(collector.get_dictionary_with_data()[BEST_WAY]))
+            tsp_optimal_verifier = TspOptimalVerifier(src_tsp_file_name=name_of_file_name_sample,
+                                                      tsp_path_to_verify=collector.get_dictionary_with_data()[BEST_WAY],
+                                                      tsp_cost_to_verify=collector.get_dictionary_with_data()[
+                                                          HAMILTONIAN_CYCLE_COST])
+            collector.add_data(BEST_WAY_IS_OPTIMAL, tsp_optimal_verifier.is_optimal_way)
+            collector.add_data(ABSOLUTE_DISTANCE_ERROR, tsp_optimal_verifier.absolute_distance_error)
+            collector.add_data(RELATIVE_DISTANCE_ERROR, tsp_optimal_verifier.relative_distance_error)
+            collector.add_data(RELATIVE_DISTANCE_ERROR, tsp_optimal_verifier.relative_distance_error)
+            collector.add_data(OPTIMAL_WAY, tsp_optimal_verifier.optimal_way)
+            collector.add_data(OPTIMAL_COST, tsp_optimal_verifier.optimal_cost)
     csv_record = CsvRecord()
     csv_record.set_values_from_dict(collector.get_dictionary_with_data())
     csv_manager.append_row_to_file(csv_record)

@@ -17,10 +17,6 @@ from builders.PathBuilder import PathBuilder
 from constants import MeasurementBasic
 from constants.AlgNames import *
 from constants.FileExtensions import JSON, CSV
-from constants.MeasurementBasic import *
-from constants.MeasurementCpuProfiler import *
-from constants.MeasurementMemory import *
-from constants.MeasurementTimeWithOutputData import *
 from constants.MeasurementsTypes import *
 from constants.algconfig.AlgConfigNames import SUFFIX, HEURISTIC_MODEL
 from data_reader import JsonTspReader
