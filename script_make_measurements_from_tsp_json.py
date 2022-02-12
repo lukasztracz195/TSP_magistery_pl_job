@@ -1,6 +1,7 @@
 import subprocess
 import time
 from datetime import timedelta
+
 from builders.ArgsBuilder import ArgsBuilder
 from builders.PathBuilder import PathBuilder
 from constants import ArgNames
@@ -21,6 +22,7 @@ def prepare_output_from_stream(stream_src):
 def print_diff_time(diff_time_in_sec):
     return "{:0>8}".format(str(timedelta(seconds=int(diff_time_in_sec))))
 
+
 # ALG: Astar | N: 10 | ns: 36 | measure:  TIME_AND_DATA  | is in progress: [--------->          ] 53.055556 %
 NUMBER_OF_CITIES = list(range(4, 16))
 # NUMBER_OF_CITIES = list(range(4, 6))
@@ -29,8 +31,8 @@ INDEXES_OF_SAMPLES = list(range(0, 100))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
     # ASTAR,
-    # GREEDY_SEARCH,
-    LOCAL_SEARCH,
+    GREEDY_SEARCH,
+    # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
     # DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
@@ -39,38 +41,77 @@ NAMES_OF_ALGORITHMS = [
     # PARTICLE_SWARM_TSP,
     # ANT_COLONY_TSP
 ]
-NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/local_search_compare_any_pertrubation_modes"
+# aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/greedy_search"
 CONFIGURATION_LIST_OF_DICT = [
-    {
-        SUFFIX: "ps1",
-        PERTURBATION_SCHEME: "ps1"
-    },
-    {
-        SUFFIX: "ps2",
-        PERTURBATION_SCHEME: "ps2"
-    },
-    {
-        SUFFIX: "ps3",
-        PERTURBATION_SCHEME: "ps3"
-    },
-    {
-        SUFFIX: "ps4",
-        PERTURBATION_SCHEME: "ps4"
-    },
-    {
-        SUFFIX: "ps5",
-        PERTURBATION_SCHEME: "ps5"
-    },
-    {
-        SUFFIX: "ps6",
-        PERTURBATION_SCHEME: "ps6"
-    },
-    {
-        SUFFIX: "two_opt",
-        PERTURBATION_SCHEME: "two_opt"
-    }
+    {SUFFIX: "no_parameters"}
 ]
 
+
+# #CONFIGURATION_LIST_OF_DICT = [
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_1_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.1,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_2_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.2,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_3_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.3,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_4_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.4,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_5_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.5,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_6_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.6,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_7_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.7,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_8_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.8,
+#      MAX_ITERATIONS: 20,
+#      },
+#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_9_MAX_ITER_20",
+#      SIZE_OF_POPULATION: 100,
+#      ALPHA: 1,
+#      BETA: 2,
+#      RHO: 0.9,
+#      MAX_ITERATIONS: 20,
+#      },
 
 def dictionary_to_str(dictionary):
     content = ""
@@ -79,8 +120,8 @@ def dictionary_to_str(dictionary):
     return content
 
 
-# TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
-TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
+TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+# TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
     CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
