@@ -1,5 +1,7 @@
 import csv
 from csv import DictWriter
+
+from csv_package.csv_abs_record import CsvAbstractRow
 from csv_package.csv_record import CsvRecord
 from functions import exist_file
 
@@ -10,9 +12,7 @@ class CsvManager:
         self.__path_to_csv = path_to_csv
         self.__appended_rows = 0
 
-
-
-    def append_row_to_file(self, csv_record_obj: CsvRecord):
+    def append_row_to_file(self, csv_record_obj: CsvAbstractRow):
         if not exist_file(self.__path_to_csv):
             self.__create_csv_file(csv_record_obj)
 
@@ -22,7 +22,7 @@ class CsvManager:
             self.__appended_rows += 1
             f_object.close()
 
-    def __create_csv_file(self, csv_record_obj: CsvRecord):
+    def __create_csv_file(self, csv_record_obj: CsvAbstractRow):
         with open(self.__path_to_csv, 'w', encoding='UTF8', newline="") as f:
             writer = csv.writer(f)
             writer.writerow(csv_record_obj.column_names)

@@ -1,9 +1,10 @@
 import numpy as np
 
 from constants.CsvColumnNames import *
+from csv_package.csv_abs_record import CsvAbstractRow
 
 
-class CsvRecord:
+class CsvRecord(CsvAbstractRow):
     def __init__(self):
         self.__column_names = [NUMBER_OF_CITIES,
                                INDEX_OF_SAMPLE,
