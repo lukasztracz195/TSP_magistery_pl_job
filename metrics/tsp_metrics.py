@@ -43,7 +43,7 @@ class TspOptimalVerifier:
         if self.is_optimal_way:
             return 0.0
         error = self.__tsp_cost_to_verify - self.__optimal_cost
-        if error < 1.e12:
+        if error < 1e-12:
             return 0.0
         return self.__tsp_cost_to_verify - self.__optimal_cost
 

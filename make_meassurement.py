@@ -48,31 +48,29 @@ class ParseKwargs(argparse.Action):
 
 def can_str2int(text):
     list = re.findall(r'\d+', text)
-    if len(text) == len(list):
+    if len(list) == 1:
         return True
     return False
 
 
 def can_str2float(text):
     list = re.findall(r'\d+.\d+', text)
-    if len(text) == len(list):
+    if len(list) == 1:
         return True
     return False
 
 
-def list_of_list_to_dict(list_of_list):
-    dictionary = []
-    for list_key_value in list_of_list:
-        key = list_key_value[0]
-        value = list_key_value[1]
-        if value.find('.') == -1:
-            if can_str2int(value):
-                dictionary[key] = int(value)
-            else:
-                dictionary[key] = value
+def parse_types_in_dictionary(dictionary_with_strings):
+    new_dictionary = dict()
+    for key in dictionary_with_strings.keys():
+        value = dictionary_with_strings[key]
+        if can_str2int(value):
+            new_dictionary[key] = int(value)
+        elif can_str2float(value):
+            new_dictionary[key] = float(value)
         else:
-            dictionary[key] = float(value)
-    return dictionary
+            new_dictionary[key] = value
+    return new_dictionary
 
 
 def str2bool(v):
@@ -124,7 +122,7 @@ NUMBER_OF_CITIES_VALUE_FROM_ARGS = args.number_of_cities
 NUMBER_OF_SAMPLE_VALUE_FROM_ARGS = args.number_of_sample
 TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS = args.type_of_measurement
 OVERRIDE_RESULTS = args.override_exist_measure_results
-DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS = args.dest
+DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS = parse_types_in_dictionary(args.dest)
 DIR_ON_MEASUREMENTS_VALUE_FROM_ARGS = args.dir_of_measurements
 
 

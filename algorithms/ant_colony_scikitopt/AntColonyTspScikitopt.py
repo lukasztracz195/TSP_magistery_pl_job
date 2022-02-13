@@ -17,15 +17,14 @@ class AntColonyTspScikitopt(Tsp):
 
     def inject_configuration(self, dictionary_with_config=None):
         self.config = dictionary_with_config
-
-    def configuration(self, dictionary_with_config=None):
-        self.config = dictionary_with_config
         self.remove_unnecessary_config()
+        print(self.config)
         self.configured = True
 
     def __init__(self):
         super().__init__()
         self.name = ANT_COLONY_TSP_SCIKIT_OPT_DIR
+        self.define_necessary_config_name_to_run()
         self.aca = None
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:

@@ -9,6 +9,7 @@ from constants.AlgNames import *
 from constants.MeasurementsTypes import *
 from constants.algconfig.AlgConfigNames import *
 from progress.progress import progress_bar
+from test_scenario.test_scenarious import *
 
 
 def prepare_output_from_stream(stream_src):
@@ -31,7 +32,7 @@ INDEXES_OF_SAMPLES = list(range(0, 100))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
     # ASTAR,
-    GREEDY_SEARCH,
+    # GREEDY_SEARCH,
     # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
@@ -39,79 +40,11 @@ NAMES_OF_ALGORITHMS = [
     # GENETIC_ALGORITHM_MLROSE,
     # GENETIC_ALGORITHM_SCIKIT_OPT,
     # PARTICLE_SWARM_TSP,
-    # ANT_COLONY_TSP
+    ANT_COLONY_TSP
 ]
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
-NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/greedy_search"
-CONFIGURATION_LIST_OF_DICT = [
-    {SUFFIX: "no_parameters"}
-]
-
-
-# #CONFIGURATION_LIST_OF_DICT = [
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_1_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.1,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_2_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.2,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_3_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.3,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_4_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.4,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_5_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.5,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_6_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.6,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_7_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.7,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_8_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.8,
-#      MAX_ITERATIONS: 20,
-#      },
-#     {SUFFIX: "POP_100_ALFA_1_BETA_2_RHO_0_9_MAX_ITER_20",
-#      SIZE_OF_POPULATION: 100,
-#      ALPHA: 1,
-#      BETA: 2,
-#      RHO: 0.9,
-#      MAX_ITERATIONS: 20,
-#      },
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20"
+CONFIGURATION_LIST_OF_DICT = ACO_TEST_1_ON_RHO_RANGE
 
 def dictionary_to_str(dictionary):
     content = ""
@@ -120,8 +53,8 @@ def dictionary_to_str(dictionary):
     return content
 
 
-TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
-# TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
+# TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
     CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
