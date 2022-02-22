@@ -17,10 +17,7 @@ class Node:
         if not isinstance(other, Node):
             # don't attempt to compare against unrelated types
             return NotImplemented
-        return self.g_value == other.g_value and \
-               self.__h_value == other.h_value and \
-               self.__gh_value == self.gh_value and \
-               self.way == other.way
+        return self.way == other.way
 
     @property
     def index_city(self):
