@@ -21,7 +21,7 @@ class CpuProfiler(threading.Thread):
 
     def run(self):
         initialized = False
-        self.start_time = time.clock()
+        self.start_time = time.time()
         while not self.stopped:
             if not initialized:
                 self.make_measure()
@@ -40,9 +40,12 @@ class CpuProfiler(threading.Thread):
 
     def stop(self):
         self.stopped = True
-        stop = time.clock()
+        stop = time.time()
+        diff = 0.0
+        if type(stop)  == type(self.start_time):
+            diff = stop - self.start_time
         self.collector.add_data(TIME_DURATION_IN_SEC,
-                                stop - self.start_time)
+                                diff)
 
     def get_collector(self):
         fields = [UTILIZATION_OF_CPU]

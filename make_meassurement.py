@@ -21,7 +21,6 @@ from constants.AlgNamesResults.names import *
 from constants.ArgNames import *
 from constants.CsvColumnNames import *
 from constants.FileExtensions import CSV
-from constants.MeasurementBasic import *
 from constants.MeasurementsTypes import *
 from csv_package.csv_manager import CsvManager
 from csv_package.csv_record import CsvRecord
@@ -197,7 +196,7 @@ def main():
     path_to_output_csv = PathBuilder() \
         .add_dir(DIR_ON_MEASUREMENTS_VALUE_FROM_ARGS) \
         .create_directory_if_not_exists() \
-        .add_file(TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS, CSV) \
+        .add_file("%s_%s" % (TYPE_OF_MEASUREMENT_VALUE_FROM_ARGS, DICTIONARY_OF_PARAMETERS_VALUE_FROM_ARGS[SUFFIX]), CSV) \
         .build()
     csv_manager = CsvManager(path_to_csv=path_to_output_csv)
     json_data = JsonTspReader.read_json_from_path(path_to_sample)
