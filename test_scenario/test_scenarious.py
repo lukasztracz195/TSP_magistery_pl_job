@@ -93,8 +93,11 @@ def pso_combination_generate():
     pattern_suffix = "PSO_POP_%d_ALPHA_%s_BETA_%s_NR_ITER_%d"
     size_population_range = 100
     alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    # alpha_range = [ 0.5]
     beta_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-    number_of_iterations_range = [100, 200, 300]
+    # beta_range = [0.5]
+    # number_of_iterations_range = [100, 200, 300]
+    number_of_iterations_range = [100]
     for alpha in alpha_range:
         for beta in beta_range:
             for num_of_iter in number_of_iterations_range:
