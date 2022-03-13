@@ -3,7 +3,6 @@ import gc
 import tracemalloc
 
 import numpy as np
-from pydantic import ConfigError
 
 from collector.DataCollector import DataCollector
 from input.TspInputData import TspInputData
@@ -98,17 +97,17 @@ class Tsp(abc.ABC):
                 if self.necessary_config_names_to_run is None and self.config is None:
                     return True
                 elif self.necessary_config_names_to_run is None:
-                    raise ConfigError(
+                    raise Exception(
                         "Algorithm cannot be started because not necessary_config_names_to_run is not initialized")
                 else:
                     for config_name in self.necessary_config_names_to_run:
                         if config_name not in self.config:
-                            raise ConfigError(
+                            raise Exception(
                                 "Algorithm cannot be started because not all required config was achievement")
                     return True
             else:
-                raise ConfigError("Algorithm cannot be started because not injected input data")
-        raise ConfigError("Algorithm cannot be started because was not configured")
+                raise Exception("Algorithm cannot be started because not injected input data")
+        raise Exception("Algorithm cannot be started because was not configured")
 
     def clear_data_collector(self):
         self.collector.clear()
