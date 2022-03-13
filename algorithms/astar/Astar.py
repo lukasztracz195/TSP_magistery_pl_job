@@ -2,7 +2,6 @@ import sys
 import time
 import tracemalloc
 
-from pyglet.gl import ConfigException
 from constants.CsvColumnNames import *
 from algorithms.TSP import Tsp
 from algorithms.astar.model.DictionaryFastFindMin import DictionaryFastFindMinMaxInNode
@@ -11,6 +10,7 @@ from collector.DataCollector import DataCollector
 from constants.AlgNamesResults.names import *
 from constants.algconfig.AlgConfigNames import *
 from threads.profiler import CpuProfiler
+import heapq as hq
 
 
 class Astar(Tsp):
@@ -31,13 +31,14 @@ class Astar(Tsp):
         self.start_city_number = 0
         self.name = ASTAR_HEURISTIC_SELF_IMPL_DIR
         self.list_all_cities_numbers = None
+        self.priority_queue = []
 
     def clear_data_before_measurement(self):
         if self.list_all_cities_numbers is None:
             self.list_all_cities_numbers = list(map(lambda x: x.number_of_city, self.tsp_input_data.list_of_cities))
             self.set_for_all_indexes_of_cities = set(self.list_all_cities_numbers)
-            self.dict_city_A_to_city_B_with_minimum_distance = self.init_dict_city_a_to_city_b_with_minimum_distance()
             self.number_of_all_cities = len(self.list_all_cities_numbers)
+            self.priority_queue = []
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         self.can_be_run()
@@ -91,27 +92,32 @@ class Astar(Tsp):
         collector.add_data(PARAMETERS, self.config)
         return collector
 
-    # OPTIMAL
     def find_way(self):
-        self.last = Node(parent=None, g_value=0.0, h_value=sys.maxsize, index_city=self.start_city_number)
-        self.nodes_gh_dict.clear()
-        while len(self.last.way) < self.number_of_all_cities:
-            set_of_unvisited_nodes = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
-            for unvisited_index_city in set_of_unvisited_nodes:
-                distance = self.tsp_input_data.get_distance(self.last.index_city, unvisited_index_city)
+        first = Node(parent=None, g_value=0.0, h_value=sys.maxsize, index_of_last_visited_city=self.start_city_number)
+        set_of_nodes = set()
+        set_of_nodes.add(first)
+        self.last = first
+        while True:
+            set_of_unvisited_nodes = self.generate_set_for_all_unvisited_indexes_of_cities()
+            for index_city_to_visit in set_of_unvisited_nodes:
+                distance = self.tsp_input_data.get_distance(self.last.index_of_last_visited_city, index_city_to_visit)
                 g_value = self.last.g_value + distance
                 h_value = self.count_heuristic()
-                suggest_node = Node(parent=self.last, g_value=g_value, h_value=h_value, index_city=unvisited_index_city)
-                self.nodes_gh_dict.add(suggest_node.gh_value, suggest_node)
-            selected_value = self.nodes_gh_dict.get_min_value_of_key()
-            selected_node = self.nodes_gh_dict[selected_value]
-            if self.nodes_gh_dict.key_exists(selected_value):
-                self.nodes_gh_dict.pop(selected_value, selected_node)
-                self.last = selected_node
-        distance = self.tsp_input_data.get_distance(self.last.index_city, self.start_city_number)
+                suggest_node = Node(parent=self.last, g_value=g_value, h_value=h_value,
+                                    index_of_last_visited_city=index_city_to_visit)
+                if suggest_node not in set_of_nodes:
+                    set_of_nodes.add(suggest_node)
+                    hq.heappush(self.priority_queue, (suggest_node.gh_value, suggest_node))
+            selected_node = hq.heappop(self.priority_queue)[1]
+            set_of_nodes.remove(selected_node)
+            self.last = selected_node
+            if len(self.last.way) == self.number_of_all_cities:
+                break
+        distance = self.tsp_input_data.get_distance(self.last.index_of_last_visited_city, self.start_city_number)
         g_value = self.last.g_value + distance
         h_value = distance
-        final_node = Node(parent=self.last, g_value=g_value, h_value=h_value, index_city=self.start_city_number)
+        final_node = Node(parent=self.last, g_value=g_value, h_value=h_value,
+                          index_of_last_visited_city=self.start_city_number)
         self.last = final_node
         return self.last.way, self.last.g_value
 
@@ -121,40 +127,36 @@ class Astar(Tsp):
             return self.heuristic_a()
         if heuristic_model.lower() == "b":
             return self.heuristic_b()
-        raise ConfigException("Expected heuristic_model A or B but achievement %s" % heuristic_model)
+        raise Exception("Expected heuristic_model A or B but achievement %s" % heuristic_model)
 
     def heuristic_a(self):
-        number_of_unvisited_cities = self.number_of_all_cities - len(self.last.way)
+        number_of_unvisited_cities = self.number_of_all_cities - (len(self.last.way) + 1)
         return self.find_min_distance_in_unvisited_nodes() * number_of_unvisited_cities
 
     def heuristic_b(self):
         return self.get_sum_distance_unvisited_nodes()
 
-    def generate_set_for_all_unvisited_indexes_of_cities(self, parent):
+    def generate_set_for_all_unvisited_indexes_of_cities(self):
         temp_set = self.set_for_all_indexes_of_cities.copy()
-        to_delete = parent.way
-        temp_set.difference_update(to_delete)
+        temp_set.difference_update(self.last.way)
         return temp_set
 
     def find_min_distance_in_unvisited_nodes(self):
-        tuple_city_and_distance_min = self.dict_city_A_to_city_B_with_minimum_distance[self.last.index_city]
-        return tuple_city_and_distance_min[1]
+        list_tmp = self.get_distances_to_unvisited_nodes()
+        if len(list_tmp) == 0:
+            return 0
+        return min(list_tmp)
 
     def get_sum_distance_unvisited_nodes(self):
-        unvisited_indexes_of_cities = self.generate_set_for_all_unvisited_indexes_of_cities(self.last)
-        s = 0.0
-        for not_visited_city_index in unvisited_indexes_of_cities:
-            s += self.dict_city_A_to_city_B_with_minimum_distance[not_visited_city_index][1]
-        return s
+        list_tmp = self.get_distances_to_unvisited_nodes()
+        if len(list_tmp) == 0:
+            return 0
+        return sum(self.get_distances_to_unvisited_nodes())
 
-    def init_dict_city_a_to_city_b_with_minimum_distance(self):
-        tmp = dict()
-        for city_A in self.list_all_cities_numbers:
-            min = sys.maxsize
-            for city_B in self.list_all_cities_numbers:
-                if city_A != city_B:
-                    distance_to_probably_new_min = self.tsp_input_data.get_distance(city_A, city_B)
-                    if min > distance_to_probably_new_min:
-                        min = distance_to_probably_new_min
-                        tmp[city_A] = (city_B, min)
-        return tmp
+    def get_distances_to_unvisited_nodes(self):
+        set_unvisited_indexes_nodes = self.generate_set_for_all_unvisited_indexes_of_cities()
+        distances = list()
+        for unvisited_index_node in set_unvisited_indexes_nodes:
+            dist = self.tsp_input_data.get_distance(self.last.index_of_last_visited_city, unvisited_index_node)
+            distances.append(dist)
+        return distances
