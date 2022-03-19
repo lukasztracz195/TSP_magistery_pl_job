@@ -2,7 +2,7 @@ import copy
 
 
 class Node:
-    def __init__(self, parent, g_value, h_value, index_city):
+    def __init__(self, parent, g_value, h_value, index_of_last_visited_city):
         self.__parent = parent
         self.__g_value = g_value  # red
         self.__h_value = h_value  # blue
@@ -10,8 +10,26 @@ class Node:
         self.__way = []
         self.__available_next_nodes = list()
         self.__set_way_and_cost_basic_parent_node()
-        self.__way.append(index_city)
-        self.__index_city = index_city
+        self.__way.append(index_of_last_visited_city)
+        self.__index_of_last_visited_city = index_of_last_visited_city
+
+    def __hash__(self):
+        return hash(str(self.way))
+
+    def __ne__(self, other):
+        return self.way != other.way
+
+    def __lt__(self, other):
+        return self.__gh_value < other.gh_value
+
+    def __gt__(self, other):
+        return self.__gh_value > other.gh_value
+
+    def __le__(self, other):
+        return self.__gh_value <= other.gh_value
+
+    def __ge__(self, other):
+        return self.__gh_value >= other.gh_value
 
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -20,8 +38,8 @@ class Node:
         return self.way == other.way
 
     @property
-    def index_city(self):
-        return self.__index_city
+    def index_of_last_visited_city(self):
+        return self.__index_of_last_visited_city
 
     @property
     def parent(self):
