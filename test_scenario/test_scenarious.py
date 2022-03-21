@@ -113,6 +113,22 @@ def pso_combination_generate():
     return PSO_CONFIGURATION
 
 
+def simulated_annealing_combination_generate():
+    SIMULATED_ANNEALING_CONFIG_LIST = list()
+    pattern_suffix = "SA_ALPHA_%s_PERTURBATION_SCHEME_%s"
+    perturbation_scheme = "two_opt"
+    alpha_range = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99]
+    for alpha in alpha_range:
+        dict_tmp = {
+            SUFFIX: pattern_suffix % (
+                str(alpha).replace(".", "_"), perturbation_scheme),
+            ALPHA: alpha,
+            PERTURBATION_SCHEME: perturbation_scheme,
+        }
+        SIMULATED_ANNEALING_CONFIG_LIST.append(dict_tmp)
+    return SIMULATED_ANNEALING_CONFIG_LIST
+
+
 def genetic_mlrose_all_combinations_generate():
     GENETIC_MLROSE_TEST_ALGORITHM = list()
     pattern_suffix = "MLROSE_GA_POP_%d_PM_%s_NR_ATMP_%d_NR_ITER_%d"

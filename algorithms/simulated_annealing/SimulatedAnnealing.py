@@ -1,7 +1,6 @@
 import time
 import tracemalloc
 
-from pydantic import ConfigError
 from python_tsp.heuristics import solve_tsp_simulated_annealing
 
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
@@ -21,7 +20,7 @@ def valid_pertrubation_scheme(pertrubation_scheme):
         "ps6",
         "two_opt"}
     if pertrubation_scheme not in set_of_pertrubation:
-        raise ConfigError("Detected wrong value pertrubation scheme %s" % pertrubation_scheme)
+        raise Exception("Detected wrong value pertrubation scheme %s" % pertrubation_scheme)
 
 
 class SimulatedAnnealingTsp(Tsp):
@@ -44,6 +43,7 @@ class SimulatedAnnealingTsp(Tsp):
         cpu_profiler = CpuProfiler()
         cpu_profiler.start()
         self.best_trace, self.full_cost = solve_tsp_simulated_annealing(distance_matrix=self.tsp_input_data.cost_matrix,
+                                                                        alpha=self.config[ALPHA],
                                                                         perturbation_scheme=self.config[
                                                                             PERTURBATION_SCHEME])
         cpu_profiler.stop()
