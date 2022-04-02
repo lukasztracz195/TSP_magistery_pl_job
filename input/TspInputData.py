@@ -79,7 +79,7 @@ class TspInputData:
         for city_1 in list_of_cities:
             for city_2 in list_of_cities:
                 distance = City.count_distance(city_1, city_2)
-                if distance > 0:
+                if distance > 0 and city_1.number_of_city < city_2.number_of_city:
                     tuple_item = (city_1.number_of_city, city_2.number_of_city, distance)
                     dist_list.append(tuple_item)
         return dist_list

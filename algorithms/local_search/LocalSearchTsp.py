@@ -1,7 +1,6 @@
 import time
 import tracemalloc
 
-from pydantic import ConfigError
 from python_tsp.heuristics import solve_tsp_local_search
 
 from algorithms.TSP import Tsp, move_solution_to_start_and_stop_from_the_same_node
@@ -21,7 +20,7 @@ def valid_pertrubation_scheme(pertrubation_scheme):
         "ps6",
         "two_opt"}
     if pertrubation_scheme not in set_of_pertrubation:
-        raise ConfigError("Detected wrong value pertrubation scheme %s" % pertrubation_scheme)
+        raise Exception("Detected wrong value pertrubation scheme %s" % pertrubation_scheme)
 
 
 class LocalSearchTsp(Tsp):
