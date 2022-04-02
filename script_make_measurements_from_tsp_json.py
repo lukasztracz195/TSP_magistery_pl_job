@@ -25,7 +25,7 @@ def print_diff_time(diff_time_in_sec):
 
 
 # ALG: Astar | N: 10 | ns: 36 | measure:  TIME_AND_DATA  | is in progress: [--------->          ] 53.055556 %
-NUMBER_OF_CITIES = list(range(4, 16))
+NUMBER_OF_CITIES = list(range(4, 6))
 # NUMBER_OF_CITIES = list(range(4, 6))
 # NUMBER_OF_CITIES = [4]
 INDEXES_OF_SAMPLES = list(range(0, 100))
@@ -43,7 +43,7 @@ NAMES_OF_ALGORITHMS = [
     # ANT_COLONY_TSP
 ]
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
-NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/astar_a_b"
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/astar_a_b_2_ver"
 CONFIGURATION_LIST_OF_DICT = ASTAR_TEST
 
 
@@ -54,9 +54,9 @@ def dictionary_to_str(dictionary):
     return content
 
 
-TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+# TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
 # TYPE_OF_MEASUREMENT = [CPU, TIME_AND_MEMORY]
-# TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
+TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
     CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
@@ -87,7 +87,7 @@ for alg in NAMES_OF_ALGORITHMS:
                     # print(output)
                     if err != b'':
                         stack_trace = prepare_output_from_stream(err)
-                        raise BaseException("Detected exception\n %s" % stack_trace)
+                        raise Exception("Detected exception\n %s" % stack_trace)
                     current += 1
                     measure = "{0:^15s}".format(type_of_measure)
                     diff = time.time() - start

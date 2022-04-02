@@ -36,7 +36,8 @@ class DictionaryFastFindMinMaxInNode:
     def get_sum_k_min(self, k):
         k_min_list = list()
         for i in range(0, k + 1):
-            k_min_list.appendself.__tree_set[i]
+            k_min_list.append(self.__tree_set[i])
+        return sum(k_min_list)
 
     def clear(self):
         self.__dictionary.clear()

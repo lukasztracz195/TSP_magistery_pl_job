@@ -1,7 +1,6 @@
 import time
 import tracemalloc
 
-from pydantic import ConfigError
 from sko.GA import GA_TSP
 from sko.operators import selection, crossover, mutation
 
@@ -17,20 +16,20 @@ def valid_config_selection_mode(selection_mode):
     set_selection_mode = {"selection_tournament_faster", "selection_tournament", "selection_roulette_1",
                           "selection_roulette_2"}
     if selection_mode not in set_selection_mode:
-        raise ConfigError("Detected wrong type of selection mode: %s", selection_mode)
+        raise Exception("Detected wrong type of selection mode: %s", selection_mode)
 
 
 def valid_config_mutation_mode(mutation_mode):
     set_mutation_mode = {"mutation_TSP_1", "mutation_reverse", "mutation_swap", "transpose"}
     if mutation_mode not in set_mutation_mode:
-        raise ConfigError("Detected wrong type of mutation mode: %s", mutation_mode)
+        raise Exception("Detected wrong type of mutation mode: %s", mutation_mode)
 
 
 def valid_config_crossover_mode(crossover_mode):
     set_crossover_mode = {"crossover_pmx", "crossover_1point", "crossover_2point", "crossover_2point_bit",
                           "crossover_2point_prob"}
     if crossover_mode not in set_crossover_mode:
-        raise ConfigError("Detected wrong type of crossover mode mode: %s", crossover_mode)
+        raise Exception("Detected wrong type of crossover mode mode: %s", crossover_mode)
 
 
 class GeneticAlgorithmScikitOpt(Tsp):
