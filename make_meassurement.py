@@ -46,7 +46,7 @@ class ParseKwargs(argparse.Action):
 
 
 def can_str2int(text):
-    list = re.findall(r'\d+', text)
+    list = re.findall(r'^(?:^|[^.,\d])(\d+)(?:[^.,\d]|$)', text)
     if len(list) == 1:
         return True
     return False

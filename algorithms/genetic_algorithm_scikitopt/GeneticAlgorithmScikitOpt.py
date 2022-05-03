@@ -40,7 +40,7 @@ class GeneticAlgorithmScikitOpt(Tsp):
 
     def inject_configuration(self, dictionary_with_config=None):
         self.config = dictionary_with_config
-        valid_config_selection_mode(self.config[CROSSOVER_MODE])
+        valid_config_selection_mode(self.config[SELECTION_MODE])
         valid_config_mutation_mode(self.config[MUTATION_MODE])
         valid_config_crossover_mode(self.config[CROSSOVER_MODE])
         self.remove_unnecessary_config()

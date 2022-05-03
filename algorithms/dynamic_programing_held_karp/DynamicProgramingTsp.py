@@ -11,16 +11,18 @@ from constants.CsvColumnNames import *
 
 class DynamicProgramingHeldKarpTsp(Tsp):
     def define_necessary_config_name_to_run(self):
-        self.necessary_config_names_to_run = None
+        self.necessary_config_names_to_run = []
 
     def inject_configuration(self, dictionary_with_config=None):
         self.config = None
         self.config = True
 
+
     def __init__(self):
         super().__init__()
         self.name = DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
         self.define_necessary_config_name_to_run()
+        self.configured = True
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         self.can_be_run()

@@ -9,35 +9,13 @@ class Node:
         self.__gh_value = g_value + h_value  # green
         self.__way = []
         self.__available_next_nodes = list()
-<<<<<<< Updated upstream
-        self.__set_way_and_cost_basic_parent_node()
-=======
         if self.__parent is not None:
             self.__way = copy.deepcopy(self.__parent.way)
->>>>>>> Stashed changes
         self.__way.append(index_of_last_visited_city)
         self.__index_of_last_visited_city = index_of_last_visited_city
 
     def __hash__(self):
         return hash(str(self.way))
-<<<<<<< Updated upstream
-
-    def __ne__(self, other):
-        return self.way != other.way
-
-    def __lt__(self, other):
-        return self.__gh_value < other.gh_value
-
-    def __gt__(self, other):
-        return self.__gh_value > other.gh_value
-
-    def __le__(self, other):
-        return self.__gh_value <= other.gh_value
-
-    def __ge__(self, other):
-        return self.__gh_value >= other.gh_value
-=======
->>>>>>> Stashed changes
 
     def __eq__(self, other):
         if not isinstance(other, Node):

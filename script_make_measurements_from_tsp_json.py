@@ -25,26 +25,28 @@ def print_diff_time(diff_time_in_sec):
 
 
 # ALG: Astar | N: 10 | ns: 36 | measure:  TIME_AND_DATA  | is in progress: [--------->          ] 53.055556 %
-NUMBER_OF_CITIES = list(range(4, 6))
+NUMBER_OF_CITIES = list(range(4, 16))
 # NUMBER_OF_CITIES = list(range(4, 6))
 # NUMBER_OF_CITIES = [4]
 INDEXES_OF_SAMPLES = list(range(0, 100))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
-    ASTAR,
+    # ASTAR,
     # GREEDY_SEARCH,
     # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
-    # DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
+    DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
     # GENETIC_ALGORITHM_MLROSE,
     # GENETIC_ALGORITHM_SCIKIT_OPT,
     # PARTICLE_SWARM_TSP,
     # ANT_COLONY_TSP
 ]
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
-NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/astar_a_b_2_ver"
-CONFIGURATION_LIST_OF_DICT = ASTAR_TEST
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/PC1_brute_force_held_karp"
+CONFIGURATION_LIST_OF_DICT = [{
+    SUFFIX: "PC1_BRUTE_FORCE_HELD_KARP"
+}]
 
 
 def dictionary_to_str(dictionary):
@@ -54,9 +56,9 @@ def dictionary_to_str(dictionary):
     return content
 
 
-# TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
+TYPE_OF_MEASUREMENT = [CPU, TIME_AND_DATA, TIME_AND_MEMORY]
 # TYPE_OF_MEASUREMENT = [CPU, TIME_AND_MEMORY]
-TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
+# TYPE_OF_MEASUREMENT = [TIME_AND_DATA]
 total = len(NUMBER_OF_CITIES) * len(INDEXES_OF_SAMPLES) * len(NAMES_OF_ALGORITHMS) * len(
     CONFIGURATION_LIST_OF_DICT) * len(TYPE_OF_MEASUREMENT)
 current = 0
