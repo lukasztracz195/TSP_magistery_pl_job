@@ -32,7 +32,11 @@ INDEXES_OF_SAMPLES = list(range(0, 100))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
     # ASTAR,
+<<<<<<< Updated upstream
     # GREEDY_SEARCH,
+=======
+    GREEDY_SEARCH,
+>>>>>>> Stashed changes
     # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
@@ -43,9 +47,9 @@ NAMES_OF_ALGORITHMS = [
     # ANT_COLONY_TSP
 ]
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
-NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/PC1_brute_force_held_karp"
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/PC2_gready_search"
 CONFIGURATION_LIST_OF_DICT = [{
-    SUFFIX: "PC1_BRUTE_FORCE_HELD_KARP"
+    SUFFIX: "GREADY_SEARCH",
 }]
 
 

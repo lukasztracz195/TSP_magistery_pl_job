@@ -53,7 +53,7 @@ def can_str2int(text):
 
 
 def can_str2float(text):
-    list = re.findall(r'\d+.\d+', text)
+    list = re.findall(r'^(\d+[.]\d+)', text)
     if len(list) == 1:
         return True
     return False

@@ -15,7 +15,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
 
     def inject_configuration(self, dictionary_with_config=None):
         self.config = None
-        self.config = True
+        self.configured = True
 
 
     def __init__(self):
@@ -23,6 +23,7 @@ class DynamicProgramingHeldKarpTsp(Tsp):
         self.name = DYNAMIC_PROGRAMING_EXAC_HELD_KARP_LIB_DIR
         self.define_necessary_config_name_to_run()
         self.configured = True
+
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         self.can_be_run()

@@ -38,6 +38,8 @@ class Node:
     def __ge__(self, other):
         return self.__gh_value >= other.gh_value
 
+
+
     @property
     def index_of_last_visited_city(self):
         return self.__index_of_last_visited_city
