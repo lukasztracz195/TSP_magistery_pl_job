@@ -40,17 +40,25 @@ NAMES_OF_ALGORITHMS = [
     # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
     # BRUTAL_FORCE,
-    DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
+    # DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
     # GENETIC_ALGORITHM_MLROSE,
-    # GENETIC_ALGORITHM_SCIKIT_OPT,
+    GENETIC_ALGORITHM_SCIKIT_OPT,
     # PARTICLE_SWARM_TSP,
     # ANT_COLONY_TSP
 ]
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
+<<<<<<< Updated upstream
 NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/PC2_gready_search"
 CONFIGURATION_LIST_OF_DICT = [{
     SUFFIX: "GREADY_SEARCH",
 }]
+=======
+NAME_OF_DIR_FOR_MEASUREMENTS = "measurements/PC1_ga_scikit_opt_full_configs"
+CONFIGURATION_LIST_OF_DICT = scikit_opt_genetic_alg()
+# [{
+#     SUFFIX: "PC1_BRUTE_FORCE_HELD_KARP"
+# }]
+>>>>>>> Stashed changes
 
 
 def dictionary_to_str(dictionary):

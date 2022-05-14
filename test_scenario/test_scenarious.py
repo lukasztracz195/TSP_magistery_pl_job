@@ -192,10 +192,10 @@ def scikit_opt_genetic_alg():
     CONFIGURATION = list()
     pattern_suffix = "SCIKIT_AG_POP_%d_PROB_MUT_%s_MAX_ATTEMPTS_%d_NR_ITER_%d"
     prob_mutation_list = [0.001, 0.01, 0.1, 1.0]
-    # nr_attempts = [1,5,10]
-    nr_attempts = [1]
-    # max_nr_iteratins = [100,200, 300]
-    max_nr_iteratins = [100]
+    nr_attempts = [1,5,10]
+    # nr_attempts = [1]
+    max_nr_iteratins = [100,200, 300]
+    # max_nr_iteratins = [100]
     size_of_population = 100
     selection_mode = "selection_tournament_faster"
     mutation_mode = "mutation_TSP_1"
