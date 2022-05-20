@@ -1,1 +1,0 @@
-{"time_duration_without_malloc_in_sec": 11.354397899999999, "full_cost": 5716.111894606567, "best_way": [0, 2, 10, 9, 11, 3, 6, 1, 5, 8, 4, 7, 0], "used_algorithm": "ant_colony_tsp_scikit_opt", "name_of_src_file": "TSP_CITIES_SET_30_N_12.json"}

@@ -3,6 +3,7 @@ import json
 
 from builders.PathBuilder import PathBuilder
 from constants.CsvColumnNames import *
+from data_reader.JsonTspReader import read_solution_from_tsp_lib_file
 
 PATH_TO_DICTIONARY_CONTAIN_OPTIMAL_RESULTS = PathBuilder() \
     .add_dir("optimal_tsp_results_as_dict") \
@@ -16,13 +17,19 @@ PATH_TO_DICTIONARY_CONTAIN_OPTIMAL_RESULTS = PathBuilder() \
 # }
 class TspOptimalVerifier:
 
-    def __init__(self, src_tsp_file_name, tsp_path_to_verify, tsp_cost_to_verify):
-        a_file = open(PATH_TO_DICTIONARY_CONTAIN_OPTIMAL_RESULTS, "rb")
-        self.__optimal_results_dir = pickle.load(a_file)
-        self.__optimal_way = json.loads(self.__optimal_results_dir[src_tsp_file_name][BEST_WAY])
-        self.__optimal_cost = self.__optimal_results_dir[src_tsp_file_name][HAMILTONIAN_CYCLE_COST]
+    def __init__(self, src_tsp_file_name, tsp_path_to_verify, tsp_cost_to_verify,tsp_input_data_object, is_tsp_lib=False):
         self.__tsp_path_to_verify = tsp_path_to_verify
         self.__tsp_cost_to_verify = tsp_cost_to_verify
+        self.__tsp_input_data_object = tsp_input_data_object
+        if is_tsp_lib:
+            self.__optimal_way = read_solution_from_tsp_lib_file(src_tsp_file_name)
+            self.__optimal_cost = self.__tsp_input_data_object.cal_total_distance(self.__optimal_way)
+        else:
+            a_file = open(PATH_TO_DICTIONARY_CONTAIN_OPTIMAL_RESULTS, "rb")
+            self.__optimal_results_dir = pickle.load(a_file)
+            self.__optimal_way = json.loads(self.__optimal_results_dir[src_tsp_file_name][BEST_WAY])
+            self.__optimal_cost = self.__optimal_results_dir[src_tsp_file_name][HAMILTONIAN_CYCLE_COST]
+
 
     @property
     def optimal_way(self):

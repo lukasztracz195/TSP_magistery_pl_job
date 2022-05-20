@@ -32,6 +32,7 @@ class CsvRecord(CsvAbstractRow):
                                USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES,
                                USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
                                USED_MEMORY_PEAK_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES,
+                               UTILIZATION_OF_CPU,
                                ]
         self.__column_names_set = set(self.__column_names)
         self.__set_column_name_set = set()
@@ -62,6 +63,7 @@ class CsvRecord(CsvAbstractRow):
             USED_MEMORY_PEAK_AFTER_MEASUREMENT_IN_BYTES: np.nan,
             USED_MEMORY_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES: np.nan,
             USED_MEMORY_PEAK_DIFF_BEFORE_AFTER_MEASUREMENT_IN_BYTES: np.nan,
+            UTILIZATION_OF_CPU: list(),
         }
 
     def exist_column_name(self, column_name):

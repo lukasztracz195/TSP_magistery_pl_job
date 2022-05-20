@@ -1,4 +1,5 @@
 NUMBER_OF_CITIES = "number_of_cities"
+NAME_OF_TSP_ISSUE = "name_of_tsp_issue"
 INDEX_OF_SAMPLE = "index_of_sample"
 NAME_OF_SRC_FILE = "name_of_src_file"
 TYPE_OF_MEASUREMENT = "type_of_measurement"

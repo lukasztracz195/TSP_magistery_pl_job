@@ -1,9 +1,11 @@
+import os
 import time
 import tracemalloc
 
 from algorithms.TSP import Tsp, shuffle_solution_set_start_and_end_node_as_the_same
 from collector.DataCollector import DataCollector
 from constants.AlgNamesResults.names import GREEDY_SEARCH_HEURISTIC_SELF_IMPL_DIR
+from managers.TmpManager import TmpManager
 from threads.profiler import CpuProfiler
 from constants.CsvColumnNames import *
 
@@ -23,14 +25,18 @@ class GreedySearchTsp(Tsp):
 
     def start_counting_with_cpu_profiler(self) -> DataCollector:
         self.can_be_run()
-        cpu_profiler = CpuProfiler()
-        cpu_profiler.start()
+        collector = DataCollector()
+        TmpManager.create_measure_in_progress_file(os.getpid())
+        start = time.clock()
         opt_tour = self.nearest_neighbor(self.tsp_input_data.list_of_cities)
-        cpu_profiler.stop()
-        cpu_profiler.join()
+        stop = time.clock()
+        TmpManager.delete_measure_in_progress_file()
         self.best_trace = shuffle_solution_set_start_and_end_node_as_the_same(opt_tour[0], 0)
         self.full_cost = opt_tour[1]
-        return cpu_profiler.get_collector()
+        collector.add_data(TIME_DURATION_IN_SEC, stop - start)
+        collector.add_data(FULL_COST, self.full_cost)
+        collector.add_data(BEST_WAY, self.best_trace)
+        return collector
 
     def start_counting_with_time(self) -> DataCollector:
         self.can_be_run()
