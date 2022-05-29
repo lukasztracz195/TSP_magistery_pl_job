@@ -102,18 +102,19 @@ def measure_cpu(cpu_utilization_queue, cpu_profiler_msg_proc_queue, measure_msg_
         measure_msg_queue.put("START")
         while psutil.pid_exists(pid_for_tracking):
             try:
-                value = p.cpu_percent(interval=0.1)
-                if not skipped_first:
-                    skipped_first = True
-                    continue
-                cpu_utilization_queue.put(value)
-            except psutil.NoSuchProcess:
+                if p.is_running():
+                    value = p.cpu_percent(interval=0.1)
+                    if not skipped_first:
+                        skipped_first = True
+                        continue
+                    cpu_utilization_queue.put(value)
+            except Exception:
                 break
 
 
 def run_measure(algorithm, queue_messages_for_measure, return_dict):
-    wait_on_signal(queue_messages_for_measure)
     set_priority(pid=os.getpid(), priority=5)
+    wait_on_signal(queue_messages_for_measure)
     collector = algorithm.start_counting_with_time()
     return_dict["DATA"] = collector
 
@@ -160,16 +161,16 @@ def make_measurement(type_measurement, algorithm):
     return return_dict
 
 
-NUMBER_OF_CITIES = list(range(4, 16))
+NUMBER_OF_CITIES = list(range(14, 15))
 
-INDEXES_OF_SAMPLES = list(range(0, 100))
+INDEXES_OF_SAMPLES = list(range(0, 1))
 # INDEXES_OF_SAMPLES = [0]
 NAMES_OF_ALGORITHMS = [
     # ASTAR,
-    GREEDY_SEARCH,
+    # GREEDY_SEARCH,
     # LOCAL_SEARCH,
     # SIMULATED_ANNEALING,
-    # BRUTAL_FORCE,
+    BRUTAL_FORCE,
     # DYNAMIC_PROGRAMING_HELD_KARP  # N15 ns61,
     # GENETIC_ALGORITHM_MLROSE,
     # GENETIC_ALGORITHM_SCIKIT_OPT,
@@ -179,9 +180,11 @@ NAMES_OF_ALGORITHMS = [
 # aco_rho_from_0_1_to_0_9_pop_100_a_1_b_2_max_iter_20
 # lenovo y700 = PC1
 # company_leptop = PC2
-NAME_OF_DIR_FOR_MEASUREMENTS = "MEASURE_DATA/PC1_GREEDY_SEARCH"
+NAME_OF_DIR_FOR_MEASUREMENTS = "MEASURE_DATA/TEST"
 CONFIGURATION_LIST_OF_DICT = [{
-    SUFFIX: "GREEDY_SEARCH",
+    SUFFIX: "TEST",
+    # ALPHA: 0.9,
+    # PERTURBATION_SCHEME: "two_opt"
 }]
 
 # CONFIGURATION_LIST_OF_DICT = aco_combination_generate()
